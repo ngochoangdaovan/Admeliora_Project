@@ -1,9 +1,9 @@
-import HeaderNav from './components/HeaderNav'
+import Home from './pages/Home/Home'
 
 function App() {
   return (
     <div>
-      <HeaderNav />
+      <Home />
     </div>
   )
 }
