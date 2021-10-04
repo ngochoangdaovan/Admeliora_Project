@@ -88,6 +88,13 @@ sql = `CREATE TABLE IF NOT EXISTS ${tableName}
        role       ENUM('Admin', 'SuperUser') DEFAULT 'SuperUser', 
        age        INT(11) DEFAULT 0 )`
 
-// test.query(sql)
+test.query(sql)
 
-module.exports = module.exports = new DBConnection();
+module.exports = module.exports = DBConnection;
+
+
+
+
+
+
+

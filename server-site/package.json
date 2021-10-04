@@ -4,7 +4,7 @@
   "description": "admeliora web server-site",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nodemon test_app.js",
     "start" : "nodemon app.js"
   },
   "author": "hoangdao",
