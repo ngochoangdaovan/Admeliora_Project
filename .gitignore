@@ -1,6 +1,6 @@
 node_modules
 .DS_Store
 README.md
-.env
-test.js
-test_app.js
+server-site/.env
+server-site/test.js
+server-site/test_app.js
