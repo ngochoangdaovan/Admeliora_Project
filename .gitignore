@@ -1,6 +1,8 @@
 node_modules
 .DS_Store
 README.md
+.env
 server-site/.env
 server-site/test.js
 server-site/test_app.js
+/home/hoangdao/Web-Programming/Admeliora_Project/server-site/IOtest
