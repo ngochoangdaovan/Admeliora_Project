@@ -55,51 +55,53 @@ CREATE TABLE IF NOT EXISTS `Cart` (
   `quantity` VARCHAR(45) NULL,
   `discount` FLOAT NULL,
   `price` FLOAT NULL,
-  INDEX `fk_warehouse_idx` (`product_details_id` ASC) VISIBLE,
-  INDEX `fk_Cart_Customer_informationidx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `fk_warehouse`
+  INDEX `fk_warehouse_1_idx` (`product_details_id` ASC) VISIBLE,
+  INDEX `fk_Cart_Customer_information1_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_warehouse_1`
     FOREIGN KEY (`product_details_id`)
     REFERENCES `warehouse` (`product_details_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_Cart_Customer_information`
+  CONSTRAINT `fk_Cart_Customer_information1`
     FOREIGN KEY (`user_id`)
     REFERENCES `Customer_information` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Cart_orders`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `orders` (`order_id`)
+  CONSTRAINT `fk_Cart_orders1`
+    FOREIGN KEY (`product_details_id`)
+    REFERENCES `orders` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
+ENGINE = InnoDB
 
 
 
-CREATE TABLE IF NOT EXISTS `warehouse` (
+CREATE TABLE IF NOT EXISTS `Admeliora`.`warehouse` (
   `product_details_id` INT NOT NULL,
-  `products_id` INT NOT NULL,
+  `product_line_id` INT NOT NULL,
   `product_colors_id` INT NOT NULL,
   `sizes_id` INT NOT NULL,
   `quantity` INT NULL,
-  INDEX `fk_products_idx` (`products_id` ASC) VISIBLE,
-  INDEX `fk_product_colors_idx` (`product_colors_id` ASC) VISIBLE,
-  INDEX `fk_sizes_idx` (`sizes_id` ASC) VISIBLE,
+  INDEX `fk_products_1_idx` (`product_line_id` ASC) VISIBLE,
+  INDEX `fk_product_colors_1_idx` (`product_colors_id` ASC) VISIBLE,
+  INDEX `fk_sizes_1_idx` (`sizes_id` ASC) VISIBLE,
   PRIMARY KEY (`product_details_id`),
   CONSTRAINT `fk_products_1`
-    FOREIGN KEY (`products_id`)
-    REFERENCES `products` (`products_id`)
+    FOREIGN KEY (`product_line_id`)
+    REFERENCES `Admeliora`.`product_lines` (`product_line_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_product_colors_1`
     FOREIGN KEY (`product_colors_id`)
-    REFERENCES `product_colors` (`product_colors_id`)
+    REFERENCES `Admeliora`.`product_colors` (`product_colors_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_sizes_1`
     FOREIGN KEY (`sizes_id`)
-    REFERENCES `sizes` (`sizes_id`)
+    REFERENCES `Admeliora`.`sizes` (`sizes_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
+ENGINE = InnoDB
 
 
 
@@ -200,3 +202,36 @@ CREATE TABLE IF NOT EXISTS `address` (
     ON UPDATE NO ACTION)
 
 
+CREATE TABLE IF NOT EXISTS `Admeliora`.`order_details` (
+  `order_id` INT NOT NULL,
+  `quantity` INT NULL,
+  `price` FLOAT NULL,
+  `product_details_id` INT NOT NULL,
+  INDEX `fk_orders_1_idx` (`order_id` ASC) VISIBLE,
+  INDEX `fk_order_details_warehouse1_idx` (`product_details_id` ASC) VISIBLE,
+  CONSTRAINT `fk_orders_1`
+    FOREIGN KEY (`order_id`)
+    REFERENCES `Admeliora`.`orders` (`order_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_order_details_warehouse1`
+    FOREIGN KEY (`product_details_id`)
+    REFERENCES `Admeliora`.`warehouse` (`product_details_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+
+
+
+CREATE TABLE IF NOT EXISTS `sizes` (
+  `size_id` CHAR(36) BINARY NOT NULL ,
+  `size_name` VARCHAR(10) NOT NULL, 
+  `size_info` VARCHAR(500) NOT NULL, 
+  `price` FLOAT NOT NULL, 
+  `category_id` CHAR(36) BINARY NOT NULL, 
+  PRIMARY KEY (`size_id`), 
+  FOREIGN KEY (`category_id`) 
+  REFERENCES `categories` (`category_id`)
+   ON DELETE CASCADE 
+   ON UPDATE CASCADE
+   ) ENGINE=InnoDB;
