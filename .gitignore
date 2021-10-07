@@ -6,3 +6,6 @@ server-site/.env
 server-site/test.js
 server-site/test_app.js
 /home/hoangdao/Web-Programming/Admeliora_Project/server-site/IOtest
+config
+seeders
+/home/hoangdao/Web-Programming/Admeliora_Project/back-end/test_app.js
