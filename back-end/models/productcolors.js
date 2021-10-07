@@ -5,20 +5,7 @@ const {Sequelize, Model} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ProductColors extends Model {
     
-    /*
-      CREATE TABLE IF NOT EXISTS `Admeliora`.`product_colors` (
-      `product_colors_id` INT NOT NULL,
-      `product_line_id` INT NOT NULL,
-      `color_name` VARCHAR(45) NULL,
-      PRIMARY KEY (`product_colors_id`),
-      INDEX `fk_products_2_idx` (`product_line_id` ASC) VISIBLE,
-      CONSTRAINT `fk_products_2`
-          FOREIGN KEY (`product_line_id`)
-          REFERENCES `Admeliora`.`product_lines` (`product_line_id`)
-          ON DELETE CASCADE
-          ON UPDATE CASCADE)
 
-    */
      
     // associations define
     static associate({ProductLines, ProductImages, Warehouse}) {
