@@ -3,6 +3,8 @@ const {Sequelize, Model} = require('sequelize');
 
 
 module.exports = (sequelize, DataTypes) => {
+  
+  
   class ProductColors extends Model {
     
 

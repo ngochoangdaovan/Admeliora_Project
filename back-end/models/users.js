@@ -1,7 +1,5 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const {Model} = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 
@@ -117,9 +115,9 @@ module.exports = (sequelize, DataTypes) => {
     tableName : 'Users',
     timestamps: false,
     underscored : true,
-    indexes: [{
-      fields: ['user_id']
-    }]
+    // indexes: [{
+    //   fields: ['user_id']
+    // }]
   });
 
   Users.removeAttribute('id');

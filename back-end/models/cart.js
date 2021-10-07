@@ -1,14 +1,12 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const {Model} = require('sequelize');
+
+
 module.exports = (sequelize, DataTypes) => {
+  
+  
   class Cart extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+
     static associate({Users, Warehouse}) {
 
       this.belongsTo(Warehouse, {
@@ -31,7 +29,10 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   };
+
+  
   Cart.init(
+    // tables attributes
       {
         quantity : {
             type : DataTypes.INTEGER,
@@ -45,7 +46,10 @@ module.exports = (sequelize, DataTypes) => {
             type : DataTypes.FLOAT,
             allowNull : false,
         }
-    }, 
+    },
+    
+    
+    // options and constraints
     {
       sequelize,
       modelName: 'Cart',
@@ -62,6 +66,9 @@ module.exports = (sequelize, DataTypes) => {
       indexes : [{fields: ['user_id', 'product_detail_id']}], 
     }
   );
+
+
+  // remove default id
   Cart.removeAttribute('id')
   return Cart;
 };

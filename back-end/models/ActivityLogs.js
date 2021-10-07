@@ -1,11 +1,16 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const {Model} = require('sequelize');
+
 
 
 module.exports = (sequelize, DataTypes) => {
+
+
+
+
   class ActivityLogs extends Model {
+
+
 
     // define the associations relationship between tables
     static associate({Users}) {
@@ -39,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     
     }, 
   {
-    // some options
+    // options and constraints
     sequelize,
     modelName: 'ActivityLogs',
     tableName : 'ActivityLogs',
@@ -49,14 +54,15 @@ module.exports = (sequelize, DataTypes) => {
       model: 'Users',
       key: 'user_id'
     }, 
-    indexes: [{
-      fields: ['user_id']
-    }]
+    // indexes: [{
+    //   fields: ['user_id']
+    // }]
     
 
   }); 
 
-  // model_maintain(ActivityLogs)
+
+
   ActivityLogs.removeAttribute('id');
 
   return ActivityLogs;

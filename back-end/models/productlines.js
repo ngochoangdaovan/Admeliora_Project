@@ -1,8 +1,10 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const {Model} = require('sequelize');
+
+
 module.exports = (sequelize, DataTypes) => {
+  
+  
   class ProductLines extends Model {
     
     static associate({Warehouse, Categories, ProductColors}) {
@@ -26,7 +28,6 @@ module.exports = (sequelize, DataTypes) => {
           name : 'category_id',
           allowNull : false,
         },
-          foreignKeyConstraint : true,
           onDelete : 'CASCADE',
           onUpdate : 'CASCADE'
       });

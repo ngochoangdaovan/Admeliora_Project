@@ -4,17 +4,9 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ProductImages extends Model {
-    /**
-     CREATE TABLE IF NOT EXISTS `Admeliora`.`product_images` (
-    `product_colors_id` INT NOT NULL,
-    `image` VARCHAR(45) NULL,
-      INDEX `fk_product_images_product_colors1_idx` (`product_colors_id` ASC) VISIBLE,
-      CONSTRAINT `fk_product_images_product_colors1`
-        FOREIGN KEY (`product_colors_id`)
-        REFERENCES `Admeliora`.`product_colors` (`product_colors_id`)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE)
-     */
+
+
+    
     static associate({ProductColors}) {
       // define association here
 

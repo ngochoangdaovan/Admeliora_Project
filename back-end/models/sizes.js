@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Sizes.init(
     {
-      sizes_id : {
+      size_id : {
         type        : DataTypes.UUID,
         allowNull   : false,
         primaryKey  : true,
@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Sizes',
       tableName : 'Sizes',
       timestamps: false,
-      indexes: [{fields: ['size_id', 'category_id']}],
+      indexes: [{fields: ['category_id']}],
       references: {model: 'Categories', key: 'category_id'},
 
     }

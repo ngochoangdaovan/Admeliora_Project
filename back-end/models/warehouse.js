@@ -1,8 +1,13 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const {Model} = require('sequelize');
+
+
+
+
 module.exports = (sequelize, DataTypes) => {
+
+
+
   class Warehouse extends Model {
    
     
@@ -49,6 +54,9 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   };
+
+
+
   Warehouse.init(
     {
       product_detail_id :{
@@ -71,7 +79,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'Warehouse',
       tableName: 'warehouse',
       timestamps: false,
-      indexes: [{fields: ['product_line_id']}],
+      indexes: [{fields: ['product_line_id', 'color_id', 'size_id']}],
       references: {
         model: 'ProductLines',
         key: 'product_line_id'
@@ -79,6 +87,9 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   );
+
+
+  
   Warehouse.removeAttribute('id')
   return Warehouse;
 };

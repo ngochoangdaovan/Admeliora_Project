@@ -1,11 +1,13 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const {Model} = require('sequelize');
+
+
+
 module.exports = (sequelize, DataTypes) => {
+
+
+
   class OrderDetails extends Model {
-
-
 
     static associate({Orders, Warehouse}) {
 
@@ -18,12 +20,12 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE'
       });
 
-      // this.belongsTo(Warehouse, {
-      //   foreignKey : {
-      //     name : 'product_detail_id',
-      //     allowNull : false
-      //   }
-      // });
+      this.belongsTo(Warehouse, {
+        foreignKey : {
+          name : 'product_detail_id',
+          allowNull : false
+        }
+      });
     }
   };
 

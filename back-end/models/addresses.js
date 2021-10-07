@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate({Users}) {
       // define association here
-      this.belongsTo(Users, {
+      Addresses.belongsTo(Users, {
         foreignKey : {
           name : 'user_id',
           allowNull : false
@@ -30,10 +30,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull : false,
         defaultValue: DataTypes.UUIDV4,
 
-      },
-      user_id : {
-          type : DataTypes.UUID,
-          allowNull : false
       },
       province : {
           type      : DataTypes.STRING(20),
@@ -63,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Addresses',
     timestamps: false,
     underscored : true,
-    indexes : [{fields: ['user_id']}], // create index for speed improvements
+    // indexes : [{fields: ['user_id']}], // create index for speed improvements
     references : { // create reference 
       model : 'User',
       key : 'user_id'
