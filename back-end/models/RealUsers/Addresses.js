@@ -5,6 +5,9 @@ const {Model} = require('sequelize');
 
 
 module.exports = (sequelize, DataTypes) => {
+
+
+  
   class Addresses extends Model {
 
     static associate({Users}) {
@@ -17,12 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         onDelete : 'CASCADE', 
         onDelete : 'CASCADE'
       });
-
-      // this.hasMany(Users, {
-      //   foreignKey : {
-      //     name : 'address_id'
-      //   }
-      // })
 
     }
   };

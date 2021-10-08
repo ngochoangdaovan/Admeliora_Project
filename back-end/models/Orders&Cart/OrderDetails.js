@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 
   class OrderDetails extends Model {
 
+
+    // define associations
     static associate({Orders, Warehouse}) {
 
       this.belongsTo(Orders, {
@@ -47,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     
-    // 
+    // options and constraints
     {
       sequelize,
       modelName: 'OrderDetails',

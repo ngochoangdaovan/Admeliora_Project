@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   
   class Orders extends Model {
 
-
+    // define associations
     static associate({OrderDetails, Users}) {
   
 

@@ -1,8 +1,12 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const {Model} = require('sequelize');
+
+
+
 module.exports = (sequelize, DataTypes) => {
+
+
+
   class ProductImages extends Model {
 
 
@@ -27,24 +31,30 @@ module.exports = (sequelize, DataTypes) => {
 
 
 
-
-  ProductImages.init({
-    image_path: {
-      type: DataTypes.STRING(350),
-      allowNull : false
-    }
-  }, {
-    sequelize,
-    modelName: 'ProductImages',
-    tableName : 'product_images',
-    timestamps: false,
-    references : {
-      model: 'ProductColors',
-      key: 'color_id'
+  //  define table columns
+  ProductImages.init(
+    {
+      image_path: {
+        type: DataTypes.STRING(350),
+        allowNull : false
+      }
     },
-    indexes : [{fields : ['color_id']}],
-  });
 
+    // more options
+    {
+      sequelize,
+      modelName: 'ProductImages',
+      tableName : 'product_images',
+      timestamps: false,
+      references : {
+        model: 'ProductColors',
+        key: 'color_id'
+      },
+      indexes : [{fields : ['color_id']}],
+    }
+  );
+
+  // remove unnecessary auto ID
   ProductImages.removeAttribute('id')
   return ProductImages;
 };

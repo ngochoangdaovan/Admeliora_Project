@@ -46,6 +46,10 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   };
+
+
+
+  // define table columns
   Users.init(
     {   
       user_id : {

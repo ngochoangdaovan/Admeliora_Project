@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
-
+  // define table properties
   Sizes.init(
     {
       size_id : {
@@ -56,6 +56,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
   
+    // options and constraints
     {
       sequelize,
       modelName: 'Sizes',
@@ -66,6 +67,10 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   );
+
+
+
+  
   Sizes.removeAttribute('id');
   return Sizes;
 };

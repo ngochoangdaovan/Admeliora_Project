@@ -1,11 +1,14 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const {Model} = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
+
+
+
+
   class PhoneNumbers extends Model {
 
-
+    // relations
     static associate({Users}) {
       
       this.belongsTo(Users, {
@@ -20,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   };
+
+
+
+  // table columns
   PhoneNumbers.init({
 
       phone_id : {
@@ -33,7 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       }
 
 
-  }, {
+  },
+  
+  //  options and constraints
+  {
     sequelize,
     modelName: 'PhoneNumbers',
     tableName : 'phone_numbers',

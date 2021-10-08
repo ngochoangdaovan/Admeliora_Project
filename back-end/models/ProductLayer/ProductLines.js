@@ -34,6 +34,8 @@ module.exports = (sequelize, DataTypes) => {
     }
 
   };
+
+  // define table properties
   ProductLines.init(
     {
     
@@ -70,6 +72,9 @@ module.exports = (sequelize, DataTypes) => {
       }
       
   }, 
+
+
+  // options and constraints
   {
     sequelize,
     modelName: 'ProductLines',
@@ -82,5 +87,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
   });
+
+  ProductLines.removeAttribute('id');
   return ProductLines;
 };

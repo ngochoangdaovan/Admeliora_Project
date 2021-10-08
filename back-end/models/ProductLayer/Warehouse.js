@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 
   class Warehouse extends Model {
    
-    
+    // define relations
     static associate({Cart, ProductLines, ProductColors, Sizes}) {
 
       
@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       });
 
+
       this.belongsTo(ProductLines, {
         foreignKey : {
           name : 'product_line_id',
@@ -29,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       });
+
 
       this.belongsTo(ProductColors, 
         {
@@ -39,7 +41,6 @@ module.exports = (sequelize, DataTypes) => {
           onDelete : 'CASCADE', 
           onUpdate : 'CASCADE'
       });
-
 
 
       this.belongsTo(Sizes, 
@@ -56,7 +57,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
 
-
+  // define table properties
   Warehouse.init(
     {
       product_detail_id :{
@@ -74,6 +75,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull : false
       }
     },
+
+    // options and constraints
     {
       sequelize,
       modelName: 'Warehouse',
