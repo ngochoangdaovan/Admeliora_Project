@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate({Users}) {
       // define association here
-      Addresses.belongsTo(Users, {
+      this.belongsTo(Users, {
         foreignKey : {
           name : 'user_id',
           allowNull : false
@@ -17,6 +17,13 @@ module.exports = (sequelize, DataTypes) => {
         onDelete : 'CASCADE', 
         onDelete : 'CASCADE'
       });
+
+      // this.hasMany(Users, {
+      //   foreignKey : {
+      //     name : 'address_id'
+      //   }
+      // })
+
     }
   };
 
@@ -56,10 +63,10 @@ module.exports = (sequelize, DataTypes) => {
     // options
     sequelize,
     modelName: 'Addresses',
-    tableName: 'Addresses',
+    tableName: 'addresses',
     timestamps: false,
     underscored : true,
-    indexes : [{fields: ['user_id']}], // create index for speed improvements
+    indexes : [{fields: ['user_id', 'address_id']}], // create index for speed improvements
     references : { // create reference 
       model : 'User',
       key : 'user_id'

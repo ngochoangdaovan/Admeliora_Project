@@ -36,13 +36,15 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'ProductImages',
-    tableName : 'ProductImages',
+    tableName : 'product_images',
     timestamps: false,
     references : {
-      model: 'ProductImages',
+      model: 'ProductColors',
       key: 'color_id'
     },
     indexes : [{fields : ['color_id']}],
   });
+
+  ProductImages.removeAttribute('id')
   return ProductImages;
 };

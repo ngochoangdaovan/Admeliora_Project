@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Categories',
-      tableName : 'Categories',
+      tableName : 'categories',
       timestamps: false,
       underscored : true,
       indexes : [{fields : ['category_id']}]

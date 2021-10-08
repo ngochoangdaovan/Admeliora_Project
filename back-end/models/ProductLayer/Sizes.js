@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Sizes',
-      tableName : 'Sizes',
+      tableName : 'sizes',
       timestamps: false,
       indexes: [{fields: ['category_id', 'size_id']}],
       references: {model: 'Categories', key: 'category_id'},

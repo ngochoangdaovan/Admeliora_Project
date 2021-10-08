@@ -83,7 +83,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'ProductColors',
-      tableName : 'ProductColors',
+      tableName : 'product_colors',
       timestamps: false,
       references : {
         model: 'ProductLines',

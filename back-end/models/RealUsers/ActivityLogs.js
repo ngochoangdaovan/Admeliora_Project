@@ -45,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
     // options and constraints
     sequelize,
     modelName: 'ActivityLogs',
-    tableName : 'ActivityLogs',
+    tableName : 'activity_logs',
     timestamps: false,
     underscored : true,
     references: {

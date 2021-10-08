@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
 
   class Users extends Model {
 
-    static associate({ActivityLogs, Addresses, Cart, Orders}) {
+    static associate({ActivityLogs, Addresses, Cart, Orders, PhoneNumbers}) {
 
       // define association here
       this.hasMany(ActivityLogs, {foreignKey: {
@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       });
 
+
       this.hasOne(Cart, {
         foreignKey :{
           name : 'user_id',
@@ -29,6 +30,14 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       this.hasMany(Orders, {
+        foreignKey :{
+          name : 'user_id',
+          allowNull : false
+        }
+      });
+
+
+      this.hasMany(PhoneNumbers, {
         foreignKey :{
           name : 'user_id',
           allowNull : false
@@ -48,11 +57,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       user_name : {
           type : DataTypes.STRING(45),
-          // allowNull : false,
-          // validate : {
-          //   notNull : {msg : 'enter your name, please'},
-          //   notEmpty : {msg : 'your name is required'}
-          // }
+          allowNull : false,
+          validate : {
+            notNull : {msg : 'enter your name, please'},
+            notEmpty : {msg : 'your name is required'}
+          }
       },
       password : {
           type : DataTypes.STRING(100),
@@ -60,19 +69,19 @@ module.exports = (sequelize, DataTypes) => {
       }, 
       first_name : {
           type : DataTypes.STRING(200),
-          // allowNull : false,
-          // validate : {
-          //   notNull : {msg : 'enter your name, please'},
-          //   notEmpty : {msg : 'your name is required'},
-          // }
+          allowNull : false,
+          validate : {
+            notNull : {msg : 'enter your name, please'},
+            notEmpty : {msg : 'your name is required'},
+          }
       },
       last_name : {
         type : DataTypes.STRING(50),
-        // allowNull : false,
-        // validate : {
-        //   notNull : {msg : 'enter your name, please'},
-        //   notEmpty : {msg : 'your name is required'},
-        // }
+        allowNull : false,
+        validate : {
+          notNull : {msg : 'enter your name, please'},
+          notEmpty : {msg : 'your name is required'},
+        }
       },
       email : {
           type : DataTypes.STRING(200),
@@ -88,41 +97,40 @@ module.exports = (sequelize, DataTypes) => {
           }
       }, 
       phone : {
-          type : DataTypes.STRING(15),  
-          allowNull : false,
-          // validate : {
-          //   notNull : {msg : 'enter your name, please'},
-          //   notEmpty : {msg : 'your name is required'},
-          //   isNumeric : {msg : 'invalid phone number'}
-          // }
+          type : DataTypes.UUID
+
       }, 
       address_id : { 
-          type : DataTypes.STRING(500),
-          // allowNull : false,
+          type : DataTypes.UUID,
       },  
       level : { 
           type : DataTypes.FLOAT,
-          // allowNull : false,
       }, 
       dob : {
           type : DataTypes.STRING(30),
-          // allowNull : false,
       },
       gender : {
           type : DataTypes.STRING(10),
           allowNull : false,
       },
 
-  }, {
+  }, 
+  
+  // options and constraints
+  {
     sequelize,
     modelName: 'Users',
-    tableName : 'Users',
+    tableName : 'users',
     timestamps: false,
     underscored : true,
     indexes: [{
       fields: ['user_id']
-    }]
+    }],
   });
+
+
+
+
 
   Users.removeAttribute('id');
   return Users;
