@@ -1,24 +1,26 @@
 import React from 'react'
 import { BrowserRouter, Route } from 'react-router-dom'
+import Footer from './components/Footer/Footer'
 
-import Home from './pages/Home/Home'
-import Product from './pages/Product/Product'
-import News from './pages/News/News'
-import Contact from './pages/Contact/Contact'
-import Navigation from './components/Navigation/Navigation'
+import Header from './components/Header/Header'
+import Routes from './routes/Routes'
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
-      <div className="App">
-        <Navigation />
-        <Route exact path="/" component={Home}></Route>
-        <Route path="/home" component={Home}></Route>
-        <Route path="/product" component={Product}></Route>
-        <Route path="/contact" component={Contact}></Route>
-        <Route path="/news" component={News}></Route>
-        {/* <Footer /> */}
-      </div>
+      <Route
+        render={(props) => (
+          <div>
+            <Header {...props} />
+            <div className="container">
+              <div className="main">
+                <Routes />
+              </div>
+            </div>
+            <Footer />
+          </div>
+        )}
+      />
     </BrowserRouter>
   )
 }

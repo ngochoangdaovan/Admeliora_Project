@@ -1,0 +1,31 @@
+.footer {
+  width: 100%;
+  display: block;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  margin: 0px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+
+.icon {
+  display: flex;
+  height: 40px;
+  width: 40px;
+  background-color: black;
+  margin: 0 10px 10px 0;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 50%;
+  color: #ffffff;
+  transition: all 0.5s ease;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon:hover {
+  color: #24262b !important;
+  background-color: #ffffff;
+}

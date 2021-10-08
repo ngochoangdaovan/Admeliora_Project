@@ -1,4 +1,4 @@
-import classes from './Navigation.module.css'
+import classes from './Header.module.css'
 import { NavLink, withRouter } from 'react-router-dom'
 import { Badge } from '@material-ui/core'
 import {
@@ -26,24 +26,24 @@ const MainNav = (props) => {
           <nav>
             <ul>
               <li>
-                <NavLink to="/home" activeClassName="active">
+                <NavLink to="/home" className="header__items">
                   Home
                 </NavLink>
               </li>
 
               <li>
-                <NavLink to="/product" activeClassName="active">
+                <NavLink to="/product" className="header__items">
                   Product
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/news" activeClassName="active">
+                <NavLink to="/news" className="header__items">
                   News
                 </NavLink>
               </li>
 
               <li>
-                <NavLink to="/contact" activeClassName="active">
+                <NavLink to="/contact" className="header__items">
                   Contact
                 </NavLink>
               </li>
