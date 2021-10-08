@@ -89,7 +89,7 @@ module.exports = (sequelize, DataTypes) => {
         model: 'ProductLines',
         key: 'product_line_id'
       },
-      indexes : [{fields : ['product_line_id']}],
+      indexes : [{fields : ['product_line_id', 'color_id' ]}],
       
     }
   );

@@ -1,5 +1,5 @@
 'use strict';
-const {Model} = require('sequelize');
+const {Sequelize, Model} = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
 
@@ -43,16 +43,16 @@ module.exports = (sequelize, DataTypes) => {
           type : DataTypes.UUID,
           allowNull : false,
           primaryKey : true,
-          defaultValue: DataTypes.UUIDV4, 
+          defaultValue: Sequelize.UUIDV4, 
           unique : true,
       },
       user_name : {
           type : DataTypes.STRING(45),
-          allowNull : false,
-          validate : {
-            notNull : {message : 'enter your name, please'},
-            notEmpty : {message : 'your name is required'}
-          }
+          // allowNull : false,
+          // validate : {
+          //   notNull : {msg : 'enter your name, please'},
+          //   notEmpty : {msg : 'your name is required'}
+          // }
       },
       password : {
           type : DataTypes.STRING(100),
@@ -60,49 +60,53 @@ module.exports = (sequelize, DataTypes) => {
       }, 
       first_name : {
           type : DataTypes.STRING(200),
-          allowNull : false,
-          validate : {
-            notNull : {message : 'enter your name, please'},
-            notEmpty : {message : 'your name is required'},
-          }
+          // allowNull : false,
+          // validate : {
+          //   notNull : {msg : 'enter your name, please'},
+          //   notEmpty : {msg : 'your name is required'},
+          // }
       },
       last_name : {
         type : DataTypes.STRING(50),
-        allowNull : false,
-        validate : {
-          notNull : {message : 'enter your name, please'},
-          notEmpty : {message : 'your name is required'},
-        }
+        // allowNull : false,
+        // validate : {
+        //   notNull : {msg : 'enter your name, please'},
+        //   notEmpty : {msg : 'your name is required'},
+        // }
       },
       email : {
           type : DataTypes.STRING(200),
           allowNull : false,
+          unique : {
+            args : true,
+            msg : 'email address already exist'
+          },
           validate : {
-            notNull : {message : 'enter your name, please'},
-            notEmpty : {message : 'your name is required'},
-            isEmail : {message : 'not a valid email address'},
+            notNull : {msg : 'enter your name, please'},
+            notEmpty : {msg : 'your name is required'},
+            isEmail : {msg : 'not a valid email address'},
           }
       }, 
       phone : {
-          type : DataTypes.STRING(15),
+          type : DataTypes.STRING(15),  
           allowNull : false,
-          validate : {
-            notNull : {message : 'enter your name, please'},
-            notEmpty : {message : 'your name is required'},
-            isNumeric : {message : 'invalid phone number'}
-          }
+          // validate : {
+          //   notNull : {msg : 'enter your name, please'},
+          //   notEmpty : {msg : 'your name is required'},
+          //   isNumeric : {msg : 'invalid phone number'}
+          // }
       }, 
       address_id : { 
           type : DataTypes.STRING(500),
-          allowNull : false,
+          // allowNull : false,
       },  
       level : { 
           type : DataTypes.FLOAT,
-          allowNull : false,
+          // allowNull : false,
       }, 
-      DoB : {
-          type : DataTypes.DATE,
-          allowNull : false,
+      dob : {
+          type : DataTypes.STRING(30),
+          // allowNull : false,
       },
       gender : {
           type : DataTypes.STRING(10),
@@ -115,9 +119,9 @@ module.exports = (sequelize, DataTypes) => {
     tableName : 'Users',
     timestamps: false,
     underscored : true,
-    // indexes: [{
-    //   fields: ['user_id']
-    // }]
+    indexes: [{
+      fields: ['user_id']
+    }]
   });
 
   Users.removeAttribute('id');

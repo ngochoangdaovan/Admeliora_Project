@@ -73,9 +73,9 @@ module.exports = (sequelize, DataTypes) => {
   {
     sequelize,
     modelName: 'ProductLines',
-    tableName : 'ProductLines',
+    tableName : 'product_lines',
     timestamps: false,
-    indexes : [{fields : ['category_id']}],
+    indexes : [{fields : ['category_id', 'product_line_id']}],
     references : {
       model : 'Categories',
       key : 'category_id'

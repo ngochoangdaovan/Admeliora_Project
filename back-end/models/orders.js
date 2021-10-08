@@ -85,7 +85,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'user_id'
       }, 
       indexes: [{
-        fields: ['user_id']
+        fields: ['user_id','order_id'],
       }]
 
     }

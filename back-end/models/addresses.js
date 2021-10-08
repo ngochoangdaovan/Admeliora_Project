@@ -59,7 +59,7 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Addresses',
     timestamps: false,
     underscored : true,
-    // indexes : [{fields: ['user_id']}], // create index for speed improvements
+    indexes : [{fields: ['user_id']}], // create index for speed improvements
     references : { // create reference 
       model : 'User',
       key : 'user_id'
