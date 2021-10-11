@@ -8,6 +8,7 @@ module.exports = async () => {
     const product_models = await require('./Product')();
     const Order_cart = await require('./Orders&Cart')();
     const user = await require('./ActualUsers')();
+    const AnonOrders = await require('./AnonUsersOrders')();
     const env = process.env.NODE_ENV || 'development';
     const config = require(__dirname + '/../config/config.json')[env];
 
@@ -18,9 +19,12 @@ module.exports = async () => {
       sequelize = new Sequelize(process.env[config.use_env_variable], config);
     } else {
       sequelize = new Sequelize(config.database, config.username, config.password, config);
+      
     }
 
-    for (let model of [product_models, Order_cart, user]) {
+
+
+    for (let model of [product_models, Order_cart, user, AnonOrders]) {
       Object.keys(model).forEach(filename => {
         let Model = model[filename](sequelize, Sequelize);
         db[Model.name] = Model;

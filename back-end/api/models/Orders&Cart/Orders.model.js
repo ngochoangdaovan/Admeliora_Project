@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   class Orders extends Model {
 
     // define associations
-    static associate({OrderDetails, Users}) {
+    static associate({OrderDetails, Users, PhoneNumbers, Addresses}) {
   
 
       this.hasMany(OrderDetails, {
@@ -24,6 +24,25 @@ module.exports = (sequelize, DataTypes) => {
           allowNull : false
         }
       });
+
+
+      this.belongsTo(PhoneNumbers,  {
+        foreignKey : {
+          name : 'phone_id'
+        }, 
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
+
+
+      this.belongsTo(Addresses,  {
+        foreignKey : {
+          name : 'address_id'
+        }, 
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
+
     }
   };
 
@@ -39,8 +58,9 @@ module.exports = (sequelize, DataTypes) => {
       },
 
       order_name : {
-          type : DataTypes.STRING,
-          allowNull : false
+        type : DataTypes.DATE,
+        allowNull : false, 
+        defaultValue : DataTypes.NOW
       },
 
       total_price : {
@@ -64,8 +84,8 @@ module.exports = (sequelize, DataTypes) => {
           allowNull   : true
       },
 
-      phone : {
-          type : DataTypes.STRING(15),
+      phone_id : {
+          type : DataTypes.UUID,
           allowNull : true,
           validate : {
             isNumeric  : {message : "invalid phone number"}
@@ -84,8 +104,17 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Users',
         key: 'user_id'
       }, 
+      references: {
+        model: 'PhoneNumbers',
+        key: 'phone_id'
+      }, 
+      references: {
+        model: 'Addresses',
+        key: 'address_id'
+      }, 
+
       indexes: [{
-        fields: ['user_id','order_id'],
+        fields: ['user_id','order_id', 'phone_id', 'address_id'],
       }]
 
     }
