@@ -2,13 +2,13 @@
 const express = require('express');
 const app = express();
 const fs = require('fs');
-const home_router = require('./api/routes/home')
+// const home_router = require('./api/routes/home')
 require('dotenv').config()
 
 
 
 // count = 0;
-app.use("/" || "/home", home_router);
+// app.use("/" || "/home", home_router);
 
 
 
@@ -31,12 +31,17 @@ app.use("/" || "/home", home_router);
 //       resolve(sum)})
 // }
 
-// // app.get('/', async (req, res) => {
-// //   console.log('home')
-// //   let a = await waiting();
-// //   res.send(a);
-// //   console.log(a);
-// // });
+app.get('/phone/:phoneID&:userID', async (req, res) => {
+//   console.log('home')
+//   let a = await waiting();
+
+  let phoneID = req.params.phoneID;
+  let userID = req.params.userID;
+  console.log(phoneID, userID);
+
+  res.send(''+ phoneID +'    '+ userID);
+//   console.log(a);
+});
 
 // app.get('/sum/:length', async (req, res) => {
 
