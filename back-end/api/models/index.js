@@ -5,9 +5,9 @@
 module.exports = async () => {
 
     const Sequelize = require('sequelize');
-    const product_models = await require('./ProductLayer')();
+    const product_models = await require('./Product')();
     const Order_cart = await require('./Orders&Cart')();
-    const user = await require('./RealUsers')();
+    const user = await require('./ActualUsers')();
     const env = process.env.NODE_ENV || 'development';
     const config = require(__dirname + '/../config/config.json')[env];
 
