@@ -109,6 +109,7 @@ module.exports = (sequelize, DataTypes) => {
       },  
       level : { 
           type : DataTypes.FLOAT,
+
       }, 
       dob : {
           type : DataTypes.STRING(30),
