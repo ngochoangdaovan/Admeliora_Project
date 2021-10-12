@@ -79,11 +79,11 @@ const Footer = () => {
                         </div>
                     </div>
                     <div>
-                        <div className="footer__title1" > 
+                        <div className="footer__title-icons" > 
                              Follow us
                         </div>
                         
-                        <div className="footer__content1" >                            
+                        <div className="footer__content-icons" >                            
                           <div style = {{display:"flex",  justifyContent:"center" }}>
                               <div>
                               <p>
