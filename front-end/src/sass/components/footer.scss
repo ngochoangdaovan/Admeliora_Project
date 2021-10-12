@@ -1,0 +1,154 @@
+
+
+.footer {
+    padding: 70px 0;
+    box-shadow: $box-shadow;
+    font-size: 1.1rem;
+    // background-color: blanchedalmond;
+
+   
+
+
+    &__about {
+       
+      
+        
+        p {
+            font-size: 13px;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__title {
+       
+        text-transform: uppercase;
+        margin-bottom: 2rem;
+        font-weight: 600;
+        // background-color: blueviolet;
+        
+        
+    }
+
+    
+
+    &__content {
+       
+        font-size: 13px;
+        @include tablet{
+            font-size: 10px;
+        }
+        @include mobile{
+            font-size: 10px;
+        }
+        
+        p {
+            margin-bottom: 1.25rem;
+            // background-color: blue;
+
+            
+          
+        }
+    }
+
+    &__content1{
+        justify-content: center;
+        margin-top: 5px;
+        
+        @include tablet {
+   
+            margin-left: 80px;
+            font-size: 5px;     
+        }
+        @include mobile {
+   
+            margin-left: -250px;
+               
+        }
+
+    }
+
+    
+
+    &__title1{
+        justify-content: center;
+        text-align: center;
+        
+        @include tablet {
+            justify-content: left;
+            text-align: left;
+            margin-left: 190px;
+         
+            
+           
+        }
+        @include mobile {
+            margin-left: 2px;
+            margin-top: 40px;
+            
+            
+           
+            
+           
+        }
+    }
+    
+
+    &__logo{
+        height: 38px;
+        justify-content: center;
+        text-align: center;
+        @include tablet {
+            justify-content: left;
+            text-align: left;
+            margin-top: 50px;
+            margin-left: -10px;
+        }
+        @include mobile {
+            justify-content: left;
+            text-align: left;
+            margin-top: 50px;
+            margin-left: -10px;
+
+        }
+    }
+    
+
+   
+  
+    
+    &__underline {
+        
+        margin-top: 50px;
+        text-align: center;
+        width: 450px;
+        justify-self: center;
+        font-size: 13px;
+        
+        p{
+            margin-top: 5px;
+        }
+        hr{
+            background-color: grey;
+        }
+        @include tablet{
+            width: 350px;
+            justify-content: center;
+            text-align: center;
+            margin-left: 190px
+            
+        }
+        @include mobile {
+            width: 300px;
+            justify-content: center;
+            text-align: center;
+            margin-left: -10px;
+            font-size: 9px;
+           
+            
+           
+        }
+
+    }
+  
+      
+}

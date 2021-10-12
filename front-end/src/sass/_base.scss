@@ -38,13 +38,13 @@ a {
 }
 
 @each $var in $numbers {
-  .grid-color-#{$var} {
+  .grid-col-#{$var} {
     grid-template-columns: repeat($var, 1fr);
   }
 }
 
 @each $var in $numbers {
-  .grid-color-md-#{$var} {
+  .grid-col-md-#{$var} {
     @include tablet {
       grid-template-columns: repeat($var, 1fr);
     }
@@ -52,7 +52,7 @@ a {
 }
 
 @each $var in $numbers {
-  .grid-clor-sm-#{$var} {
+  .grid-col-sm-#{$var} {
     @include mobile {
       grid-template-columns: repeat($var, 1fr);
     }
@@ -86,4 +86,7 @@ a {
   @include mobile {
     margin-top: calc(#{$header-mobile-height} + 10px);
   }
+}
+.grid{
+  display: grid;
 }
