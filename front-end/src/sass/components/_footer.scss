@@ -1,0 +1,107 @@
+.footer {
+  padding: 70px 0;
+  box-shadow: $box-shadow;
+  font-size: 1.1rem;
+
+  &__about {
+    p {
+      font-size: 12px;
+      margin-bottom: 2rem;
+    }
+  }
+
+  &__support__title {
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    font-weight: 600;
+  }
+
+  &__support__content {
+    font-size: 13px;
+    @include tablet {
+      font-size: 10px;
+    }
+    @include mobile {
+      font-size: 10px;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+    }
+  }
+
+  &__social__title {
+    @include flex(center, center);
+
+    @include tablet {
+      @include flex(center, center);
+    }
+
+    @include mobile {
+      @include flex(center, flex-start);
+    }
+  }
+
+  &__social__content {
+    @include flex(center, center);
+    margin-top: 10px;
+
+    @include tablet {
+      @include flex(center, center);
+    }
+
+    @include mobile {
+      @include flex(center, flex-start);
+    }
+  }
+
+  &__logo {
+    height: 38px;
+    justify-content: center;
+    text-align: center;
+
+    @include tablet {
+      justify-content: left;
+      text-align: left;
+      margin-top: 20px;
+      margin-left: -10px;
+    }
+
+    @include mobile {
+      justify-content: left;
+      text-align: left;
+      margin-top: 10px;
+      margin-left: -10px;
+    }
+  }
+
+  &__copyright {
+    margin-top: 50px;
+    text-align: center;
+    width: 450px;
+    justify-self: center;
+    font-size: 13px;
+
+    p {
+      margin-top: 5px;
+    }
+    hr {
+      background-color: grey;
+    }
+
+    @include tablet {
+      width: 350px;
+      justify-content: center;
+      text-align: center;
+      margin-left: 190px;
+    }
+
+    @include mobile {
+      width: 300px;
+      justify-content: center;
+      text-align: center;
+      margin-left: -10px;
+      font-size: 9px;
+    }
+  }
+}
