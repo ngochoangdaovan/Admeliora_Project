@@ -26,14 +26,6 @@ module.exports = (sequelize, DataTypes) => {
       });
 
 
-      this.belongsTo(PhoneNumbers,  {
-        foreignKey : {
-          name : 'phone_id'
-        }, 
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      });
-
 
       this.belongsTo(Addresses,  {
         foreignKey : {
@@ -104,17 +96,14 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Users',
         key: 'user_id'
       }, 
-      references: {
-        model: 'PhoneNumbers',
-        key: 'phone_id'
-      }, 
+
       references: {
         model: 'Addresses',
         key: 'address_id'
       }, 
 
       indexes: [{
-        fields: ['user_id','order_id', 'phone_id', 'address_id'],
+        fields: ['user_id','order_id', 'address_id'],
       }]
 
     }

@@ -1,21 +1,14 @@
-const fs = require('fs');
+'use strict';
+
+const constructFolder = require('../../utils/indexConstruct');
 const path = require('path');
-const models = {};
 const basename = path.basename(__filename);
 
+const ActualUserMan = constructFolder(__dirname, basename);
+// console.log(ActualUserMan)
 
-fs
-  .readdirSync(__dirname)
-  .filter(file => {
-    return (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js');
-  })
-  .forEach(file => {
-    const model = require(path.join(__dirname, file));
-    models[file] = model;
-  });
+// for (let i in ActualUserMan) {
+//     console.log(ActualUserMan[i].name)
+// }
 
-
-console.log(models)
-
-
-return models;
+module.exports = {...ActualUserMan}

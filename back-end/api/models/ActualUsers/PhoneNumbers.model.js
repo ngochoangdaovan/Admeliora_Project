@@ -29,14 +29,12 @@ module.exports = (sequelize, DataTypes) => {
   // table columns
   PhoneNumbers.init({
 
-      phone_id : {
-        type : DataTypes.UUID,
-        primaryKey: true,
-        defaultValue : DataTypes.UUIDV4
-      },
       phoneNumbers : {
         type       :  DataTypes.STRING(15),
         allowNull : false
+      },
+      default : {
+        type : DataTypes.BOOLEAN
       }
 
 

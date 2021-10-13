@@ -1,5 +1,8 @@
 'use strict';
 const {Sequelize, Model} = require('sequelize');
+const {isUnique} = require('../validations');
+
+
 
 module.exports = (sequelize, DataTypes) => {
 
@@ -7,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   class Users extends Model {
 
     static associate({ActivityLogs, Addresses, Cart, Orders, PhoneNumbers}) {
+      
 
       // define association here
       this.hasMany(ActivityLogs, {foreignKey: {
@@ -48,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
   };
 
 
-
+  
   // define table columns
   Users.init(
     {   
@@ -57,14 +61,16 @@ module.exports = (sequelize, DataTypes) => {
           allowNull : false,
           primaryKey : true,
           defaultValue: Sequelize.UUIDV4, 
-          unique : true,
+        
       },
       user_name : {
           type : DataTypes.STRING(45),
           allowNull : false,
           validate : {
             notNull : {msg : 'enter your name, please'},
-            notEmpty : {msg : 'your name is required'}
+            notEmpty : {msg : 'your name is required'},
+            checkUnique : function(value, next){isUnique(Users, {user_name : value}, next)},
+            
           }
       },
       password : {
@@ -98,14 +104,21 @@ module.exports = (sequelize, DataTypes) => {
             notNull : {msg : 'enter your name, please'},
             notEmpty : {msg : 'your name is required'},
             isEmail : {msg : 'not a valid email address'},
+            checkUnique : function(value, next){isUnique(Users, {email : value}, next)},
           }
       }, 
       phone : {
-          type : DataTypes.UUID
+          type : DataTypes.UUID,
+          allowNull : true,
+          defaultValue : null
+
 
       }, 
       address_id : { 
           type : DataTypes.UUID,
+          allowNull : true,
+          defaultValue : null
+
       },  
       level : { 
           type : DataTypes.FLOAT,
