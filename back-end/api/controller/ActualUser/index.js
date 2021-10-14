@@ -1,14 +1,14 @@
 'use strict';
 
-const constructFolder = require('../../utils/indexConstruct');
-const path = require('path');
-const basename = path.basename(__filename);
+const UsersController = require('./Users.controller');
+const AddressesController = require('./Addresses.controller');
+const ActivityLogsController = require('./ActivityLogs.controller');
+const PhoneNumbersController = require('./PhoneNumbers.controller')
 
-const ActualUserControl = constructFolder(__dirname, basename);
 
-// for (let i in ActualUserControl){
-//     console.log(i);
-// }
-console.log(ActualUserControl);
-
-module.exports = {...ActualUserControl}
+module.exports = {
+    UsersController,
+    AddressesController,
+    ActivityLogsController,
+    PhoneNumbersController,
+}

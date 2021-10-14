@@ -223,3 +223,18 @@ ENGINE = InnoDB
 
 
 
+
+
+SELECT `Users`.`user_id`, `Users`.`user_name`, `Users`.`password`, `Users`.`first_name`, `Users`.`last_name`, `Users`.`email`, `Users`.`phone`, `Users`.`address_id`, `Users`.`level`, `Users`.`dob`, `Users`.`gender`, `PhoneNumbers`.`phoneNumbers` AS `PhoneNumbers.phoneNumbers`, `PhoneNumbers`.`default` AS `PhoneNumbers.default` FROM `users` AS `Users` LEFT OUTER JOIN `phone_numbers` AS `PhoneNumbers` ON `Users`.`user_id` = `PhoneNumbers`.`user_id` GROUP BY `PhoneNumbers`.`user_id`;
+
+
+
+
+
+
+
+
+
+
+
+

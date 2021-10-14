@@ -1,5 +1,7 @@
 'use strict';
 const {Model} = require('sequelize');
+const {isUnique} = require('../validations');
+
 
 module.exports = (sequelize, DataTypes) => {
 
@@ -8,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 
   class PhoneNumbers extends Model {
 
+    
     // relations
     static associate({Users}) {
       
@@ -25,16 +28,24 @@ module.exports = (sequelize, DataTypes) => {
   };
 
 
-
   // table columns
   PhoneNumbers.init({
 
       phoneNumbers : {
         type       :  DataTypes.STRING(15),
-        allowNull : false
+        primaryKey : true,
+        allowNull : false,
+        unique : true, 
+        validate : {
+          notNull : {msg : 'enter your phone, please'},
+          notEmpty : {msg : 'your phone can not be empty'},
+          checkUnique : function(value, next){isUnique(PhoneNumbers, {phoneNumbers : value}, next)},
+        }
+
       },
       default : {
         type : DataTypes.BOOLEAN
+
       }
 
 
@@ -55,6 +66,6 @@ module.exports = (sequelize, DataTypes) => {
   });
 
 
-  PhoneNumbers.removeAttribute('id'); 
+  // PhoneNumbers.removeAttribute('id'); 
   return PhoneNumbers;
 };

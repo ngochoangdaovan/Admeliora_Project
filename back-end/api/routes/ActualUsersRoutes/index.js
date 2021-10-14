@@ -1,12 +1,10 @@
-'use strict';
+const express = require('express');
+const router = express.Router();
+const UsersRoutes = require('./Users.routes');
+const PhoneNumberRoutes = require('./PhoneNumber.routes');
 
-const constructFolder = require('../../utils/indexConstruct');
-const path = require('path');
-const basename = path.basename(__filename);
 
 
-const ActualUserRoutes = constructFolder(__dirname, basename);
+router.use('/', UsersRoutes);
 
-console.log(ActualUserRoutes);
-
-module.exports = {...ActualUserRoutes}
+module.exports = router;

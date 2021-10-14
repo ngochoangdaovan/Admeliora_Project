@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
 
   class Users extends Model {
 
+
+
+
     static associate({ActivityLogs, Addresses, Cart, Orders, PhoneNumbers}) {
       
 
@@ -50,6 +53,9 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   };
+
+
+  
 
 
   
@@ -107,30 +113,16 @@ module.exports = (sequelize, DataTypes) => {
             checkUnique : function(value, next){isUnique(Users, {email : value}, next)},
           }
       }, 
-      phone : {
-          type : DataTypes.UUID,
-          allowNull : true,
-          defaultValue : null
 
-
-      }, 
-      address_id : { 
-          type : DataTypes.UUID,
-          allowNull : true,
-          defaultValue : null
-
-      },  
       level : { 
           type : DataTypes.FLOAT,
-
       }, 
       dob : {
           type : DataTypes.STRING(30),
       },
       gender : {
           type : DataTypes.STRING(10),
-          allowNull : false,
-      },
+      }
 
   }, 
   
@@ -150,6 +142,5 @@ module.exports = (sequelize, DataTypes) => {
 
 
 
-  Users.removeAttribute('id');
   return Users;
 };

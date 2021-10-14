@@ -1,11 +1,19 @@
 const express = require('express');
 const router = express.Router()
+const Controller = require('../../controller').ActualUserControl;
+const UsersControl = Controller.UsersController;
+const PhoneRoutes = require('./PhoneNumbers.routes')
 
 
-router.get('/');
-router.get('/:userID');
-router.get('/');
-router.post('/');
-router.put('/:id');
-router.delete('/:id');
+
+router.get('/', UsersControl.showAllUsers);
+router.post('/', UsersControl.addUser);
+router.use('/phone', PhoneRoutes)
+
+
+
+
+
+
+module.exports = router;
 

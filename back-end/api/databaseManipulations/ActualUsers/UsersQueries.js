@@ -1,64 +1,95 @@
-
+const { QueryTypes } = require('sequelize');
 const sequelize = require('sequelize');
+const db = require('../../models')();
+const UserModel = db.Users
 
 
+module.exports = UsersQueries = {
 
-module.exports = UsersQueries = function(db) {
-
-    this.db = db;
-    this.UserModel = db.Users;
 
 }
 
 
-UsersQueries.prototype.getUsers = async function(){
-    return await this.UserModel.findAll(
-        {   
-            include: [{
-                model: this.db.PhoneNumbers,
-                attributes: ['phoneNumbers'],
-            }]
-        });
+UsersQueries.getUsers = async function(){
+    let users = await UserModel.findAll();
+    return JSON.parse(JSON.stringify(users))
 };
 
 
+UsersQueries.getAllInfoByID = async function(){
+    return await UserModel.findAll(
+        {
+            include : [
+                {
+                    model: db.PhoneNumbers,
+                    attributes: ['phoneNumbers', 'default'],
+                    where : {
+                        default: true
+                    }
+                },
+                {
+                    model: db.Addresses,
+                    attributes: ['province', 'district', 'street', 'detail_address', 'default'],
+                    where : {
+                        default: true
+                    }
+                },
+                {
+                    model: db.Cart
+                },
+                {
+                    model: db.ActivityLogs
+                },
+                {
+                    model: db.Orders,
+                    include: [{
+                        model: db.OrderDetails
+                    }]
+                }
+            ]}
+    );
 
-UsersQueries.prototype.getUsersById = async function (id){
-    return await this.UserModel.findAll({
-        raw: true,
+}
+
+
+UsersQueries.getUserByID = async function (id){
+
+    return await UserModel.findAll(
+        {
+    
+        include : [
+            {
+                model: db.PhoneNumbers,
+                attributes: ['phoneNumbers', 'default'],
+                where : {
+                    default: true
+                }
+            },
+            {
+                model: db.Addresses,
+                attributes: ['province', 'district', 'street', 'detail_address', 'default'],
+                where : {
+                    default: true
+                }
+            }
+        ],
         where : {
             user_id : id
-        }
+        }, 
     })
 };
 
 
 
-UsersQueries.prototype.getAllInfoById = async function (id){
-
-    let PhoneNumbers = this.db.PhoneNumbers;
-    // console.log(PhoneNumbers)
-
-    return await this.UserModel.findAll({
-        include : [{
-            model: PhoneNumbers,
-            attributes: 'phoneNumbers'
-        }],
-        raw: true,
-        where : {
-            user_id : id
-        }
-    })
-};
 
 
-UsersQueries.prototype.createManyUsers = async function(users){
-    await this.UserModel.bulkCreate(users);
+UsersQueries.createManyUsers = async function(usersList){
+    await UserModel.bulkCreate(usersList);
 }
 
 
-UsersQueries.prototype.createUser = async function(user_name, password, first_name, last_name,email, dob, gender) {
-    await this.UserModel.create({
+UsersQueries.createUser = async function(user_name, password, first_name, last_name,email, dob, gender) {
+    await UserModel.create({
         user_name: user_name,
         password: password,
         first_name: first_name, 
@@ -68,46 +99,52 @@ UsersQueries.prototype.createUser = async function(user_name, password, first_na
         dob : dob,
         gender: gender
     })
-
-
 };
 
 
-UsersQueries.prototype.UpdateInfo = async function(fields,id) {
-    await this.UserModel.update(fields,
+UsersQueries.UpdateInfo = async function(fields,id) {
+    await UserModel.update(fields,
         {
             where : { 
                 user_id : id 
             }
-    })
-    .then(()=>console.log(''))
-    .catch(err=>console.log(err.message))
-
+        });
 }
 
-UsersQueries.prototype.UpdatePassword = async function(newPassword ,id){
-    await this.UpdateInfo({password:newPassword}, id);
+UsersQueries.UpdatePassword = async function(newPassword ,id){
+    await UpdateInfo({password:newPassword}, id);
+    return await getUsersById(id);
 };
 
-UsersQueries.prototype.UpdateEmail = async function(newEmail ,id){
-    await this.UpdateInfo({email : newEmail}, id);
+UsersQueries.UpdateEmail = async function(newEmail ,id){
+    await UpdateInfo({email : newEmail}, id);
+    return await getUsersById(id);
 };
 
-UsersQueries.prototype.UpdatePhone = async function(newPhone ,id){
-    await this.UpdateInfo({phone : newPhone}, id);
+UsersQueries.UpdatePhone = async function(newPhone ,id){
+    await UpdateInfo({phone : newPhone}, id);
+    return await getUsersById(id);
 };
 
-UsersQueries.prototype.UpdateFirstName = async function(newFName ,id){
-    await this.UpdateInfo({first_name : newFName}, id);
+UsersQueries.UpdateFirstName = async function(newFName ,id){
+    await UpdateInfo({first_name : newFName}, id);
+    return await getUsersById(id);
 };
 
-UsersQueries.prototype.UpdateLastName = async function(newLName ,id){
-    await this.UpdateInfo({last_name : newLName}, id);
+UsersQueries.UpdateLastName = async function(newLName ,id){
+    await UpdateInfo({last_name : newLName}, id);
+    return await getUsersById(id)
 };
 
-UsersQueries.prototype.UpdateEmail = async function(newEmail ,id){
-    await this.UpdateInfo({email : newEmail}, id);
+UsersQueries.UpdateEmail = async function(newEmail ,id){
+    await UpdateInfo({email : newEmail}, id);
+    return await getUsersById(id);
 };
+
+UsersQueries.UpdateAddress = async function(newAddress, id){
+    await UpdateInfo({address : newAddress}, id);
+    return await getUsersById(id);
+}
 
 
 

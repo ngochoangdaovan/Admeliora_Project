@@ -1,11 +1,11 @@
 
+const db = require('../../models');
+const AddressesModel = db.Addresses;
 
 
 
-module.exports = AddressesQueries = function(db) {
+module.exports = AddressesQueries = {
 
-    this.db = db;
-    this.phoneModel = db.Addresses;
 
 }
 

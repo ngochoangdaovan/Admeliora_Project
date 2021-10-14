@@ -1,9 +1,10 @@
 
+const db = require('../../models');
+const ActivityLogs = db.ActivityLogs;
 
 
-module.exports = ActivitiesQueries = function(db) {
 
-    this.db = db;
-    this.UserModel = db.ActivityLogs;
+module.exports = ActivitiesQueries =  {
+
 
 };
