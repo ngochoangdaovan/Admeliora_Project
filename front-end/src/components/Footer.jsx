@@ -55,123 +55,6 @@ const Footer = () => {
                              AgICAgcGjGsOG7nW5nIELDrG5oIEjGsG5nIEhvw6AgQSwgcXXhuq1uIELDrG5oIFTDom4!3m5
                              !1s0x31752c734099bfe7:0x174708c675c7955!8m2!3d10.787647!4d106.604339!15sCmgyMTEvMmIgxJHGsOG7nW5nIEfDsiB
                              Yb8OgaSwgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBwaMaw4budbmcgQsOsbmggSMawbmcgSG_DoCBBLCBxdeG6rW4gQ
-<<<<<<< HEAD
-                            sOsbmggVMOibpIBEGdlb2NvZGVkX2FkZHJlc3M" 
-                            target = '_blank'
-                            rel="noreferrer"
-                            >211/2b đường Gò Xoài,
-                              phường Bình Hưng Hoà A, quận Bình Tân</a> 
-                              
-        
-                            </p>
-
-                            <p>
-                            <i class='bx bx-globe'  style={{marginRight :"10px"}} ></i>  <a
-                                href="mailto:admeloria@gmail.com"
-                                style={{ textDecoration: 'none' }}>
-                                admeloria.com
-                            </a>
-                            </p>
-                            <p>
-                            <i class='bx bx-time' style={{marginRight :"10px"}} ></i> thứ 2 đến chủ nhật từ 9h đến 21h 
-                            
-                            </p>
-                        </div>
-                    </div>
-                    <div>
-                        <div className="footer__title-icons" > 
-                             Follow us
-                        </div>
-                        
-                        <div className="footer__content-icons" >                            
-                          <div style = {{display:"flex",  justifyContent:"center" }}>
-                              <div>
-                              <p>
-                                     <a
-                                    href="https://www.facebook.com/chau.hoaivu.75"
-                                    target = '_blank'
-                                    rel="noreferrer"
-                                    style={{
-                                        
-                                        textDecoration: 'none',
-                                        
-                                        color:"black",
-                                        fontSize:"30px",
-                                        marginRight: "10px"
-                                        
-                                        
-                                    }}
-                                    > <i class='bx bxl-facebook-circle'></i>
-
-                                    
-                                    </a>
-                                </p>
-                              </div>
-                                <div>
-                                    <p>
-                                        <a
-                                        href="https://www.facebook.com/chau.hoaivu.75"
-                                        target = '_blank'
-                                        rel="noreferrer"
-                                        style={{
-                                        
-                                            color:"black",
-                                            fontSize:"30px",
-                                            marginRight: "10px"
-                                        }}
-                                        >
-                                        <i class='bx bxl-instagram-alt' ></i>
-
-                                        </a>
-                                    </p>
-                                </div> 
-                                <div>
-                                    <p>
-                                    <a
-                                        href="https://www.facebook.com/chau.hoaivu.75"
-                                        target = '_blank'
-                                        rel="noreferrer"
-                                        style={{
-                                            
-                                            textDecoration: 'none',
-                                            textAlign: 'center',
-                                            color:"black",
-                                            fontSize:"30px"
-                                        }}
-                                        >
-                                        <i class='bx bxl-twitter' ></i>
-                                        </a>
-                                        </p>
-                                </div>
-                        </div>
-                    </div>
-                    </div>
-                    
- 
-                    <div className="footer__about">
-                        <p>
-                            <Link to="/">
-                                <img src={logo} className="footer__logo" alt="" />
-                            </Link>
-                        </p>
-                        <p>
-                            Hướng đến mục tiêu mang lại niềm vui ăn mặc mới mỗi ngày cho hàng triệu người tiêu dùng Việt. Hãy cùng Yolo hướng đến một cuộc sống năng động, tích cực hơn.
-                        </p>
-                    </div>
-                </Grid>
-              <Grid
-                    col={1}
-                    mdCol={2}
-                    smCol={1}>
-        
-                        <div className = 'footer__underline'>
-                            <hr/>
-                            <p>Copyright © 2020 ADMELORIA Studio. Powered by Sapo</p>
-                        </div>
-                    
-
-                </Grid>
-=======
                             sOsbmggVMOibpIBEGdlb2NvZGVkX2FkZHJlc3M"
                   target="_blank"
                   rel="noreferrer"
@@ -256,7 +139,6 @@ const Footer = () => {
                   </Link>
                 </p>
               </div>
->>>>>>> 5bb3616fe0a34997f4ccf599b9a281cfa84f0b11
             </div>
           </div>
 

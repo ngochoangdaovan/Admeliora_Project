@@ -72,7 +72,7 @@ const Header = () => {
                 onClick={menuToggle}
               >
                 <Link to={item.path}>
-                  <span>{item.display}</span>
+                <span style={{ padding:"20px"}}>{item.display}</span>
                 </Link>
               </div>
             ))}
