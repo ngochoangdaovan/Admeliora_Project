@@ -3,9 +3,12 @@
 
 const ActualUserControl = require('./ActualUser');
 const AnonOrdersControl = require('./AnonOrders');
-const OrdersAndCartControl = require('./Orders&Cart');
 const ProductControl = require('./Product');
 const dbMan = require('../databaseManipulations');
+
+
+
+
 
 const dataReset = async function(req, res) {
     await dbMan.resetDB()
@@ -16,10 +19,7 @@ const dataReset = async function(req, res) {
 
 
 
-
-
 module.exports = {
-    OrdersAndCartControl,
     ProductControl,
     AnonOrdersControl,
     ActualUserControl,

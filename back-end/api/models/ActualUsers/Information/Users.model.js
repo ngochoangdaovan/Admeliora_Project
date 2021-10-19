@@ -1,6 +1,6 @@
 'use strict';
 const {Sequelize, Model} = require('sequelize');
-const {isUnique} = require('../validations');
+const {isUnique} = require('../../validations');
 
 
 
@@ -8,7 +8,6 @@ module.exports = (sequelize, DataTypes) => {
 
 
   class Users extends Model {
-
 
 
 
@@ -122,7 +121,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       gender : {
           type : DataTypes.STRING(10),
-      }
+      },
 
   }, 
   

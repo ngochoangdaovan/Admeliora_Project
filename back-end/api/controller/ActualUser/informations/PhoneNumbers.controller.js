@@ -1,5 +1,5 @@
 
-const PhoneNumbersQueries = require('../../databaseManipulations').ActualUsersQueries.PhoneNumbersQueries;
+const PhoneNumbersQueries = require('../../../databaseManipulations').ActualUsersQueries.PhoneNumbersQueries;
 
 
 const PhoneNumberController = {};
@@ -16,9 +16,22 @@ PhoneNumberController.getAllPhoneNumbersByID = async function(req, res) {
 
 
 
-PhoneNumberController.delete = async (req, res) => {
+PhoneNumberController.delete = async function(req, res){
     await phoneNumbers.deletePhoneNumber(req.params.user_id)
     .then(() => res.send('successfully delete'))
     .catch(err => res.send(err.message));
 };
 
+
+
+PhoneNumberController.addPhone = async function(req, res) {
+
+    await PhoneNumbersQueries.addPhoneNumber(req.user.user_id, req.body.phone)
+    .then(()=> res.send('phone number successfully added'))
+    .catch(err => res.send(err.message));
+}
+
+
+
+
+module.exports = PhoneNumberController;

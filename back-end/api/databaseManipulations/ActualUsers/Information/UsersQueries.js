@@ -1,13 +1,13 @@
 const { QueryTypes } = require('sequelize');
 const sequelize = require('sequelize');
-const db = require('../../models')();
+const db = require('../../../models')();
 const UserModel = db.Users
 
 
-module.exports = UsersQueries = {
+const UsersQueries = {
 
 
-}
+};
 
 
 UsersQueries.getUsers = async function(){
@@ -16,40 +16,75 @@ UsersQueries.getUsers = async function(){
 };
 
 
-UsersQueries.getAllInfoByID = async function(){
-    return await UserModel.findAll(
+UsersQueries.getUsersByUserName = async function(user_name) {
+    return await UserModel.findOne({
+        where: {user_name},
+        attributes: ['user_id','user_name', 'password'],
+        required: true,
+        plain : true
+    });
+}
+
+
+UsersQueries.getAllInfoByID = async function(user_id){
+    const user =  await UserModel.findAll(
         {
+            where: {user_id : user_id},
+            attributes : {exclude : ['user_id', 'password']},
             include : [
                 {
                     model: db.PhoneNumbers,
                     attributes: ['phoneNumbers', 'default'],
                     where : {
-                        default: true
-                    }
+                        default: false,
+                    },
                 },
-                {
-                    model: db.Addresses,
-                    attributes: ['province', 'district', 'street', 'detail_address', 'default'],
-                    where : {
-                        default: true
-                    }
-                },
-                {
-                    model: db.Cart
-                },
-                {
-                    model: db.ActivityLogs
-                },
-                {
-                    model: db.Orders,
-                    include: [{
-                        model: db.OrderDetails
-                    }]
-                }
-            ]}
+            ]
+
+        }
+            
     );
+    return user;
 
 }
+
+
+// UsersQueries.getAllInfoByID = async function(user_id){
+//     return await UserModel.findAll(
+//         {
+            // where : {user_id},
+            // exclude : ['user_id', 'password']
+//             include : [
+//                 {
+//                     model: db.PhoneNumbers,
+//                     attributes: ['phoneNumbers', 'default'],
+//                     where : {
+//                         default: true
+//                     }
+//                 },
+//                 {
+//                     model: db.Addresses,
+//                     attributes: ['province', 'district', 'street', 'detail_address', 'default'],
+//                     where : {
+//                         default: true
+//                     }
+//                 },
+//                 {
+//                     model: db.Cart
+//                 },
+//                 {
+//                     model: db.ActivityLogs
+//                 },
+//                 {
+//                     model: db.Orders,
+//                     include: [{
+//                         model: db.OrderDetails
+//                     }]
+//                 }
+//             ]}
+//     );
+
+// }
 
 
 UsersQueries.getUserByID = async function (id){
@@ -148,7 +183,7 @@ UsersQueries.UpdateAddress = async function(newAddress, id){
 
 
 
-
+module.exports = UsersQueries;
 
 
 

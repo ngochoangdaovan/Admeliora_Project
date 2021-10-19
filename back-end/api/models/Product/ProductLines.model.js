@@ -88,6 +88,5 @@ module.exports = (sequelize, DataTypes) => {
 
   });
 
-  ProductLines.removeAttribute('id');
   return ProductLines;
 };

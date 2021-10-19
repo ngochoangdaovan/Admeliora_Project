@@ -1,7 +1,7 @@
 'use strict';
 
-const UsersQueries = require('./UsersQueries');
-const PhoneNumbersQueries = require('./PhoneNumbersQueries');
+const UsersQueries = require('./Information/UsersQueries');
+const PhoneNumbersQueries = require('./Information/PhoneNumbersQueries');
 
 
 

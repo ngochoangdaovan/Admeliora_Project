@@ -1,6 +1,6 @@
 'use strict';
 const {Model} = require('sequelize');
-const {isUnique} = require('../validations');
+const {isUnique} = require('../../validations');
 
 
 module.exports = (sequelize, DataTypes) => {
@@ -66,6 +66,5 @@ module.exports = (sequelize, DataTypes) => {
   });
 
 
-  // PhoneNumbers.removeAttribute('id'); 
   return PhoneNumbers;
 };

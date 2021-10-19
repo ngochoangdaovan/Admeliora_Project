@@ -6,14 +6,11 @@ const ModelAndConnection = require('../models')
 const db =  ModelAndConnection();
 const ActualUsersQueries = require('./ActualUsers');
 const AnonOrdersQueries = require('./AnonOrders');
-const CartAndOrdersQueries = require('./Card&Orders');
 const ProductQueries = require('./Product');
 
 
 
-
-const DatabaseManipulations = {ActualUsersQueries, AnonOrdersQueries, CartAndOrdersQueries, ProductQueries};
-console.log(DatabaseManipulations);
+const DatabaseManipulations = {ActualUsersQueries, AnonOrdersQueries, ProductQueries};
 
 
 DatabaseManipulations.resetDB = async function () {

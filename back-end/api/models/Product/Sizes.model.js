@@ -71,6 +71,5 @@ module.exports = (sequelize, DataTypes) => {
 
 
   
-  Sizes.removeAttribute('id');
   return Sizes;
 };

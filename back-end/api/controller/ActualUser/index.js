@@ -1,9 +1,11 @@
 'use strict';
 
-const UsersController = require('./Users.controller');
-const AddressesController = require('./Addresses.controller');
-const ActivityLogsController = require('./ActivityLogs.controller');
-const PhoneNumbersController = require('./PhoneNumbers.controller')
+const UsersController = require('./informations/Users.controller');
+const AddressesController = require('./informations/Addresses.controller');
+const ActivityLogsController = require('./informations/ActivityLogs.controller');
+const PhoneNumbersController = require('./informations/PhoneNumbers.controller');
+const Auth = require('./auth')
+
 
 
 module.exports = {
@@ -11,4 +13,5 @@ module.exports = {
     AddressesController,
     ActivityLogsController,
     PhoneNumbersController,
+    Auth
 }

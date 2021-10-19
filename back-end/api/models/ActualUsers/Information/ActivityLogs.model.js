@@ -65,7 +65,5 @@ module.exports = (sequelize, DataTypes) => {
 
 
 
-  ActivityLogs.removeAttribute('id');
-
   return ActivityLogs;
 };

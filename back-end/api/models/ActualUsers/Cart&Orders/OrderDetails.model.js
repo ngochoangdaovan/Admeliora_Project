@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
 
   class OrderDetails extends Model {
 
+    toJSON(){return { ...this.get(), id: undefined }}
+
 
     // define associations
     static associate({Orders, Warehouse}) {
@@ -69,6 +71,5 @@ module.exports = (sequelize, DataTypes) => {
   });
 
 
-  OrderDetails.removeAttribute('id');
   return OrderDetails;
 };  

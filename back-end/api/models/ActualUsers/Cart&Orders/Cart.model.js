@@ -7,6 +7,9 @@ module.exports = (sequelize, DataTypes) => {
   
   class Cart extends Model {
 
+
+    toJSON(){return { ...this.get(), id: undefined }}
+
     static associate({Users, Warehouse}) {
 
       this.belongsTo(Warehouse, {
@@ -68,7 +71,5 @@ module.exports = (sequelize, DataTypes) => {
   );
 
 
-  // remove default id
-  Cart.removeAttribute('id')
   return Cart;
 };

@@ -1,13 +1,8 @@
-'use strict';
 
+module.exports = ()=>{
 
-module.exports = () => {
+    const Information = require('./Information')();
+    const CartAndOrders = require('./Cart&Orders')();
 
-    const path = require('path');
-    const basename = path.basename(__filename);
-    const model_search = require('../../utils/indexConstruct')
-        
-    return model_search(__dirname, basename);;
+    return {...Information, ...CartAndOrders};
 }
-
-

@@ -54,7 +54,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  // remove unnecessary auto ID
-  ProductImages.removeAttribute('id')
   return ProductImages;
 };

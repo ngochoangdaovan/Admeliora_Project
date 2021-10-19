@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
    
     
     static associate({ProductLines, Sizes}) {
-      console.log(typeof ProductLines);
 
       // define association 
       this.hasMany(ProductLines, {
@@ -57,7 +56,6 @@ module.exports = (sequelize, DataTypes) => {
   );
 
 
-  Categories.removeAttribute('id');
   
   return Categories;
 };

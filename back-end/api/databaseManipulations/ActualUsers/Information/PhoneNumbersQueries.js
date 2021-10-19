@@ -1,4 +1,4 @@
-const db = require('../../models')();
+const db = require('../../../models')();
 const phoneModel = db.PhoneNumbers
 
 
@@ -45,8 +45,6 @@ PhoneNumbersQueries.addPhoneNumber = async function(user_id, phone){
 
     let defaultValue = false;
     let exist = await PhoneNumbersQueries.getPhoneNumbers(user_id);
-
-    console.log(exist);
 
     if (exist === null) {
         defaultValue = true;

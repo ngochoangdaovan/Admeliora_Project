@@ -94,6 +94,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  ProductColors.removeAttribute('id');
   return ProductColors;
 };

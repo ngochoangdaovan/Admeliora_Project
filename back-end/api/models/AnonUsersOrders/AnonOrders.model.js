@@ -82,6 +82,8 @@ module.exports = (sequelize, DataTypes) => {
 
     }
   );
-  AnonOrders.removeAttribute('id');
+
+
+  
   return AnonOrders;
 };

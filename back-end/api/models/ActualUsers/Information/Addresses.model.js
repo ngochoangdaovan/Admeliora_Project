@@ -70,8 +70,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
 
-  // remove unnecessary attributes that sequelize created
-  Addresses.removeAttribute('id')
+ 
 
   return Addresses;
 };
