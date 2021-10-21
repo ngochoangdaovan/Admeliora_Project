@@ -70,7 +70,7 @@ AddressesQueries.getAllAddress = async function(user_id){
 
 
 
-AddressesQueries.getOneAddress = async function (user_id, address_id) {
+AddressesQueries.getOne = async function (user_id, address_id) {
     return await UserModel.findOne({
         where : {user_id : user_id, address_id : address_id},
         attributes: {exclude : ['user_id', 'address_id']}
@@ -87,7 +87,7 @@ AddressesQueries.getOneAddress = async function (user_id, address_id) {
 
 /* ----------------------------------------------UPDATE FUNCTIONS---------------------------------------*/
 
-AddressesQueries.UpdateInfo = async function(fields, user_id, address_id) {
+AddressesQueries.Update = async function(fields, user_id, address_id) {
     await UserModel.update(fields,
         {
             where : { 
@@ -101,30 +101,30 @@ AddressesQueries.UpdateInfo = async function(fields, user_id, address_id) {
 
 
 AddressesQueries.updateProvince = async function (newProvince, user_id, address_id){
-    await AddressesQueries.UpdateInfo({province: newProvince}, user_id, address_id)
-    return AddressesQueries.getOneAddress(user_id, address_id)
+    await AddressesQueries.Update({province: newProvince}, user_id, address_id)
+    return AddressesQueries.getOne(user_id, address_id)
 }
 
 
 
 AddressesQueries.updateDistrict = async function (newDistrict, user_id, address_id){
-    await AddressesQueries.UpdateInfo({district: newDistrict}, user_id, address_id)
-    return AddressesQueries.getOneAddress(user_id, address_id)
+    await AddressesQueries.Update({district: newDistrict}, user_id, address_id)
+    return AddressesQueries.getOne(user_id, address_id)
 }
 
 
 
 
 AddressesQueries.updateStreet = async function (newStreet, user_id, address_id) {
-    await AddressesQueries.UpdateInfo ({street: newStreet}, user_id, address_id)
-    return AddressesQueries.getOneAddress(user_id, address_id)
+    await AddressesQueries.Update ({street: newStreet}, user_id, address_id)
+    return AddressesQueries.getOne(user_id, address_id)
 }
 
 
 
 AddressesQueries.updateDetailAddress = async function (newDetailAddress, user_id, address_id){
-    await AddressesQueries.UpdateInfo({detail_address:newDetailAddress}, user_id, address_id)
-    return AddressesQueries.getOneAddress(user_id, address_id)
+    await AddressesQueries.Update({detail_address:newDetailAddress}, user_id, address_id)
+    return AddressesQueries.getOne(user_id, address_id)
 }
 
 

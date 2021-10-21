@@ -1,6 +1,6 @@
 
 const PhoneNumbersQueries = require('../../../databaseQueries').ActualUsersQueries.PhoneNumbersQueries;
-const ActivityLogs = require('../../../databaseQueries').ActualUsersQueries.ActivityLogsQueries
+const ActivityLogs = require('../../../databaseQueries').ActualUsersQueries.ActivityLogsQueries;
 
 
 const PhoneNumberController = {};

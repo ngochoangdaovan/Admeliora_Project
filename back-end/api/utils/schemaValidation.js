@@ -16,10 +16,10 @@ const userValidation = Joi.object({
     email : Joi.string()
                 .email()
                 .required(), 
-    first_name : Joi.string(),
-    last_name : Joi.string(),
-    dob : Joi.date(),
-    gender : Joi.string()
+    first_name : Joi.string() || null,
+    last_name : Joi.string() || null,
+    dob : Joi.date() || null,
+    gender : Joi.string() || null
 
 
     
@@ -31,10 +31,7 @@ const userValidation = Joi.object({
 
 
 
-
-
-
-
-
-
 module.exports = {userValidation}
+
+
+

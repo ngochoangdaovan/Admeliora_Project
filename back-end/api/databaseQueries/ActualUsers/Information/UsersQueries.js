@@ -44,12 +44,7 @@ UsersQueries.getUsersByUserName = async function(user_name) {
     });
 }
 
-UsersQueries.getLevel = async function (user_id) {
-    return await UserModel.findOne ({
-        where: {user_id},
-        attributes: ['Level']
-    })
-}
+
 
 
 UsersQueries.getUserInfoByID = async function(user_id){
@@ -170,6 +165,9 @@ UsersQueries.getAllUserByAdmin = async function (id, user_role){
 
 
 
+
+
+
 /* -------------------------------------------UPDATE FUNCTIONS--------------------------------------------------*/
 
 
@@ -192,8 +190,12 @@ UsersQueries.UpdateEmail = async function(newEmail ,id){
     return await getUsersById(id);
 };
 
-UsersQueries.increaseLevel = async function(point, id){
-    const curLevel = UsersQueries.getLevel (id);
+UsersQueries.increaseLevel = async function(point, user_id){
+    const curLevel =  UserModel.findOne ({
+        where: {user_id},
+        attributes: ['Level']
+    });
+
     await UsersQueries.UpdateInfo({Level : curLevel + point}, id)
     
 }
@@ -229,6 +231,16 @@ UsersQueries.UpdateAddress = async function(newAddress, id){
 
 
 /* ----------------------------------------------DELETE FUNCTIONS----------------------------------------------------*/
+
+
+UsersQueries.deleteUser = async function(user_id){
+    await UserModel.delete(
+        {
+            where: {user_id: user_id}
+        }
+    )
+}
+
 
 
 

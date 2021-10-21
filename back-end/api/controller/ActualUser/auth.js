@@ -15,8 +15,6 @@ auth.Login = async function(req, res, next) {
     // get user by the user_name 
     const user = await UsersQueries.getUsersByUserName( req.body.user_name);
 
-
-
     
     if (user === null) { // send error if user is not a valid/ exists
         res.status(400).send({

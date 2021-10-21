@@ -46,29 +46,19 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue : DataTypes.UUIDV4
       },
 
-      category_id : {
-        type        : DataTypes.UUID,
-        allowNull   : false,
-      },
-
       name : {
           type : DataTypes.STRING(300),
           allowNull : false,
       },
 
-      material : {
-          type : DataTypes.STRING(1000),
-          allowNull : false,
-      },
-      
-      information : {
-          type : DataTypes.STRING(1000),
-          allowNull : false,
-      },
+      material : DataTypes.STRING(1000),
 
-      rate : {
-          type : DataTypes.FLOAT(5),
-          allowNull : false,
+      information : DataTypes.STRING(1000),      
+
+      price : {
+        type : DataTypes.FLOAT(100),
+        allowNull : false
+
       }
       
   }, 

@@ -19,7 +19,7 @@ PhoneNumbersQueries.isExist = async function (user_id){
 
 
 
-PhoneNumbersQueries.addPhoneNumber = async function(user_id, phone){ 
+PhoneNumbersQueries.add = async function(user_id, phone){ 
 
     let defaultValue = false;
     let exist = await PhoneNumbersQueries.isExist(user_id);
@@ -54,10 +54,12 @@ PhoneNumbersQueries.getPhoneNumbers = async function (id){
 
 };
 
-
-
-
-
+PhoneNumbersQueries.getDefault = async function (user_id, phone){
+    return await phoneModel.findOne({
+        where: {user_id : user_id, phoneNumbers: phone},
+        attributes: {exclude: ['user_id']}
+    })
+}
 
 
 
@@ -66,7 +68,7 @@ PhoneNumbersQueries.getPhoneNumbers = async function (id){
 
 
 /* ----------------------------------------------UPDATE FUNCTIONS---------------------------------------*/
-PhoneNumbersQueries.updateStatus = async function(user_id, phone, newPhone){
+PhoneNumbersQueries.updateStatus = async function(user_id, newDefaultPhone){
 
     // delete the last status
     await phoneModel.update(
@@ -75,12 +77,23 @@ PhoneNumbersQueries.updateStatus = async function(user_id, phone, newPhone){
     );
     // update status for new one
     await phoneModel.update(
-        {phone : newPhone},
-        {where : {phoneNumbers:phone}}
+        {default : true},
+        {where : {phoneNumbers:newDefaultPhone}}
     )
-
 }
 
+
+
+
+PhoneNumbersQueries.updatePhoneNumbers = async function (user_id, old_phoneNumbers,newPhone){
+    await phoneModel.update(
+        {phoneNumbers:newPhone},
+        {where: {
+            phoneNumbers: old_phoneNumbers,
+            user_id:user_id
+        }
+    })
+}
 
 
 /* ----------------------------------------------DELETE FUNCTIONS---------------------------------------*/

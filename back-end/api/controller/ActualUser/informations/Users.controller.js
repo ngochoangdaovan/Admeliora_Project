@@ -25,7 +25,6 @@ UsersController.getInformation= async (req, res) => {
     .then(info => {res.send(info)})
     .catch(err => res.send(err.message));
 
-
 }
 
 
@@ -59,7 +58,9 @@ UsersController.registerUser = async (req, res) => {
             req.body.dob,
             req.body.gender
         )
-        .then(()=>{res.send('successfully created users');})
+        .then(()=>{res.send({
+            message: 'successfully created users'
+        });})
         .catch(err => res.send({
             message : err.message
         }));

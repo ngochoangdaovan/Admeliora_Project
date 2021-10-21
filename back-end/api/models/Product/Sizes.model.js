@@ -48,11 +48,6 @@ module.exports = (sequelize, DataTypes) => {
       size_info : { 
           type        : DataTypes.STRING(500),
           allowNull   : false
-      },
-
-      price : {
-          type        : DataTypes.FLOAT,
-          allowNull   : false
       }
     },
   

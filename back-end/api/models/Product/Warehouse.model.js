@@ -66,14 +66,19 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: DataTypes.UUIDV4
       },
+      
       quantity : {
         type : DataTypes.INTEGER,
         allowNull : false
       },
-      price : {
-        type : DataTypes.FLOAT,
+
+      discount : DataTypes.FLOAT(10),
+
+      rate :  {
+        type: DataTypes.FLOAT(5),
         allowNull : false
       }
+
     },
 
     // options and constraints

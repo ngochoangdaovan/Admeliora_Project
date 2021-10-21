@@ -24,6 +24,5 @@ ID_Generator.generate = async function (model) {
 }
 
 
-// ID_Generator.generate(Addresses, "address_id")
 
 module.exports = ID_Generator;
