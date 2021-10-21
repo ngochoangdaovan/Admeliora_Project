@@ -28,7 +28,12 @@ module.exports =  () => {
           acquire: 30000,
           idle: 1000,
           handleDisconnects: true
-        }
+        },
+        dialectOptions: {
+          dateStrings: true,
+          typeCast: true
+        },
+        timezone: '+07:00' //for writing to database
       });
     }
 

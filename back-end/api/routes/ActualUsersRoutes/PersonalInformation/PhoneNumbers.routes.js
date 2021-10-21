@@ -8,10 +8,10 @@ const PhoneControl = Controller.ActualUserControl.PhoneNumbersController
 const auth = Controller.ActualUserControl.Auth
 
 
-router.get('/');
+router.get('/',  auth.AuthenticateToken, PhoneControl.getAllPhoneNumbersByID);
 router.post('/', auth.AuthenticateToken, PhoneControl.addPhone);
 router.put('/');
-router.delete('/:phone_id');
+router.delete('/', auth.AuthenticateToken, PhoneControl.deleteAll);
 
 
 

@@ -1,5 +1,6 @@
-const UsersQueries = require('../../../databaseManipulations').ActualUsersQueries.UsersQueries
+const UsersQueries = require('../../../databaseQueries').ActualUsersQueries.UsersQueries
 const bcrypt = require('bcrypt');
+const {userValidation} = require('../../../utils/schemaValidation')
 
 
 
@@ -20,7 +21,7 @@ UsersController.showAllUsers = async function(req, res) {
 
 UsersController.getInformation= async (req, res) => {
 
-    await UsersQueries.getAllInfoByID(req.user.user_id)
+    await UsersQueries.getUserInfoByID(req.user.user_id)
     .then(info => {res.send(info)})
     .catch(err => res.send(err.message));
 
@@ -42,6 +43,9 @@ UsersController.addPhone = async (req, res) => {
 UsersController.registerUser = async (req, res) => {
     
     try {
+
+        const isValid = await userValidation.validateAsync(req.body);
+
         const salt =  await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
@@ -56,10 +60,12 @@ UsersController.registerUser = async (req, res) => {
             req.body.gender
         )
         .then(()=>{res.send('successfully created users');})
-        .catch(err => res.send(err.message));
+        .catch(err => res.send({
+            message : err.message
+        }));
 
     }catch(e){
-        res.status(500).send(e.message)
+        res.status(500).send({message: e.message})
     }
 
 };

@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       date_time : {
           type : DataTypes.DATE,
-          defaultValue : DataTypes.NOW
+          defaultValue : DataTypes.NOW,
       },
       message : {
           type : DataTypes.STRING,
