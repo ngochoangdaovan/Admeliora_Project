@@ -39,7 +39,7 @@ ImageController.add = async function (req, res) {
 ImageController.getAll = async function (req, res){
 
     try {
-        const images = await ImagesQueries.getAll();
+        const images = await ImagesQueries.getAll(req.params.color_id);
         if (images.length > 0){
             const image_list = [];
 
@@ -70,7 +70,9 @@ ImageController.getAll = async function (req, res){
 
 
 
-
+ImageController.delete = async function (req, res){
+    await ImagesQueries.delete(req.params.)
+}
 
 
 
