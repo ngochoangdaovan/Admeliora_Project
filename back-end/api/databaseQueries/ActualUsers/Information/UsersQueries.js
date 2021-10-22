@@ -15,7 +15,15 @@ UsersQueries.createManyUsers = async function(usersList){
 }
 
 
-UsersQueries.createUser = async function(user_name, password, first_name, last_name,email, dob, gender) {
+
+
+UsersQueries.createUser = async function(user_name, password, first_name, last_name,email, dob, gender, isAdmin) {
+
+    let Admin = false;
+    if (isAdmin !== (null || undefined)) {
+        Admin = true;
+    }
+
     await UserModel.create({
         user_name: user_name,
         password: password,
@@ -24,7 +32,8 @@ UsersQueries.createUser = async function(user_name, password, first_name, last_n
         email : email,
         level: 0,
         dob : dob,
-        gender: gender
+        gender: gender,
+        is_admin: Admin,
     })
 };
 
@@ -48,7 +57,7 @@ UsersQueries.getUsersByUserName = async function(user_name) {
 
 
 UsersQueries.getUserInfoByID = async function(user_id){
-    const user =  await UserModel.findAll(
+    const user =  await UserModel.findOne(
         {
             where: {user_id : user_id},
             attributes : {exclude : ['user_id', 'password']},
@@ -123,7 +132,7 @@ UsersQueries.getUserInfoByID = async function(user_id){
 // }
 
 
-UsersQueries.getAllUserByAdmin = async function (id, user_role){
+UsersQueries.getAllUserByAdmin = async function (user_role){
 
     if (user_role == 'admin'){
         return await UserModel.findAll(
@@ -146,14 +155,11 @@ UsersQueries.getAllUserByAdmin = async function (id, user_role){
                     }
                 }
             ],
-            where : {
-                user_id : id
-            }, 
         })
     }
     else {
         return {
-            status : 'error',
+            ok: false,
             message: 'this is not a valid connection, must be user'
         }
     }

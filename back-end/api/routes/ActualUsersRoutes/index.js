@@ -11,6 +11,5 @@ router.use('/', UsersRoutes);
 router.use('/phone', PhoneRoutes);
 router.use('/address', AddressRoutes);
 router.use('/logs', ActivityLogs);
-router.post('/login', Auth.Login);
 
 module.exports = router;

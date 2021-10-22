@@ -32,6 +32,11 @@ ProductLinesQueries.get = async function(product_line_id){
 }
 
 
+ProductLinesQueries.getAll = async function (){
+    return await ProductLineModel.findAll()
+}
+
+
 /* ----------------------------------------------UPDATE FUNCTIONS---------------------------------------*/
 ProductLinesQueries.update = async function(field, id){
     await ProductLineModel.update (
@@ -58,10 +63,6 @@ ProductLinesQueries.updateInformation = async function (product_line_id, newInfo
     await ProductLinesQueries.update({information : newInformation}, product_line_id)
 }
 
-ProductLinesQueries.increaseRate = async function (product_line_id, rateAmount) {
-    let oldRate = await ProductLinesQueries.findOne({where: {product_line_id: product_line_id}});
-    await ProductLinesQueries.update({rate: oldRate + rateAmount}, product_line_id)
-}
 
 
 

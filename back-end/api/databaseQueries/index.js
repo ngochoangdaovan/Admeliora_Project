@@ -10,6 +10,7 @@ const ProductQueries = require('./Product');
 
 
 
+
 const DatabaseManipulations = {ActualUsersQueries, AnonOrdersQueries, ProductQueries};
 
 

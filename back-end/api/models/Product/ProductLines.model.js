@@ -56,9 +56,8 @@ module.exports = (sequelize, DataTypes) => {
       information : DataTypes.STRING(1000),      
 
       price : {
-        type : DataTypes.FLOAT(100),
+        type : DataTypes.FLOAT,
         allowNull : false
-
       }
       
   }, 

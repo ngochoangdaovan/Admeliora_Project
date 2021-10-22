@@ -113,16 +113,13 @@ module.exports = (sequelize, DataTypes) => {
           }
       }, 
 
-      level : { 
-          type : DataTypes.FLOAT,
-      }, 
-      dob : {
-          type : DataTypes.STRING(30),
-      },
-      gender : {
-          type : DataTypes.STRING(10),
-      },
+      level : DataTypes.FLOAT,
+  
+      dob : DataTypes.STRING(30),
 
+      gender : DataTypes.STRING(10),
+      
+      is_admin : DataTypes.BOOLEAN
   }, 
   
   // options and constraints

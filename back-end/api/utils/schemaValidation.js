@@ -26,12 +26,42 @@ const userValidation = Joi.object({
 })
 
 
+const CategoryValidation = Joi.object ({
+    category_name : Joi.string()
+                        .required()
+
+})
+
+
+const ColorValidation = Joi.object({
+    product_line_id : Joi.required(), 
+    color_name : Joi.string().required()
+
+})
+
+
+
+const ProductLineValidation = Joi.object({
+    category_id : Joi.required(),
+    name : Joi.string().required(),
+    material : Joi.string(), 
+    information : Joi.string()
+})
 
 
 
 
 
-module.exports = {userValidation}
+
+
+
+
+
+module.exports = {
+    userValidation,
+    CategoryValidation,
+    ColorValidation
+}
 
 
 

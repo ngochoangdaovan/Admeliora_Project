@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(ProductLines, {
         foreignKey : {
           name : 'product_line_id',
-          allowNull : false
+          allowNull : false,
+          validate : {
+            notNull : {msg : 'no product line is selected'}
+          }
         },
         onDelete : 'CASCADE',
         onUpdate : 'CASCADE',
@@ -55,16 +58,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull   : false,
         primaryKey: true,
         defaultValue : Sequelize.UUIDV4
-      },
-
-      product_id : {
-          type : DataTypes.UUID,
-          allowNull : false,
-          validate : {
-            notNull :{message: 'product_id cannot be null'},
-            notEmpty :{message: 'product_id cannot be empty'}
-            
-          }
       },
 
       color_name : {

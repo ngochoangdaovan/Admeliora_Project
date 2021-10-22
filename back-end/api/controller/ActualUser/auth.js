@@ -1,12 +1,65 @@
 'use strict';
 
 
-const UsersQueries = require('../../databaseManipulations').ActualUsersQueries.UsersQueries
+const UsersQueries = require('../../databaseQueries').ActualUsersQueries.UsersQueries
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const {userValidation} = require('../../utils/schemaValidation')
 
 
 const auth = {};
+
+
+
+
+
+
+
+
+/*----------------------------------REGISTRATION---------------------------------------------*/
+
+
+auth.registerUser = async (req, res) => {
+    
+    try {
+        // check schemaValidation before add to db
+        await userValidation.validateAsync(req.body);
+
+        // encrypt password
+        const salt =  await bcrypt.genSalt();
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+        // add user to db
+        await UsersQueries.createUser(
+            req.body.user_name, 
+            hashedPassword,
+            req.body.first_name,
+            req.body.last_name,
+            req.body.email,
+            req.body.dob,
+            req.body.gender
+        )
+        .then(()=>{res.status(201).send({
+            ok: true,
+            message: 'successfully created users'
+        });})
+        .catch(err => res.status(500).send({
+            ok: false,
+            message : err.message
+        }));
+
+    }catch(e){
+        res.status(500).send({
+            ok: false,
+            message: e.message
+        })
+    }
+
+};
+
+
+
+
 
 /*-------------------------------LOGIN------------------------------------------------*/
 
@@ -24,7 +77,7 @@ auth.Login = async function(req, res, next) {
     }else {
 
         // get id and username to create tokens
-        const UserInfo = {user_id: user.user_id}
+        const UserInfo = {user_id: user.user_id, isAdmin: user.is_admin}
 
         // compare the authentication token
         const isAuth = await bcrypt.compare( req.body.password, user.password);
@@ -54,7 +107,7 @@ auth.Login = async function(req, res, next) {
 
 
 
-/*------------------------------------AUTHENTICATION-------------------------------------------*/
+/*------------------------------------AUTHENTICATION TOKEN-------------------------------------------*/
 
 
     

@@ -4,7 +4,7 @@
 const ActualUserControl = require('./ActualUser');
 const AnonOrdersControl = require('./AnonOrders');
 const ProductControl = require('./Product');
-const dbMan = require('../databaseManipulations');
+const dbMan = require('../databaseQueries');
 
 
 
