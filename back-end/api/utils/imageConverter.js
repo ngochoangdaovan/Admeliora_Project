@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-let buff = new Buffer(data, 'base64');
-fs.writeFileSync('stack-abuse-logo-out.png', buff);
+// let buff = new Buffer(data, 'base64');
+// fs.writeFileSync('stack-abuse-logo-out.png', buff);
 
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
     },
 
 
-    writeImage : function(file_name, to) {
+    writeImage : function(file_name, to, data) {
 
         let file_path = '';
         if (to === 'user'){

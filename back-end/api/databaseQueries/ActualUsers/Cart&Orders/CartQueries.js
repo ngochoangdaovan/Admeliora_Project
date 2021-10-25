@@ -1,17 +1,25 @@
 const db = require('../../../models')();
-const Cart = db.Cart;
+const CartModel = db.Cart;
 
 
-const CartQueries = {};
+module.exports = new class CartQueries {
+
+    /* ----------------------------------------------CREATE FUNCTIONS---------------------------------------*/  
+        
+    async addProduct(user_id, product_detail_id, quantity, price){ 
+        await CartModel.create ({
+            user_id, 
+            product_detail_id,
+            quantity,
+            price
+        })
+    }   
+        
+        
+    /* ----------------------------------------------GET FUNCTIONS------------------------------------------*/  
+    /* ----------------------------------------------UPDATE FUNCTIONS---------------------------------------*/  
+    /* ----------------------------------------------DELETE FUNCTIONS---------------------------------------*/  
 
 
-/* ----------------------------------------------CREATE FUNCTIONS---------------------------------------*/
+};
 
-// CartQueries.addProduct = async function (user_id, product_detail_id, ){
-
-// }
-
-
-/* ----------------------------------------------GET FUNCTIONS------------------------------------------*/
-/* ----------------------------------------------UPDATE FUNCTIONS---------------------------------------*/
-/* ----------------------------------------------DELETE FUNCTIONS---------------------------------------*/

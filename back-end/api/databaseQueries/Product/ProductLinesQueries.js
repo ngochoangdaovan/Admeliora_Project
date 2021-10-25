@@ -4,82 +4,74 @@ const ProductLineModel = db.ProductLines
 
 
 
-const ProductLinesQueries = {};
+module.exports = new class ProductLinesQueries {
+
+
+    async refreshTables() {
+        ProductLineModel.drop()
+        ProductLineModel.sync()
+    }
+
+    /* ----------------------------------------------CREATE FUNCTIONS---------------------------------------*/
+
+    async create(category_id, name, material, information, price){
+
+        await ProductLineModel.create({
+            category_id: category_id,
+            name: name,
+            material: material,
+            information: information,
+            rate: 0,
+            price: price
+        });
+    }
 
 
 
-/* ----------------------------------------------CREATE FUNCTIONS---------------------------------------*/
 
-ProductLinesQueries.create = async function(category_id, name, material, information){
-
-    await ProductLineModel.create({
-        category_id: category_id,
-        name: name,
-        material: material,
-        information: information,
-        rate: 0
-    });
-}
+    /* ----------------------------------------------GET FUNCTIONS------------------------------------------*/
+    async getDetail(product_line_id){
+        return await ProductLineModel.findOne({
+            
+            where : {
+                product_line_id: product_line_id
+            }, 
+        })
+    }
 
 
-/* ----------------------------------------------GET FUNCTIONS------------------------------------------*/
-ProductLinesQueries.get = async function(product_line_id){
-    return await ProductLineModel.findOne({
-        where : {
-            product_line_id: product_line_id
-        }, 
-    })
-}
-
-
-ProductLinesQueries.getAll = async function (){
-    return await ProductLineModel.findAll()
-}
-
-
-/* ----------------------------------------------UPDATE FUNCTIONS---------------------------------------*/
-ProductLinesQueries.update = async function(field, id){
-    await ProductLineModel.update (
-        field,
-        {
-            where: {product_line_id : id}
-        }
-    )
-}
+    async getAll(){
+        return await ProductLineModel.findAll({attributes: ['product_line_id', 'name'],})
+    }
 
 
 
-ProductLinesQueries.updateName = async function (product_line_id, newName){
-    await ProductLinesQueries.update({name: newName}, product_line_id)
-}
 
-
-ProductLinesQueries.updateMaterials = async function (product_line_id, newMaterials){
-    await ProductLinesQueries.update({material:newMaterials}, product_line_id);
-
-}
-
-ProductLinesQueries.updateInformation = async function (product_line_id, newInformation){
-    await ProductLinesQueries.update({information : newInformation}, product_line_id)
-}
+    /* ----------------------------------------------UPDATE FUNCTIONS---------------------------------------*/
+    async update(field, id){
+        await ProductLineModel.update (
+            field,
+            {
+                where: {product_line_id : id}
+            }
+        )
+    }
 
 
 
 
 
+    /* ----------------------------------------------DELETE FUNCTIONS---------------------------------------*/
 
-/* ----------------------------------------------DELETE FUNCTIONS---------------------------------------*/
-
-ProductLinesQueries.delete = async function (product_line_id){
-    await ProductLineModel.delete({where: {product_line_id: product_line_id}})
-}
+    async delete(product_line_id){
+        await ProductLineModel.destroy({where: {product_line_id: product_line_id}})
+    }
 
 
 
 
 
 
-module.exports = ProductLinesQueries;
 
-
+};
 

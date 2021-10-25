@@ -2,29 +2,32 @@ const db = require('../../models')();
 const CategoriesModel = db.Categories;
 
 
-const CategoryQueries = {};
+module.exports = new class CategoryQueries {
+
+    /* ----------------------------------------------CREATE FUNCTIONS---------------------------------------*/
+
+    async add(cateName){
+        await CategoriesModel.create({name: cateName});
+    }
+    /* ----------------------------------------------GET FUNCTIONS------------------------------------------*/
+
+    async getAll(){
+        return await CategoriesModel.findAll();
+    }
+
+    /* ----------------------------------------------DELETE FUNCTIONS---------------------------------------*/
+    async delete(id){
+        await CategoriesModel.destroy({where: {category_id: id}})
+    }
 
 
-/* ----------------------------------------------CREATE FUNCTIONS---------------------------------------*/
-
-CategoryQueries.add = async function (cateName){
-    await CategoriesModel.create({name: cateName});
-}
-/* ----------------------------------------------GET FUNCTIONS------------------------------------------*/
-
-CategoryQueries.getAll = async function(id){
-    return await CategoriesModel.findAll({
-        where: {category_id: id}
-    });
-}
-
-/* ----------------------------------------------DELETE FUNCTIONS---------------------------------------*/
-CategoryQueries.delete = async function(id){
-    await CategoriesModel.delete({where: {category_id: id}})
-}
 
 
-module.exports = CategoryQueries;
+
+};
+
+
+
 
 
 

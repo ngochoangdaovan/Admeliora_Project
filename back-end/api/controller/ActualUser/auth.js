@@ -71,7 +71,7 @@ auth.Login = async function(req, res, next) {
     
     if (user === null) { // send error if user is not a valid/ exists
         res.status(400).send({
-            status:false ,
+            success:false ,
             message: 'user name is not exist'
         });
     }else {
@@ -80,7 +80,7 @@ auth.Login = async function(req, res, next) {
         const UserInfo = {user_id: user.user_id, isAdmin: user.is_admin}
 
         // compare the authentication token
-        const isAuth = await bcrypt.compare( req.body.password, user.password);
+        const isAuth = await bcrypt.compare( req.body.password, user.password)
 
         // if auth
         if (isAuth) {
@@ -88,7 +88,7 @@ auth.Login = async function(req, res, next) {
             // combine user info in the token and send to user
             const token = await jwt.sign(UserInfo, process.env.ACCESS_TOKEN_SECRET);
             res.json({
-                status : true,
+                success: true,
                 accessToken : token
             });
 
@@ -96,8 +96,8 @@ auth.Login = async function(req, res, next) {
 
             // not auth => send error
             res.status(403).send({
-                status:false ,
-                message:'authentication failed'
+                success:false ,
+                message:"invalid password"
             })
         }
     }
@@ -108,6 +108,14 @@ auth.Login = async function(req, res, next) {
 
 
 /*------------------------------------AUTHENTICATION TOKEN-------------------------------------------*/
+
+auth.AuthenticateAdminToken = async function(req, res, next){
+
+    
+
+
+}
+
 
 
     

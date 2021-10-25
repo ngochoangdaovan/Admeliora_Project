@@ -1,5 +1,6 @@
 'use strict';
 const {Model} = require('sequelize');
+const {isUnique} = require('../validations');
 
 
 module.exports = (sequelize, DataTypes) => {
@@ -49,6 +50,9 @@ module.exports = (sequelize, DataTypes) => {
       name : {
           type : DataTypes.STRING(300),
           allowNull : false,
+          validate : {
+            checkUnique : function(value, next){isUnique(ProductLines, {name : value}, next)}
+          }
       },
 
       material : DataTypes.STRING(1000),

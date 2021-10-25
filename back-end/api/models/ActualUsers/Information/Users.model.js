@@ -119,7 +119,9 @@ module.exports = (sequelize, DataTypes) => {
 
       gender : DataTypes.STRING(10),
       
-      is_admin : DataTypes.BOOLEAN
+      is_admin : DataTypes.BOOLEAN,
+
+      avatar : DataTypes.STRING(500)
   }, 
   
   // options and constraints

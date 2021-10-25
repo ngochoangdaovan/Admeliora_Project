@@ -2,36 +2,32 @@ const db = require('../../models')();
 const ProductImagesModel = db.ProductImages;
 
 
-const ImagesQueries = {};
+module.exports = new class ImagesQueries {
 
 
-
-/* ----------------------------------------------CREATE FUNCTIONS---------------------------------------*/
-ImagesQueries.add = async function (color_id, image_path){
-    ProductImagesModel.create({color_id : color_id, image_path : image_path});
-}
-
-
-/* ----------------------------------------------GET FUNCTIONS------------------------------------------*/
-ImagesQueries.getAll = async function (color_id){
-    return ProductImagesModel.find({where: {color_id : color_id}});
-}
-
-/* ----------------------------------------------DELETE FUNCTIONS---------------------------------------*/
-
-ImagesQueries.delete = async function(id){
-    await ProductImagesModel.delete({where: {id: id}})
-}
+    /* ----------------------------------------------CREATE FUNCTIONS---------------------------------------*/
+    async add (image_paths){
+        ProductImagesModel.bulkCreate(image_paths);
+    }
 
 
-ImagesQueries.deleteAll = async function(color_id){
-    await ProductImagesModel.destroy({where: {color_id: color_id}})
-}
+    /* ----------------------------------------------GET FUNCTIONS------------------------------------------*/
+    async getAll (color_id){
+        return ProductImagesModel.find({where: {color_id : color_id}});
+    }
+
+    /* ----------------------------------------------DELETE FUNCTIONS---------------------------------------*/
+
+    async delete(id){
+        await ProductImagesModel.delete({where: {id: id}})
+    }
 
 
+    async deleteAll(color_id){
+        await ProductImagesModel.destroy({where: {color_id: color_id}})
+    }
 
 
-module.exports = ImagesQueries;
-
+};
 
 

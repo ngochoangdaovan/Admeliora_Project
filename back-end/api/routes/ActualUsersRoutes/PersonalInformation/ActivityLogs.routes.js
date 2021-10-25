@@ -4,6 +4,10 @@ const ActivityLogsController = require('../../../controller').ActualUserControl.
 const auth = require('../../../controller/ActualUser/auth')
 
 
-ActivityLogsRouter.get('/', auth.AuthenticateToken, ActivityLogsController.getActivityLogs)
+ActivityLogsRouter.get('/', auth.AuthenticateToken, ActivityLogsController.getLogs)
+
+ActivityLogsRouter.delete('/delete/:log_id', auth.AuthenticateToken, ActivityLogsController.deleteLog)
+
+
 
 module.exports = ActivityLogsRouter;

@@ -1,167 +1,164 @@
 'use strict';
 
 
-const ProductLinesQueries = require('../../databaseQueries').ProductQueries.ProductLinesQueries;
+const ProductQueries = require('../../databaseQueries').ProductQueries;
+const ProductLinesQueries = ProductQueries.ProductLinesQueries
 const {ProductLineValidation} = require('../../utils/schemaValidation')
 
-const ProductLineController = {};
+module.exports = new class ProductLineController {
 
 
-
-
-
-
-ProductLineController.add = async function (req, res){
-
-    try {
-        await ProductLineValidation.validate(req.body);
-        await ProductLinesQueries.create(
-            req.body.category_id, req.body.name, 
-            req.body.material, req.body.information
-        )
-        .then(()=> {
-            res.status(201).send({
-                ok : true,
-                message : 'product line successfully created'
+    async refresh (req, res){
+        await ProductLinesQueries.refreshTables()
+        .then(() => {
+            res.status(200).send({
+                success: true,
+                message: 'refresh successfully'
             })
         })
-    }catch(err){
-        res.status(500).send({
-            ok : false,
-            message : err.message
+        .catch(err => {
+            res.status(500).send({
+                success: false,
+                message: err.message
+            })
         })
     }
 
-}
 
+/*--------------------------------------------CREATE-------------------------------------------------*/ 
 
+    async add(req, res){
 
+        try {
 
+            await ProductLineValidation.validate(req.body);
+            await ProductLinesQueries.create(
+                req.body.category_id, 
+                req.body.name, 
+                req.body.material, 
+                req.body.information, 
+                req.body.price, 
 
-
-ProductLineController.get = async function (req,res){
-    await ProductLinesQueries.get (req.params.product_line_id)
-    .then((product_line) => {
-        if (product_line !== (null || undefined)){
-            res.status(200).send({
-                ok : true,
-                data : product_line
+            )
+            .then(()=> {
+                res.status(201).send({
+                    success : true,
+                    message : 'product line successfully created'
+                })
             })
-        }else {
-            res.status(404).send({
+        }catch(err){
+            res.status(500).send({
+                success : false,
+                message : err.message
+            })
+        }
+    
+    }
+    
+    
+    
+    
+    
+
+/*--------------------------------------------GET----------------------------------------------------*/ 
+
+    async get(req,res){
+        await ProductLinesQueries.getDetail(req.params.product_line_id)
+        .then((product_line) => {
+            if (product_line !== (null || undefined)){
+                res.status(200).send({
+                    success : true,
+                    data : product_line
+                })
+            }else {
+                res.status(404).send({
+                    ok: false,
+                    message : 'product line not found'
+                })
+            }
+    
+        })
+        .catch(err => {
+            res.status(500).send({
                 ok: false,
-                message : 'product not found'
+                message : err.message
             })
-        }
-
-    })
-    .catch(err => {
-        res.status(500).send({
-            ok: false,
-            message : err.message
         })
-    })
-}
-
-
-ProductLineController.getAll = async function (req, res){
-    await ProductLinesQueries.getAll()
-    .then((product_lines) =>{
-        if (product_lines.length > 0) {
+    }
+    
+    
+    async getAll(req, res){
+        await ProductLinesQueries.getAll()
+        .then((product_lines) =>{
+            if (product_lines.length > 0) {
+                res.status(200).send({
+                    success : true,
+                    data : product_lines
+                })
+            }else {
+                res.status(404).send({
+                    success : false,
+                    message : 'not found any item'
+                })
+            }
+        })
+        .catch (err => {
+            res.status(500).send({
+                success : true,
+                message : err.message
+            })
+        })
+    }
+    
+    
+    
+/*--------------------------------------------UPDATE-------------------------------------------------*/ 
+    
+    async update(req, res) {
+        
+        // update information
+        await ProductLinesQueries.update(req.body, req.params.product_line_id)
+        .then(async () => {
             res.status(200).send({
-                ok : true,
-                data : product_lines
+                success : true,
+                message : 'Updated information successfully'   
             })
-        }else {
-            res.status(404).send({
-                ok : false,
-                message : 'not found any item'
-            })
-        }
-    })
-    .catch (err => {
-        res.status(500).send({
-            ok : true,
-            message : err.message
-        })
-    })
-}
-
-
-
-
-
-ProductLineController.updateName = async function (req, res) {
-    
-    if (req.body.newName !== (null || undefined)) {
-        
-        // update information
-        await ProductLinesQueries.updateName(req.body.product_line_id, req.body.newName)
-        .then(async () => {
-            await ProductLineController.get(req.body.product_line_id)
         })
         .catch (err => {
             res.status(500).send({
-                ok : false,
+                success : false,
                 message : err.message
             })
         })
     }
-}
-
-ProductLineController.updateMaterials = async function (req, res) {
     
-    if (req.body.newMaterials !== (null || undefined)) {
-        
-        // update information
-        await ProductLinesQueries.updateMaterials(req.body.product_line_id, req.body.newMaterials)
-        .then(async () => {
-            await ProductLineController.get(req.body.product_line_id)
+    
+    
+    
+    
+    
+    
+/*--------------------------------------------DELETE-------------------------------------------------*/     
+    
+    async delete(req, res) {
+        await ProductLinesQueries.delete(req.params.product_line_id)
+        .then (() => {
+            res.status(200).send({
+                success : true,
+                message : 'successfully deleted!'
+            })
         })
         .catch (err => {
             res.status(500).send({
-                ok : false,
+                success : false,
                 message : err.message
             })
         })
     }
-}
-
-ProductLineController.updateInformation = async function (req, res) {
     
-    if (req.body.newInformation !== (null || undefined)) {
-        
-        // update information
-        await ProductLinesQueries.updateInformation(req.body.product_line_id, req.body.newInformation)
-        .then(async () => {
-            await ProductLineController.get(req.body.product_line_id)
-        })
-        .catch (err => {
-            res.status(500).send({
-                ok : false,
-                message : err.message
-            })
-        })
-    }
-}
+    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = ProductLineController;
-
-
-
-
+    
+};
 
 

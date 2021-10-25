@@ -1,67 +1,77 @@
 'use strict';
 
 
-const CategoryQueries = require('../../databaseQueries').ProductQueries.CategoryQueries;
-const {CategoryValidation} = require('../../utils')
+const ProductQueries = require('../../databaseQueries').ProductQueries;
+const CategoryQueries = ProductQueries.CategoryQueries 
+const {CategoryValidation} = require('../../utils/schemaValidation')
 
 
-const CategoryController = {};
+module.exports = new class CategoryController {
 
+    async  addNewCategory(req, res, next) {
 
-
-CategoryController.addNewCategory = async function (req, res, next) {
-
-    try {
-        await CategoryValidation.validate(req.body);
-        await CategoryQueries.add(req.body.category_name)
-        .then(()=>{
-            res.status(201).send({
-                ok : true,
-                message : 'Category added successfully'
+        try {
+            await CategoryValidation.validate(req.body);
+            await CategoryQueries.add(req.body.category_name)
+            .then(()=>{
+                res.status(201).send({
+                    success : true,
+                    message : 'Category added successfully'
+                })
+            })
+    
+            next()
+        }catch (err) {
+            res.status(500).send({
+                success : false,
+                message : err.message
+            })
+            next()
+        }
+    
+    }
+    
+    
+    
+    async  getAll(req, res, next) {
+        await CategoryQueries.getAll()
+        .then(category => {
+            res.status(200).send({
+                success : true,
+                data : category
             })
         })
-
-        next()
-    }catch (err) {
-        res.status(500).send({
-            ok: false,
-            message : err.message
+        .catch(err => {
+            res.status(500).send({
+                success : false,
+                message : err.message
+            })
         })
         next()
     }
-
-}
-
-
-
-CategoryController.getAll = async function (req, res, next) {
-    await CategoryQueries.getAll()
-    .then(category => {
-        res.status(200).send({
-            ok : true,
-            data : category
+    
+    
+    async  delete(req, res, next) {
+    
+        await CategoryQueries.delete (req.body.category_name)
+        .then(()=>{
+            res.status(200).send({
+                status : true,
+                message : 'successfully deleted category'
+            })
         })
-    })
-    .catch(err => {
-        res.status(500).send({
-            ok : false,
-            message : err.message
+        .catch((error)=>{
+            res.status(500).send({
+                success : false,
+                message : error.message
+            })
         })
-    })
-}
+        next()
+    
+    }
 
 
-CategoryController.delete = async function (req, res, next) {
-
-    await CategoryQueries.delete (req.body.category_name)
-    .then(()=>{
-        res.status(200).send({
-            ok : true,
-            message : 'successfully deleted category'
-        })
-    })
-
-}
+};
 
 
 
@@ -69,7 +79,9 @@ CategoryController.delete = async function (req, res, next) {
 
 
 
-module.exports = CategoryController;
+
+
+
 
 
 

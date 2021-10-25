@@ -1,17 +1,15 @@
 
 
 
-const ModelAndConnection = require('../models')
-
-const db =  ModelAndConnection();
+const db =  require('../models')();
 const ActualUsersQueries = require('./ActualUsers');
 const AnonOrdersQueries = require('./AnonOrders');
 const ProductQueries = require('./Product');
 
 
 
-
 const DatabaseManipulations = {ActualUsersQueries, AnonOrdersQueries, ProductQueries};
+// console.log(DatabaseManipulations.ActualUsersQueries.UsersQueries)
 
 
 DatabaseManipulations.resetDB = async function () {

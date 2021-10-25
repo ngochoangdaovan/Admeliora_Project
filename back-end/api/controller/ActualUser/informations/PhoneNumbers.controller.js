@@ -1,52 +1,76 @@
+const ActualUsersQueries = require('../../../databaseQueries').ActualUsersQueries
 
-const PhoneNumbersQueries = require('../../../databaseQueries').ActualUsersQueries.PhoneNumbersQueries;
-const ActivityLogs = require('../../../databaseQueries').ActualUsersQueries.ActivityLogsQueries;
+const PhoneNumbersQueries = ActualUsersQueries.PhoneNumbersQueries;
+const ActivityLogs = ActualUsersQueries.ActivityLogsQueries;
 
 
-const PhoneNumberController = {};
 
-PhoneNumberController.getAllPhoneNumbersByID = async function(req, res) {
 
-    let user_id = req.user.user_id;
+module.exports = new class PhoneNumberController {
 
-    let phoneNumbers = await PhoneNumbersQueries.getPhoneNumbers(user_id)
-    .catch(err => res.send(err.message));
-    res.send(phoneNumbers);
+/*--------------------------------------------GET----------------------------------------------------*/ 
 
+    async getAllPhoneNumbersByID(req, res) {
+
+        let user_id = req.user.user_id;
+    
+        let phoneNumbers = await PhoneNumbersQueries.getPhoneNumbers(user_id)
+        .catch(err => res.send(err.message));
+        res.send(phoneNumbers);
+    
+    };
+    
+
+
+/*--------------------------------------------CREATE-------------------------------------------------*/ 
+    async addPhone(req, res) {
+        
+        await PhoneNumbersQueries.add(req.user.user_id, req.body.phone)
+        .then(async ()=> {
+            res.status(200).send ({
+                status: true,
+                message: `phone number ${req.body.phone} successfully added`
+            })
+        })
+        .catch(err => res.send({
+            success: false,
+            message: err.message,
+        }));
+    }
+
+
+/*--------------------------------------------UPDATE-------------------------------------------------*/ 
+    async updateDefault(req, res) {
+        await PhoneNumbersQueries.updateStatus(req.user.user_id, req.body.phone)
+        .then(() => res.status(200).send({success:true, message: "updated successful"}))
+        .catch(err => res.status(500).send({success:false, message: err.message}))
+
+    }
+
+
+
+/*--------------------------------------------DELETE-------------------------------------------------*/ 
+    async delete(req, res){
+        await PhoneNumbersQueries.delete(req.params.phone, req.user.user_id)
+        .then(() => {
+            res.send({
+                success: true,
+                message: 'deleted successfully'
+            })
+        })
+        .catch(err => res.send(err.message));
+    };
+    
+    
+    async deleteAll(req, res) {
+        await PhoneNumbersQueries.deleteAll (req.user.user_id)
+        .then(() => res.send ('delete all'));
+    }
+    
+    
+    
+
+    
+    
+    
 };
-
-
-
-PhoneNumberController.delete = async function(req, res){
-    await PhoneNumbersQueries.delete(req.params.user_id)
-    .then(() => {
-        const Log = {message: 'Phone number deleted successfully'}
-        ActivityLogs.addLog(Log.message)
-        res.send(Log)
-    })
-    .catch(err => res.send(err.message));
-};
-
-
-PhoneNumberController.deleteAll = async function(req, res) {
-    await PhoneNumbersQueries.deleteAll (req.user.user_id)
-    .then(() => res.send ('delete all'));
-}
-
-
-
-PhoneNumberController.addPhone = async function(req, res) {
-
-    await PhoneNumbersQueries.addPhoneNumber(req.user.user_id, req.body.phone)
-    .then(async ()=> {
-        const Log = {message: `phone number ${req.body.phone} successfully added`}
-        await ActivityLogs.addLog(req.user.user_id, Log.message)
-        res.send(Log)
-    })
-    .catch(err => res.send(err.message));
-}
-
-
-
-
-module.exports = PhoneNumberController;
