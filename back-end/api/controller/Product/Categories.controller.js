@@ -26,14 +26,13 @@ module.exports = new class CategoryController {
                 success : false,
                 message : err.message
             })
-            next()
         }
     
     }
     
     
     
-    async  getAll(req, res, next) {
+    async getAll(req, res, next) {
         await CategoryQueries.getAll()
         .then(category => {
             res.status(200).send({
@@ -47,7 +46,6 @@ module.exports = new class CategoryController {
                 message : err.message
             })
         })
-        next()
     }
     
     
@@ -66,7 +64,6 @@ module.exports = new class CategoryController {
                 message : error.message
             })
         })
-        next()
     
     }
 

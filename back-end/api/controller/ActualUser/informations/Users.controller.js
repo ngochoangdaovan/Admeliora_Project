@@ -11,6 +11,8 @@ module.exports = new class UsersController {
 
 
 /*--------------------------------------------GET----------------------------------------------------*/ 
+
+    // get all user and send to admin
     async showAllUsers(req, res) {
     
         await UsersQueries.getUsers()
@@ -33,6 +35,7 @@ module.exports = new class UsersController {
     
     async getInformation(req, res) {
     
+        // get user detail information 
         await UsersQueries.getUserInfoByID(req.user.user_id)
 
         .then(info => {
@@ -69,8 +72,8 @@ module.exports = new class UsersController {
 
     async updateInfo(req, res) {
         
+        // update info based on the field
         try{
-
             await UsersQueries.UpdateInfo(req.body, req.user.user_id)
             res.status(200).send({
                 success: true,
@@ -87,7 +90,8 @@ module.exports = new class UsersController {
 
 
     async updateAvatar(req, res){
-
+        
+        // update user avatar
         await UsersQueries.updateAvatar(req.body.avatar, req.user.user_id)
         .then((updatedAvatar) => {
             res.status(200).send({
@@ -106,6 +110,8 @@ module.exports = new class UsersController {
     }
 /*--------------------------------------------DELETE-------------------------------------------------*/ 
     async delete(req, res) {
+
+        // del user 
         await UsersQueries.delete(req.user.user_id)
         .then(()=>{
             res.status(200).send({

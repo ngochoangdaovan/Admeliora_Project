@@ -58,15 +58,10 @@ module.exports = new class ImageController {
         try {
             const images = await ImagesQueries.getAll(req.params.color_id);
             if (images.length > 0){
-                const image_list = [];
-    
-                for (let i = 0; i < images.length; i++) {
-                    image_list.push(ImageConvert.readImage(images[i].image_path));
-                }
-    
+
                 res.status(200).send({
                     ok : true,
-                    data : image_list
+                    data : images
                 })
     
             }else {

@@ -11,10 +11,11 @@ module.exports = new class ColorController {
 
 
 
-
+    // add color 
     async add(req, res) {
         try {
             
+            // validate the input 
             await ColorValidation.validate(req.body)
             await ColorQueries.add(req.body.product_line_id, req.body.color_name)
             .then(()=>{
@@ -35,6 +36,8 @@ module.exports = new class ColorController {
     
     
     async getAll(req, res){
+
+        // get all color
         await ColorQueries.getAll(req.params.product_line_id)
         .then((data) => {
             if (data.length > 0){
@@ -61,6 +64,8 @@ module.exports = new class ColorController {
 
 
     async get(req, res){
+        
+        // get detail color
         await ColorQueries.get(req.params.product_line_id, req.params.color_id)
         .then((data) =>{
             if (data !== (null || undefined)){
@@ -93,12 +98,12 @@ module.exports = new class ColorController {
             ok : true,
             message : 'color successfully deleted'
         }))
-        // .catch((err) => {
-        //     res.status(500).send({
-        //         ok : false,
-        //         message : err.message
-        //     })
-        // })
+        .catch((err) => {
+            res.status(500).send({
+                ok : false,
+                message : err.message
+            })
+        })
     }
     
     

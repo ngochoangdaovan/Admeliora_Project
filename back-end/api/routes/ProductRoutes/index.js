@@ -13,13 +13,14 @@ const Categories = require('./Categories.routes')
 
 
 
-
-router.use('/', warehouse)
 router.use('/productLines', productLine)
 router.use('/colors', productColor)
 router.use('/sizes', Sizes)
 router.use('/categories', Categories)
 router.use('/images', productImage)
+router.use('/', warehouse)
+
+
 
 
 

@@ -25,11 +25,11 @@ module.exports = new class SizesQueries {
 
 
     /* ----------------------------------------------GET FUNCTIONS------------------------------------------*/
-    async get(){
+    async getAll(){
         return await SizeModel.findAll ()
     }
 
-    async getInfo(id){
+    async getDetail(id){
         return await SizeModel.findOne ({ 
             where : {size_id : id}
         })
@@ -39,7 +39,7 @@ module.exports = new class SizesQueries {
     /* ----------------------------------------------UPDATE FUNCTIONS---------------------------------------*/
 
     async updateInfo(id, newSizeInfo){
-        await SizeModel.update ({size_info : newSizeInfo}, {where : {size_id : id}})
+        await SizeModel.update (newSizeInfo, {where : {size_id : id}})
 
     }
 
@@ -47,7 +47,7 @@ module.exports = new class SizesQueries {
 
 
     async delete(id) {
-        await SizeModel.delete ({where: {size_id: id}})
+        await SizeModel.destroy({where: {size_id: id}})
     }
 
 
