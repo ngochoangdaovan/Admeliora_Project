@@ -12,7 +12,6 @@ import Button from '../components/Button'
 import InfinityList from '../components/InfinityList'
 
 const Catalog = () => {
-  // const listItem =
   const [product, setProduct] = useState([])
 
   useEffect(() => {
@@ -22,7 +21,7 @@ const Catalog = () => {
       setProduct(data.product)
     }
     fetchProducts()
-  }, [product])
+  }, [])
 
   const initFilter = {
     category: [],

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import Grid from './Grid'
 import ProductCard from './ProductCard'
+import axios from 'axios'
 
 const InfinityList = (props) => {
   const perLoad = 6 // items each load
@@ -19,8 +20,6 @@ const InfinityList = (props) => {
     setData(props.data.slice(0, perLoad))
     setIndex(1)
   }, [props.data])
-
-  console.log(data)
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
