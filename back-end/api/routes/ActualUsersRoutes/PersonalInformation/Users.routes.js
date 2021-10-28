@@ -2,13 +2,20 @@ const express = require('express');
 const router = express.Router()
 const Controller = require('../../../controller').ActualUserControl;
 const UsersControl = Controller.UsersController;
-const auth = require('../../../controller/ActualUser/auth')
+const auth = require('../../../controller/ActualUser/auth');
+const userAvatarUpload = require('../../../middleWares/imageHandler/userImg')
 
 
 /*------------------------------------------------------GET------------------------------------------------------------*/
 // http://localhost:5000/user
 // this api to get all user, used by admin
-router.get('/', auth.AuthenticateAdminToken, UsersControl.showAllUsers)
+// router.get('/', auth.AuthenticateAdminToken, UsersControl.showAllUsers)
+// router.get('/',  UsersControl.showAllUsers)
+
+
+router.use('/avatar', express.static('./data/user_images'))
+
+
 
 // http://localhost:5000/user/profile
 // this apt for getting user's detail profile
@@ -60,7 +67,7 @@ router.put('/profile/update', auth.AuthenticateToken, UsersControl.updateInfo)
 
 // http://localhost:5000/user/profile/avatar
 // as the example above 
-router.put('/profile/avatar', auth.AuthenticateToken, UsersControl.updateAvatar)
+router.put('/profile/avatar', auth.AuthenticateToken, userAvatarUpload.single('avatar'), UsersControl.updateAvatar)
 
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
 

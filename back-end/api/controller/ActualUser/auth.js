@@ -148,6 +148,8 @@ auth.AuthenticateToken = async function(req, res, next) {
                 message: 'authentication failed, please try again!'
             })};
 
+            
+
             // put the user information to the request
             req.user = user;
             next()

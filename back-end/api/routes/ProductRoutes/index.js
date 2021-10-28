@@ -18,7 +18,7 @@ router.use('/colors', productColor)
 router.use('/sizes', Sizes)
 router.use('/categories', Categories)
 router.use('/images', productImage)
-router.use('/', warehouse)
+// router.use('/', warehouse)
 
 
 

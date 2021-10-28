@@ -7,6 +7,7 @@ const UserModel = db.Users
 const CartModel = db.Cart
 const image_converter = require('../../../utils/imageConverter')
 const fs = require('fs');
+const path = require('path')
 
 
 
@@ -90,8 +91,16 @@ module.exports = new class UsersQueries {
             }
                 
         );
-
         
+        let phone = null;
+        if (user.PhoneNumbers[0] !== (null || undefined)){
+            phone = user.PhoneNumbers[0].phoneNumbers 
+        }
+        let address = null;
+        if (user.Addresses[0] !== (null || undefined)){
+            address = user.Addresses[0]
+        }
+
         return {
             user_name: user.user_name,
             first_name: user.first_name,
@@ -101,8 +110,8 @@ module.exports = new class UsersQueries {
             dob: user.dob,
             gender: user.gender,
             avatar: user.avatar,
-            PhoneNumbers: user.PhoneNumbers[0].phoneNumbers || null,
-            Address: user.Addresses[0] || null,
+            PhoneNumbers: phone,
+            Address: address,
         };
     }
 
@@ -110,34 +119,16 @@ module.exports = new class UsersQueries {
 
     async getAllUserByAdmin(user_role){
 
-        if (user_role == 'admin'){
-            return await UserModel.findAll(
+        if (user_role === 'admin'){
+            let users =  await UserModel.findAll(
                 {
-                attributes : {exclude : ['user_id', 'password']}
-                ,
-                include : [
-                    {
-                        model: db.PhoneNumbers,
-                        attributes: ['phoneNumbers', 'default'],
-                        where : {
-                            default: true
-                        }
-                    },
-                    {
-                        model: db.Addresses,
-                        attributes: ['province', 'district', 'street', 'detail_address', 'default'],
-                        where : {
-                            default: true
-                        }
-                    }
-                ],
+                    attributes : ['user_id','user_name', 'first_name', 'last_name', 'email', 'level','gender']
+                    
             })
+            return users
         }
         else {
-            return {
-                success: false,
-                message: 'this is not a valid connection, must be user'
-            }
+            return null
         }
 
     };
@@ -153,7 +144,7 @@ module.exports = new class UsersQueries {
     /* -------------------------------------------UPDATE FUNCTIONS--------------------------------------------------*/
 
 
-    async UpdateInfo(fields,id) {
+    async UpdateInfo(fields, id) {
         console.log(fields)
         await UserModel.update(fields,
             {
@@ -177,33 +168,30 @@ module.exports = new class UsersQueries {
 
 
 
-    async updateAvatar(newAvatar, user_id){
+    async updateAvatar(newPath, user_id){
 
-        try {
 
-            //back up the old image path
-            var oldPath = await UserModel.findOne({
+        if(newPath !== (null || undefined)){
+            let oldPath = await UserModel.findOne({
                 attributes: ['avatar'],
-                where: [user_id]
+                where: {user_id}
             })
-            var updatePath = null
-            if(newAvatar !== (null || undefined || '')){
-                // write new img
-                updatePath = image_converter.writeImage(user_id, 'user', newAvatar)
-            }
-
-
-        }catch(err){
-            fs.unlinkSync(updatePath)
-            return { 
-                success: false,
-                message: err.message
-            }
+            
+            await this.UpdateInfo({avatar: newPath}, user_id)
+            .then(() => {
+                fs.unlinkSync(path.join(path.resolve(), 'data/user_images', oldPath.avatar))
+            })
+            .catch(async err => {
+                await this.UpdateInfo({avatar: oldPath.avatar}, user_id);
+                res.status(500).send({
+                    success : false,
+                    message : err.message
+                })
+            })
+   
         }
-        // update to db
-        await this.UpdateInfo({avatar: updatePath}, user_id)
-        // delete old img
-        fs.unlinkSync(oldPath)
+
+
 
     }
 

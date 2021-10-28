@@ -15,7 +15,7 @@ module.exports = new class UsersController {
     // get all user and send to admin
     async showAllUsers(req, res) {
     
-        await UsersQueries.getUsers()
+        await UsersQueries.getAllUserByAdmin('admin')
         .then((data) => {
             res.status(200).send({
                 success : true,
@@ -90,24 +90,34 @@ module.exports = new class UsersController {
 
 
     async updateAvatar(req, res){
+    
+        if (req.file !== undefined){
+
         
-        // update user avatar
-        await UsersQueries.updateAvatar(req.body.avatar, req.user.user_id)
-        .then((updatedAvatar) => {
-            res.status(200).send({
-                success: true,
-                data: updatedAvatar
+            await UsersQueries.updateAvatar(req.file.filename, req.user.user_id)
+            .then(()=>{
+                res.status(200).send({
+                    success: true,
+                    message: 'Avatar updated successfully'
+                })
             })
-        })
-        .catch(err => {
+            .catch(err=>{
+                res.status(200).send({
+                    success: true,
+                    message: 'Avatar updated successfully'
+                })
+            })
+        }else {
             res.status(500).send({
                 success: false,
-                message: err.message
+                message: 'no avatar found'
             })
-        })
+        }
 
         
     }
+
+    
 /*--------------------------------------------DELETE-------------------------------------------------*/ 
     async delete(req, res) {
 

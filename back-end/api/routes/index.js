@@ -5,7 +5,6 @@ const router = express.Router() ;
 const ActualUser = require('./ActualUsersRoutes')
 const ProductRoutes = require('./ProductRoutes')
 const Controller = require('../controller')
-const ProductController = require('../controller')
 
 
 

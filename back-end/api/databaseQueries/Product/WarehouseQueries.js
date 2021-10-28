@@ -117,16 +117,31 @@ module.exports = new class WarehouseQueries {
     async getAll (){
         let product =  await WarehouseModel.findAll({
             attributes : ['product_line_id', 'color_id'],
-            group : ['product_line_id', 'color_id']
+            include : [
+                {
+                    model: db.ProductLines,
+                    attributes : ['name', 'price']
+                },
+                {
+                    model: db.ProductColors,
+                    attributes : ['color_name'],
+                }
+            ],
+            group : ['product_line_id', 'color_id'],
                
         })
 
+     
+        
+
         const products = []
         for (let item of product) {
-            // console.log(item.color_id)
             let info = {}
             info.product_line_id = item.product_line_id;
             info.color_id = item.color_id;
+            info.name = item.ProductLine.name
+            info.price = item.ProductLine.price
+            info.color = item.ProductLine.color
             info.images = await ProductImagesQueries.getLimit(item.color_id)
             products.push(info)
         }

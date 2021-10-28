@@ -7,10 +7,10 @@ const ActivityLogs = require('./PersonalInformation/ActivityLogs.routes');
 const Auth = require('../../controller/ActualUser/auth')
 
 
-router.use('/', UsersRoutes);
 router.use('/phone', PhoneRoutes);
 router.use('/address', AddressRoutes);
 router.use('/logs', ActivityLogs);
+router.use('/', UsersRoutes);
 
 module.exports = router;
 
