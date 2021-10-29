@@ -9,7 +9,8 @@ module.exports = new class ProductLineController {
 
 
     async refresh (req, res){
-        await ProductLinesQueries.refreshTables()
+        await ProductLineModel.drop()
+        await ProductLineModel.sync()
         .then(() => {
             res.status(200).send({
                 success: true,
@@ -32,14 +33,14 @@ module.exports = new class ProductLineController {
         try {
 
             await ProductLineValidation.validate(req.body);
-            await ProductLinesQueries.create(
-                req.body.category_id, 
-                req.body.name, 
-                req.body.material, 
-                req.body.information, 
-                req.body.price, 
-
-            )
+            await ProductLineModel.create({
+                category_id: req.body.category_id, 
+                name: req.body.name,
+                material: req.body.material, 
+                information: req.body.information, 
+                rate: 0,
+                price: req.body.price
+            })
             .then(()=> {
                 res.status(201).send({
                     success : true,
@@ -63,7 +64,13 @@ module.exports = new class ProductLineController {
 /*--------------------------------------------GET----------------------------------------------------*/ 
 
     async get(req,res){
-        await ProductLinesQueries.getDetail(req.params.product_line_id)
+        
+        await ProductLineModel.findOne({
+            
+            where : {
+                product_line_id: req.params.product_line_id
+            }, 
+        })
         .then((product_line) => {
             if (product_line !== (null || undefined)){
                 res.status(200).send({
@@ -72,7 +79,7 @@ module.exports = new class ProductLineController {
                 })
             }else {
                 res.status(404).send({
-                    ok: false,
+                    success : false,
                     message : 'product line not found'
                 })
             }
@@ -80,7 +87,7 @@ module.exports = new class ProductLineController {
         })
         .catch(err => {
             res.status(500).send({
-                ok: false,
+                success : false,
                 message : err.message
             })
         })
@@ -88,7 +95,8 @@ module.exports = new class ProductLineController {
     
     
     async getAll(req, res){
-        await ProductLinesQueries.getAll()
+
+        await ProductLineModel.findAll({attributes: ['product_line_id', 'name'],})
         .then((product_lines) =>{
             if (product_lines.length > 0) {
                 res.status(200).send({
@@ -117,7 +125,12 @@ module.exports = new class ProductLineController {
     async update(req, res) {
         
         // update information
-        await ProductLinesQueries.update(req.body, req.params.product_line_id)
+        await ProductLineModel.update (
+            req.body,
+            {
+                where: {product_line_id : req.params.product_line_id}
+            }
+        )
         .then(async () => {
             res.status(200).send({
                 success : true,
@@ -141,7 +154,8 @@ module.exports = new class ProductLineController {
 /*--------------------------------------------DELETE-------------------------------------------------*/     
     
     async delete(req, res) {
-        await ProductLinesQueries.delete(req.params.product_line_id)
+        
+        await ProductLineModel.destroy({where: {product_line_id: req.params.product_line_id}})
         .then (() => {
             res.status(200).send({
                 success : true,

@@ -1,5 +1,6 @@
 
-
+const db = require('../../../models')();
+const CartModel = db.Cart;
 
 
 

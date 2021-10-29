@@ -1,5 +1,8 @@
-const ActualUsersQueries = require('../../../databaseQueries').ActualUsersQueries
-const ActivityLogsQueries = ActualUsersQueries.ActivityLogsQueries
+'use strict';
+
+const db = require('../../../models')();
+const ActivityLogModel = db.ActivityLogs;
+
 
 
 
@@ -9,16 +12,35 @@ module.exports = new class ActivityLogs {
 
 
     async getLogs(req, res) {
-        await ActivityLogsQueries.getLogs(req.user.user_id)
+        
+        await ActivityLogModel.findAll(
+            {
+                where: {user_id: req.user.user_id},
+                order: [["date_time", "DESC"]],
+                attributes: {
+                    exclude : ['user_id', 'id'],
+            }
+            }
+        )
         .then ((Logs)=>{
-            res.send(Logs)
+            res.send({
+                success : true,
+                data : Logs
+            })
         })
-        .catch (err => res.send(err.message))
+        .catch (err => res.send({
+            success: false,
+            message: err.message,
+        }))
     }
 
 
     async deleteLog(req, res) {
-        await ActivityLogsQueries.deleteLog(req.user.user_id, req.params.log_id)
+
+        
+        await ActivityLogModel.destroy({
+            where : {user_id : req.user.user_id, id : req.params.log_id}
+        })
         .then(()=>{
             res.status(200).send({
                 success: true,

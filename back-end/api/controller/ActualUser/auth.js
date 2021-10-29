@@ -1,15 +1,14 @@
 'use strict';
 
 
-const UsersQueries = require('../../databaseQueries').ActualUsersQueries.UsersQueries
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const {userValidation} = require('../../utils/schemaValidation')
+const db = require('../../../models')(); 
+const UserModel = db.Users
 
 
 const auth = {};
-
-
 
 
 
@@ -29,16 +28,19 @@ auth.registerUser = async (req, res) => {
         const salt =  await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-        // add user to db
-        await UsersQueries.createUser(
-            req.body.user_name, 
-            hashedPassword,
-            req.body.first_name,
-            req.body.last_name,
-            req.body.email,
-            req.body.dob,
-            req.body.gender
-        )
+        // add user to database
+        await UserModel.create({
+            user_name: req.body.user_name,
+            password: hashedPassword,
+            first_name: req.body.first_name, 
+            last_name: req.body.last_name,
+            email : req.body.email,
+            level: 0,
+            dob : req.body.dob,
+            gender: req.body.gender,
+            is_admin: false,
+        })
+
         .then(()=>{res.status(201).send({
             ok: true,
             message: 'successfully created users'
@@ -50,7 +52,7 @@ auth.registerUser = async (req, res) => {
 
     }catch(e){
         res.status(500).send({
-            ok: false,
+            success: false,
             message: e.message
         })
     }
@@ -66,7 +68,12 @@ auth.registerUser = async (req, res) => {
 auth.Login = async function(req, res, next) {
 
     // get user by the user_name 
-    const user = await UsersQueries.getUsersByUserName( req.body.user_name);
+    const user = await UserModel.findOne({
+        where: {user_name: req.body.user_name},
+        attributes: ['user_id', 'user_name', 'password', 'isAdmin'],
+        required: true,
+        plain : true
+    });
 
     
     if (user === null) { // send error if user is not a valid/ exists

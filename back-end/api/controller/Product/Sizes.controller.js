@@ -1,9 +1,8 @@
 'use strict';
 
 
-
-const ProductQueries = require('../../databaseQueries').ProductQueries;
-const Sizes = ProductQueries.SizesQueries
+const db = require('../../models')();
+const SizeModel = db.Sizes
 
 
 
@@ -16,7 +15,13 @@ module.exports = new class SizeController {
     async add (req, res){
 
         let inputSize = req.body;
-        await Sizes.add(inputSize.size_name, inputSize.size_info, inputSize.category_id)
+
+        // add to database
+        await SizeModel.create ({
+            category_id: inputSize.category_id,
+            size_name : inputSize.size_name,
+            size_info : inputSize.size_info
+        })
         .then(() => res.status(200).send({
                 success: true,
                 message: 'Size added successfully'
@@ -33,7 +38,7 @@ module.exports = new class SizeController {
 /*--------------------------------------------GET----------------------------------------------------*/ 
 
     async getAll(req, res){
-        await Sizes.getAll()
+        await SizeModel.findAll ()
         .then((Sizes)=>{
             res.status(200).send({
                 success: true,
@@ -51,7 +56,10 @@ module.exports = new class SizeController {
 
 
     async get(req, res){
-        await Sizes.getDetail(req.params.size_id)
+        
+        await SizeModel.findOne ({ 
+            where : {size_id : req.params.size_id}
+        })
         .then((data)=>{
             res.status(200).send({
                 success: true,
@@ -71,7 +79,8 @@ module.exports = new class SizeController {
 
 /*--------------------------------------------UPDATE-------------------------------------------------*/ 
     async update(req, res){
-        await Sizes.updateInfo(req.params.size_id, req.body)
+
+        await SizeModel.update (req.body, {where : {size_id : req.params.size_id}})
         .then(()=> {res.status(200).send({
             success: true,
             message: 'Updated size successfully'
@@ -90,7 +99,8 @@ module.exports = new class SizeController {
 
 /*--------------------------------------------DELETE-------------------------------------------------*/ 
     async delete(req, res){
-        await Sizes.delete(req.params.size_id)
+
+        await SizeModel.destroy({where: {size_id: req.params.size_id}})
         .then(()=> {res.status(200).send({
             success: true, 
             message: 'Deleted successfully'

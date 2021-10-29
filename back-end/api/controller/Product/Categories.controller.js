@@ -1,9 +1,9 @@
 'use strict';
 
 
-const ProductQueries = require('../../databaseQueries').ProductQueries;
-const CategoryQueries = ProductQueries.CategoryQueries 
 const {CategoryValidation} = require('../../utils/schemaValidation')
+const db = require('../../models')();
+const CategoriesModel = db.Categories;
 
 
 module.exports = new class CategoryController {
@@ -11,8 +11,8 @@ module.exports = new class CategoryController {
     async  addNewCategory(req, res, next) {
 
         try {
-            await CategoryValidation.validate(req.body);
-            await CategoryQueries.add(req.body.category_name)
+            // await CategoryValidation.validate(req.body);
+            await CategoriesModel.create({name: req.body.category_name})
             .then(()=>{
                 res.status(201).send({
                     success : true,
@@ -33,7 +33,8 @@ module.exports = new class CategoryController {
     
     
     async getAll(req, res, next) {
-        await CategoryQueries.getAll()
+
+        await CategoriesModel.findAll()
         .then(category => {
             res.status(200).send({
                 success : true,
@@ -51,7 +52,7 @@ module.exports = new class CategoryController {
     
     async  delete(req, res, next) {
     
-        await CategoryQueries.delete (req.body.category_name)
+        await CategoriesModel.destroy({where: {category_id: req.body.category_id}})
         .then(()=>{
             res.status(200).send({
                 status : true,

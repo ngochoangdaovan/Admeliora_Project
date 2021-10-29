@@ -1,13 +1,15 @@
 'use strict';
 
-const {ImagesQueries} = require('../../databaseQueries').ProductQueries
-const ImageConvert = require('../../utils/imageConverter');
+const db = require('../../models')();
+const ProductImagesModel = db.ProductImages
+const fs = require('fs');
 
 
 module.exports = new class ImageController {
 
 
 
+/* ----------------------------------------------CREATE---------------------------------------*/
 
     async add (req, res) {
         try {
@@ -19,10 +21,10 @@ module.exports = new class ImageController {
                     im_paths.push(img.filename);
                 };
 
-                await ImagesQueries.add(im_paths)
+                await ProductImagesModel.bulkCreate(im_paths)
                 .then(()=>{
                     res.status(201).send({
-                        ok : true,
+                        success : true,
                         message : 'Image successfully added'
                     })
                 })
@@ -32,8 +34,8 @@ module.exports = new class ImageController {
             }
             
         }catch (err) {
-            res.status(500).send({
-                ok : false,
+            res.status(400).send({
+                success : false,
                 message : err.message
             })
         }
@@ -42,28 +44,33 @@ module.exports = new class ImageController {
     
     
     
-    
+/* ----------------------------------------------GET------------------------------------------*/
+  
     async getAll (req, res){
     
         try {
-            const images = await ImagesQueries.getAll(req.params.color_id);
+            const images = await ProductImagesModel.findAll({
+                where: {
+                    color_id : req.params.color_id
+                }, 
+                attributes: ['id','image_path']})
             if (images.length > 0){
 
                 res.status(200).send({
-                    ok : true,
+                    success : true,
                     data : images
                 })
     
             }else {
                 res.status(404).send ({
-                    ok: false,
+                    success: false,
                     message: 'Image not found'
                 })
             }
     
         }catch (err) {
-            res.status(500).send({
-                ok : false,
+            res.status(400).send({
+                success : false,
                 message : err.message
             })
         }
@@ -72,9 +79,23 @@ module.exports = new class ImageController {
     
 
     
+/* ----------------------------------------------DELETE---------------------------------------*/
     
     async delete (req, res){
-        await ImagesQueries.delete(req.params.image_id)
+        await ProductImagesModel.destroy({where: {color_id: req.params.image_id}})
+        .then(() => {
+            res.status(200).send({
+                success: true,
+                message: 'image deleted successfully'
+            })
+
+        })
+        .catch(err => {
+            res.status(400).send({
+                success: false,
+                message: err.message
+            })
+        })
     }
     
     

@@ -2,25 +2,28 @@
 
 
 
-const ProductQueries = require('../../databaseQueries').ProductQueries;
-const ColorQueries = ProductQueries.ColorQueries
+const db = require('../../models')();
+const ColorModel = db.ProductColors;
 const {ColorValidation} = require('../../utils/schemaValidation');
 
 
 module.exports = new class ColorController {
 
 
+/* ----------------------------------------------CREATE---------------------------------------*/
+    
 
-    // add color 
     async add(req, res) {
         try {
             
             // validate the input 
             await ColorValidation.validate(req.body)
-            await ColorQueries.add(req.body.product_line_id, req.body.color_name)
+            await ColorModel.create({
+                product_line_id: req.body.product_line_id, 
+                color_name: req.body.color_name})
             .then(()=>{
                 res.status(201).send({
-                    ok: true,
+                    success: true,
                     message: 'color added successfully'
                 })
             })
@@ -28,26 +31,29 @@ module.exports = new class ColorController {
         
         catch(err) {
             res.status(500).send({
-                ok: false,
+                success: false,
                 message: err.message
             })
         }
     };
     
     
+
+/* ----------------------------------------------GET------------------------------------------*/
+
     async getAll(req, res){
 
         // get all color
-        await ColorQueries.getAll(req.params.product_line_id)
+        await ColorModel.findAll({where: {product_line_id:req.params.product_line_id}})
         .then((data) => {
             if (data.length > 0){
                 res.status(200).send({
-                    ok: true,
+                    success: true,
                     data: data
                 })
             }else{
                 res.status(404).send({
-                    ok: false,
+                    success: false,
                     message: 'no Color is found'
                 })
             }
@@ -55,7 +61,7 @@ module.exports = new class ColorController {
         })
         .catch((err) => {
             res.status(500).send({
-                ok : false,
+                success : false,
                 message: err.message
             })
         })
@@ -66,41 +72,44 @@ module.exports = new class ColorController {
     async get(req, res){
         
         // get detail color
-        await ColorQueries.get(req.params.product_line_id, req.params.color_id)
+        await ColorModel.findOne({
+            where: {
+                product_line_id: req.params.product_line_id, 
+                color_id: req.params.color_id
+            }})
+
         .then((data) =>{
             if (data !== (null || undefined)){
                 res.status(200).send({
-                    ok: true,
+                    success: true,
                     data: data
                 })
             }else{
-                res.status(404).send({
-                    ok: false,
-                    message: 'no Color is found'
-                })
+                throw new Error('no product found')
             }
         })
         .catch((err) => {
-            res.status(500).send({
-                ok : false,
+            res.status(400).send({
+                success : false,
                 message: err.message
             })
         })
         
     }
     
-    
+
+/* ----------------------------------------------DELETE---------------------------------------*/
     
     async delete(req, res) {
-        console.log(req.params.color_id)
-        await ColorQueries.delete(req.params.color_id)
+
+        await ColorModel.destroy({where: {color_id : req.params.color_id}})
         .then(() => res.status(200).send({
-            ok : true,
+            success : true,
             message : 'color successfully deleted'
         }))
         .catch((err) => {
-            res.status(500).send({
-                ok : false,
+            res.status(400).send({
+                success : false,
                 message : err.message
             })
         })
