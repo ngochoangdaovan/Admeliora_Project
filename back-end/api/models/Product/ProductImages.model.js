@@ -37,6 +37,9 @@ module.exports = (sequelize, DataTypes) => {
       image_path: {
         type: DataTypes.STRING(350),
         allowNull : false
+      },
+      default : {
+        type: DataTypes.BOOLEAN
       }
     },
 

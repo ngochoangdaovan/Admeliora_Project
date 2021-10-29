@@ -16,10 +16,19 @@ module.exports = new class ImageController {
             
             let files = req.files;
             let im_paths = []
+
+            // get the array of file object from request
             if (files.length > 0){
-                for (let img of files){
-                    im_paths.push(img.filename);
+                for (let img of files){ // get only the filename from the file object
+                    const object = {
+                        file_path : img.filename,
+                        default : false,
+                    }
+                    im_paths.push(object);
                 };
+
+                // set the first image to be default image 
+                im_paths[0].default = true;
 
                 await ProductImagesModel.bulkCreate(im_paths)
                 .then(()=>{

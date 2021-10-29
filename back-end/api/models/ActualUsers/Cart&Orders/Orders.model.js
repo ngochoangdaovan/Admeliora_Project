@@ -48,7 +48,6 @@ module.exports = (sequelize, DataTypes) => {
       order_id : {
         type        : DataTypes.UUID,
         allowNull : false,
-        defaultValue : DataTypes.UUIDV4,
         primaryKey : true
       },
 

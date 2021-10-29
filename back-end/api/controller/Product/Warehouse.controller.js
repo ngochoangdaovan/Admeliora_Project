@@ -185,6 +185,12 @@ module.exports = new class WarehouseController {
             info.rate = product_info[0].rate;
             info.Sizes = Sizes;
             info.images = images;
+            info.defaultImage = await ProductImagesModel.findOne({
+                where: {
+                    color_id : req.params.color_id,
+                    default : true
+                }
+            })
 
 
             // because a product line with a specific color has different sizes, then we put it to an array 

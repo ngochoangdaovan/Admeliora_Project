@@ -36,7 +36,12 @@ module.exports = (sequelize, DataTypes) => {
   
   Cart.init(
     // tables attributes
-      {
+
+      { 
+        name : {
+            type : DataTypes.STRING,
+            allowNull   : false,
+        },
         quantity : {
             type : DataTypes.INTEGER,
             allowNull   : false,
@@ -48,6 +53,10 @@ module.exports = (sequelize, DataTypes) => {
         price : {
             type : DataTypes.FLOAT,
             allowNull : false,
+        },
+        image : {
+            type : DataTypes.STRING(500),
+            allowNull : false
         }
     },
     
