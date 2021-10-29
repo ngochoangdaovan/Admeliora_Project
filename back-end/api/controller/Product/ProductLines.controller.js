@@ -1,9 +1,9 @@
 'use strict';
 
 
-const ProductQueries = require('../../databaseQueries').ProductQueries;
-const ProductLinesQueries = ProductQueries.ProductLinesQueries
 const {ProductLineValidation} = require('../../utils/schemaValidation')
+const db = require('../../models')();
+const ProductLineModel = db.ProductLines
 
 module.exports = new class ProductLineController {
 
@@ -154,7 +154,7 @@ module.exports = new class ProductLineController {
 /*--------------------------------------------DELETE-------------------------------------------------*/     
     
     async delete(req, res) {
-        
+
         await ProductLineModel.destroy({where: {product_line_id: req.params.product_line_id}})
         .then (() => {
             res.status(200).send({

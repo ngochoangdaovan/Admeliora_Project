@@ -4,7 +4,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const {userValidation} = require('../../utils/schemaValidation')
-const db = require('../../../models')(); 
+const db = require('../../models')(); 
 const UserModel = db.Users
 
 
