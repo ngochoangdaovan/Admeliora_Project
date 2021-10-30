@@ -4,9 +4,9 @@ const products = [
 
     price: '189000',
 
-    image01: 'images/products/product-01 (1).jpg',
+    image01: 'images/products/product-01a.jpg',
 
-    image02: 'images/products/product-01 (2).jpg',
+    image02: 'images/products/product-01b.jpg',
 
     categorySlug: 'ao-thun',
 
@@ -22,9 +22,9 @@ const products = [
 
     price: '159000',
 
-    image01: 'images/products/product-02 (1).jpg',
+    image01: 'images/products/product-02a.jpg',
 
-    image02: 'images/products/product-02 (2).jpg',
+    image02: 'images/products/product-02b.jpg',
 
     categorySlug: 'ao-thun',
 
@@ -40,9 +40,9 @@ const products = [
 
     price: '190000',
 
-    image01: 'images/products/product-03 (1).jpg',
+    image01: 'images/products/product-03a.jpg',
 
-    image02: 'images/products/product-03 (2).jpg',
+    image02: 'images/products/product-03b.jpg',
 
     categorySlug: 'ao-thun',
 
@@ -58,9 +58,9 @@ const products = [
 
     price: '194000',
 
-    image01: 'images/products/product-04 (1).jpg',
+    image01: 'images/products/product-04a.jpg',
 
-    image02: 'images/products/product-04 (2).jpg',
+    image02: 'images/products/product-04b.jpg',
 
     categorySlug: 'ao-thun',
 
@@ -76,9 +76,9 @@ const products = [
 
     price: '194000',
 
-    image01: 'images/products/product-05 (1).jpg',
+    image01: 'images/products/product-05a.jpg',
 
-    image02: 'images/products/product-05 (2).jpg',
+    image02: 'images/products/product-05b.jpg',
 
     categorySlug: 'ao-thun',
 
@@ -94,9 +94,9 @@ const products = [
 
     price: '194000',
 
-    image01: 'images/products/product-06 (1).jpg',
+    image01: 'images/products/product-06a.jpg',
 
-    image02: 'images/products/product-06 (2).jpg',
+    image02: 'images/products/product-06b.jpg',
 
     categorySlug: 'ao-thun',
 
@@ -112,9 +112,9 @@ const products = [
 
     price: '194000',
 
-    image01: 'images/products/product-07 (1).jpg',
+    image01: 'images/products/product-07a.jpg',
 
-    image02: 'images/products/product-07 (2).jpg',
+    image02: 'images/products/product-07b.jpg',
 
     categorySlug: 'ao-somi',
 
@@ -130,9 +130,9 @@ const products = [
 
     price: '194000',
 
-    image01: 'images/products/product-08 (1).jpg',
+    image01: 'images/products/product-08a.jpg',
 
-    image02: 'images/products/product-08 (2).jpg',
+    image02: 'images/products/product-08b.jpg',
 
     categorySlug: 'ao-somi',
 
@@ -148,9 +148,9 @@ const products = [
 
     price: '194000',
 
-    image01: 'images/products/product-09 (1).jpg',
+    image01: 'images/products/product-09a.jpg',
 
-    image02: 'images/products/product-09 (2).jpg',
+    image02: 'images/products/product-09b.jpg',
 
     categorySlug: 'ao-somi',
 
@@ -166,9 +166,9 @@ const products = [
 
     price: '194000',
 
-    image01: 'images/products/product-10 (1).jpg',
+    image01: 'images/products/product-10a.jpg',
 
-    image02: 'images/products/product-10 (2).jpg',
+    image02: 'images/products/product-10b.jpg',
 
     categorySlug: 'quan-jean',
 
@@ -184,9 +184,9 @@ const products = [
 
     price: '194000',
 
-    image01: 'images/products/product-11 (1).jpg',
+    image01: 'images/products/product-11a.jpg',
 
-    image02: 'images/products/product-11 (2).jpg',
+    image02: 'images/products/product-11b.jpg',
 
     categorySlug: 'quan-jean',
 
@@ -202,9 +202,9 @@ const products = [
 
     price: '194000',
 
-    image01: 'images/products/product-12 (1).jpg',
+    image01: 'images/products/product-12a.jpg',
 
-    image02: 'images/products/product-12 (2).jpg',
+    image02: 'images/products/product-12b.jpg',
 
     categorySlug: 'quan-jean',
 
@@ -214,133 +214,23 @@ const products = [
 
     size: ['s', 'm', 'xl'],
   },
-
-  {
-    title: 'Áo thun Dinosaur 13',
-
-    price: '189000',
-
-    image01: 'images/products/product-13 (1).jpg',
-
-    image02: 'images/products/product-13 (2).jpg',
-
-    categorySlug: 'ao-thun',
-
-    colors: ['white', 'red'],
-
-    slug: 'ao-thun-dinosaur-13',
-
-    size: ['s', 'm', 'xl'],
-  },
-
-  {
-    title: 'Áo thun Dinosaur 14',
-
-    price: '159000',
-
-    image01: 'images/products/product-14 (1).jpg',
-
-    image02: 'images/products/product-14 (2).jpg',
-
-    categorySlug: 'ao-thun',
-
-    colors: ['white', 'blue'],
-
-    slug: 'ao-thun-dinosaur-14',
-
-    size: ['s', 'm'],
-  },
-
-  {
-    title: 'Áo thun Dinosaur 15',
-
-    price: '190000',
-
-    image01: 'images/products/product-15 (1).jpg',
-
-    image02: 'images/products/product-15 (2).jpg',
-
-    categorySlug: 'ao-thun',
-
-    colors: ['red', 'blue'],
-
-    slug: 'ao-thun-dinosaur-15',
-
-    size: ['xl'],
-  },
-
-  {
-    title: 'Áo somi dài tay 16',
-
-    price: '194000',
-
-    image01: 'images/products/product-16 (1).jpg',
-
-    image02: 'images/products/product-16 (2).jpg',
-
-    categorySlug: 'ao-somi',
-
-    colors: ['blue', 'black'],
-
-    slug: 'ao-somi-dai-tay-16',
-
-    size: ['m', 'xl'],
-  },
-
-  {
-    title: 'Áo somi tay dài 17',
-
-    price: '194000',
-
-    image01: 'images/products/product-17 (1).jpg',
-
-    image02: 'images/products/product-17 (2).jpg',
-
-    categorySlug: 'ao-somi',
-
-    colors: ['white', 'blue'],
-
-    slug: 'ao-somi-tay-dai-17',
-
-    size: ['s', 'l', 'xl'],
-  },
-
-  {
-    title: 'Quần jean phong cách 18',
-
-    price: '194000',
-
-    image01: 'images/products/product-18 (1).jpg',
-
-    image02: 'images/products/product-18 (2).jpg',
-
-    categorySlug: 'quan-jean',
-
-    colors: ['blue', 'black'],
-
-    slug: 'quan-jean-phong-cach-18',
-
-    size: ['s', 'm', 'l', 'xl'],
-  },
-
-  // 18 products
 ]
 
-const getAllProducts = () => products
+// const getAllProducts = () => products
 
-const getProducts = (count) => {
-  const max = products.length - count
+// const getProducts = (count) => {
+//   const max = products.length - count
 
-  const min = 0
+//   const min = 0
 
-  const start = Math.floor(Math.random() * (max - min) + min)
+//   const start = Math.floor(Math.random() * (max - min) + min)
 
-  return products.slice(start, start + count)
-}
+//   return products.slice(start, start + count)
+// }
 
-const productData = {
-  getAllProducts,
-  getProducts,
-}
+// const productData = {
+//   getAllProducts,
+//   getProducts,
+// }
 
 module.exports = products

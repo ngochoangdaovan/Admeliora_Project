@@ -1,59 +1,60 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react'
-import axios from 'axios'
 
 import Helmet from '../components/Helmet'
 import CheckBox from '../components/CheckBox'
 
-import productData from '../assets/fake-data/products'
 import category from '../assets/fake-data/category'
 import colors from '../assets/fake-data/product-color'
 import size from '../assets/fake-data/product-size'
 import Button from '../components/Button'
 import InfinityList from '../components/InfinityList'
+import axios from 'axios'
 
 const Catalog = () => {
-  const [product, setProduct] = useState([])
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get('/api/products')
-
-      setProduct(data.product)
-    }
-    fetchProducts()
-  }, [])
-
   const initFilter = {
     category: [],
     color: [],
     size: [],
   }
 
-  //   ====================================================
+  const [product, setProduct] = useState([])
 
-  //   const getAllProducts = () => product
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get('/api/products')
+      console.log('data', data)
+      setProduct(data)
+    }
+    fetchProducts()
+  }, [])
 
-  //   const getProducts = (count) => {
-  //     const max = products.length - count
+  useEffect(() => {
+    console.log(product)
+  }, [product])
 
-  //     const min = 0
+  //   =============================================
+  const getAllProducts = () => product
 
-  //     const start = Math.floor(Math.random() * (max - min) + min)
+  const getProducts = (count) => {
+    const max = products.length - count
 
-  //     return products.slice(start, start + count)
-  //   }
+    const min = 0
 
-  //   const listProduct = {
-  //     getAllProducts,
-  //     getProducts,
-  //   }
+    const start = Math.floor(Math.random() * (max - min) + min)
 
-  //   ====================================================
+    return products.slice(start, start + count)
+  }
+
+  const productData = {
+    getAllProducts,
+    getProducts,
+  }
+
+  //   =============================================
 
   const productList = productData.getAllProducts()
 
-  const [products, setProducts] = useState(product)
-  console.log(products)
+  const [products, setProducts] = useState(productList)
 
   const [filter, setFilter] = useState(initFilter)
 
@@ -130,7 +131,7 @@ const Catalog = () => {
   const showHideFilter = () => filterRef.current.classList.toggle('active')
 
   return (
-    <Helmet title="Product">
+    <Helmet title="Sản phẩm">
       <div className="catalog">
         <div className="catalog__filter" ref={filterRef}>
           <div
