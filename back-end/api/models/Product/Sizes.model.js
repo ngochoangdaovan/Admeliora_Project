@@ -34,10 +34,10 @@ module.exports = (sequelize, DataTypes) => {
   Sizes.init(
     {
       size_id : {
-        type        : DataTypes.UUID,
+        type        : DataTypes.INTEGER,
         allowNull   : false,
         primaryKey  : true,
-        defaultValue : DataTypes.UUIDV4
+        autoIncrement : true
       },
 
       size_name : {

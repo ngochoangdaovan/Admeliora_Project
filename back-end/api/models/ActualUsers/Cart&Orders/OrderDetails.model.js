@@ -39,6 +39,17 @@ module.exports = (sequelize, DataTypes) => {
     
     // attributes
     {
+      id : { 
+          type : DataTypes.INTEGER,
+          allowNull : false,
+          primaryKey : true,
+          autoIncrement: true
+      },
+
+      name : { 
+          type : DataTypes.STRING, 
+          allowNull : false 
+      },
 
       quantity : {
           type : DataTypes.INTEGER,
@@ -48,6 +59,15 @@ module.exports = (sequelize, DataTypes) => {
       price : {
           type : DataTypes.FLOAT,
           allowNull : false
+      }, 
+
+      discount : {
+          type : DataTypes.FLOAT,
+          allowNull : false
+      },
+
+      image : {
+          type : DataTypes.STRING(500),
       }
     },
     

@@ -62,10 +62,10 @@ module.exports = (sequelize, DataTypes) => {
   Users.init(
     {   
       user_id : {
-          type : DataTypes.UUID,
+          type: DataTypes.INTEGER,
           allowNull : false,
-          primaryKey : true,
-          defaultValue: Sequelize.UUIDV4, 
+          primaryKey: true, 
+          autoIncrement: true
         
       },
       user_name : {
@@ -122,6 +122,7 @@ module.exports = (sequelize, DataTypes) => {
       is_admin : DataTypes.BOOLEAN,
 
       avatar : DataTypes.STRING(500)
+
   }, 
   
   // options and constraints

@@ -3,6 +3,7 @@
 
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const moment = require('moment');
 const {userValidation} = require('../../utils/schemaValidation')
 const db = require('../../models')(); 
 const UserModel = db.Users
@@ -41,20 +42,12 @@ auth.registerUser = async (req, res) => {
             is_admin: false,
         })
 
-        .then(()=>{res.status(201).send({
-            ok: true,
-            message: 'successfully created users'
-        });})
-        .catch(err => res.status(500).send({
-            ok: false,
-            message : err.message
-        }));
+        .then(() => responseHandler.sendSuccess(req, res, 201, 'successfully created user'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+
 
     }catch(e){
-        res.status(500).send({
-            success: false,
-            message: e.message
-        })
+        responseHandler.sendFailure(req, res, 500, e)
     }
 
 };
@@ -70,7 +63,7 @@ auth.Login = async function(req, res, next) {
     // get user by the user_name 
     const user = await UserModel.findOne({
         where: {user_name: req.body.user_name},
-        attributes: ['user_id', 'user_name', 'password', 'isAdmin'],
+        attributes: ['user_id', 'user_name', 'password', 'is_admin'],
         required: true,
         plain : true
     });
@@ -83,8 +76,11 @@ auth.Login = async function(req, res, next) {
         });
     }else {
 
+        const now = new Date().getTime()
+
+
         // get id and username to create tokens
-        const UserInfo = {user_id: user.user_id, isAdmin: user.is_admin}
+        const UserInfo = {user_id: user.user_id, is_admin: user.is_admin, last_time : now}
 
         // compare the authentication token
         const isAuth = await bcrypt.compare( req.body.password, user.password)
@@ -93,7 +89,8 @@ auth.Login = async function(req, res, next) {
         if (isAuth) {
 
             // combine user info in the token and send to user
-            const token = await jwt.sign(UserInfo, process.env.ACCESS_TOKEN_SECRET);
+            const token = jwt.sign(UserInfo, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30m'});
+
             res.json({
                 success: true,
                 accessToken : token
@@ -118,7 +115,12 @@ auth.Login = async function(req, res, next) {
 
 auth.AuthenticateAdminToken = async function(req, res, next){
 
-    
+    await auth.AuthenticateToken(req, res, next);
+
+    console.log(req.user)
+    if (!req.user.is_admin){
+        res.statusSend(403)
+    }
 
 
 }
@@ -147,18 +149,37 @@ auth.AuthenticateToken = async function(req, res, next) {
         }
 
         // verify token 
-        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, info) => {
 
             // if any thing wrong then raise error and asking for credentials again.
-            if (err) {return res.status(403).send({ 
-                status : false,
-                message: 'authentication failed, please try again!'
-            })};
+            if (err) {
+                return res.sendStatus(403)
+            };
 
-            
+            const last_time = info.last_time;
+            const now = new Date().getTime()   
+            const now_last_request = (now-last_time)/1000
+            info.last_time = now;
+
+            // if that user is using the token and that token will be expired then we refresh it for that use else
+            // if that user not use that token in 5 min  before it expired then it will not be refresh
+            if ((now_last_request < 300 && (info.exp * 1000 - now)/1000 < 300)){
+                
+                // get only the user info to create new token
+                const user = {
+                    user_id : info.user_id,
+                    is_admin : info.is_admin
+                };
+
+                // 
+                const newToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30m'});
+                req.newAuthorization = newToken;
+
+                info = jwt.verify(newToken, process.env.ACCESS_TOKEN_SECRET)
+            }
 
             // put the user information to the request
-            req.user = user;
+            req.user = info;
             next()
         })
     }else {

@@ -3,9 +3,7 @@
 
 const db = require('../../../models')(); 
 const UserModel = db.Users
-const CartModel = db.Cart
-const phoneModel = db.PhoneNumbers
-const AddressesModel = db.Addresses;
+const responseHandler = require('../../../utils/responseHandler')
 
 
 const fs = require('fs');
@@ -33,21 +31,10 @@ module.exports = new class UsersController {
                     
             })
        
-            .then((data) => {
-                res.status(200).send({
-                    success : true,
-                    data: data
-                });
-            })
-            .catch( err => res.status(500).send({
-                success: false,
-                message : err.message
-            }))
+            .then(data => responseHandler.sendSuccess(req, res, 200, data))
+            .catch( err => responseHandler.sendFailure(req, res, 400, err))
         }else{
-            res.status(400).send({
-                success: false, 
-                message : 'use dont have the authorization to do this!'
-            });
+            responseHandler.sendFailure(req, res, 403, 'use dont have the authorization to do this!')
         }
     
     };
@@ -64,11 +51,11 @@ module.exports = new class UsersController {
             const user = await UserModel.findOne(
                 {
                     where: {user_id : req.user.user_id},
-                    attributes : {exclude : ['user_id', 'password', 'isAdmin']},
+                    attributes : {exclude : ['user_id', 'password', 'isAdmin', 'refreshToken']},
                     include : [
                         {
                             model: db.PhoneNumbers,
-                            attributes: ['phoneNumbers'],
+                            attributes: ['phone_number'],
                             where : {
                                 default: true,
                             },
@@ -93,7 +80,7 @@ module.exports = new class UsersController {
 
                 // if PhoneNumbers and Address not null we assign it to the user info, else it will be null
                 if (user.PhoneNumbers[0] !== (null || undefined)){
-                    phone = user.PhoneNumbers[0].phoneNumbers 
+                    phone = user.PhoneNumbers[0].phone_number
                 }
                 if (user.Addresses[0] !== (null || undefined)){
                     address = user.Addresses[0]
@@ -113,23 +100,16 @@ module.exports = new class UsersController {
                     Address: address,
                 };
 
-                res.status(200).send({
-                    success: true,
-                    data: user_info
-                })
+                // send the result if success
+                responseHandler.sendSuccess(req, res, 200, user_info)
             }else{
                 // if user authentication failed then there is no information available
-                res.status(404).send ({
-                    success : false,
-                    message : 'authentication failed'
-                })
+                responseHandler.sendFailure(req, res, 404, 'authentication failed')
             }
         }
         catch(err){ 
-            res.send({
-                success: false,
-                message: err.message
-            });
+
+            responseHandler.sendFailure(req, res, 500, err)
         }
     
     }
@@ -156,16 +136,11 @@ module.exports = new class UsersController {
                     }
                 }
             );
-            res.status(200).send({
-                success: true,
-                message: 'successfully updated user', 
-            })          
+
+            responseHandler.sendSuccess(req, res, 200, 'successfully updated user')
 
         }catch(err){
-            res.status(500).send({
-                success: false,
-                message: err.message
-            })
+            responseHandler.sendFailure(req, res, 500, err)
         }
     }
 
@@ -174,36 +149,31 @@ module.exports = new class UsersController {
     
         if (req.file !== undefined){ // if file not null
 
+            let newToken = null;
+            if(req.newAuthorization !== (null || undefined || '')){
+                newToken = req.newAuthorization;
+            }
+
             let newPath = req.file.filename;
             let user_id = req.user.user_id;
-
-            let oldPath = await UserModel.findOne({
-                attributes: ['avatar'],
-                where: {user_id}
-            })
+            let oldPath = req.body.avatar_path;
+            console.log(user_id)
             
-            await UserModel.update({avatar: newPath}, user_id)
+            await UserModel.update({avatar: newPath}, {where : {user_id : user_id}})
             .then(() => {
-                fs.unlinkSync(path.join(path.resolve(), 'data/user_images', oldPath.avatar))
-            
-                    res.status(200).send({
-                        success: true,
-                        message: 'Avatar updated successfully'
-                    })
-                })
+                if(oldPath !== (null || undefined || '')){
+                    fs.unlinkSync(path.join(path.resolve(''), 'data/user_images', oldPath)
+                )}
+                
+                responseHandler.sendSuccess(req, res, 200, "avatar updated successfully")
+            })
             .catch(async err => {
-                await this.UpdateInfo({avatar: oldPath.avatar}, user_id);
-                res.status(500).send({
-                    success : false,
-                    message : err.message
-                })
+                await UserModel.update({avatar: oldPath}, {where: {user_id : user_id}});
+                responseHandler.sendFailure(req, res, 500, err)
             })
 
         }else {
-            res.status(500).send({
-                success: false,
-                message: 'no avatar found'
-            })
+            responseHandler.sendFailure(req, res, 404, 'no new avatar found')
         }
 
         
@@ -213,24 +183,23 @@ module.exports = new class UsersController {
 /*--------------------------------------------DELETE-------------------------------------------------*/ 
     async delete(req, res) {
 
-        // del user 
-        await UserModel.delete(
-            {
-                where: {user_id: req.user.user_id}
-            }
-        )
-        .then(()=>{
-            res.status(200).send({
-                success: true,
-                message: 'Deleted successfully'
+
+
+        try{
+            fs.unlinkSync(path.join(path.resolve(), 'data/user_images', req.body.avatar))
+
+            await UserModel.delete({where: {user_id: req.user.user_id}})
+            .then(()=>{
+                responseHandler.sendSuccess(req, res, 200, "Deleted successfully")
             })
-        })
-        .catch(err => {
-            res.status(500).send({
-                success: false,
-                message: err.message
-            })
-        })
+
+        }catch(err) {
+
+            await UserModel.create(user);
+            responseHandler.sendFailure(req, res, 400, err)
+
+        }
+        
     }
     
 

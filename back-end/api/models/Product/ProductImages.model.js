@@ -34,6 +34,12 @@ module.exports = (sequelize, DataTypes) => {
   //  define table columns
   ProductImages.init(
     {
+      id : {
+        type : DataTypes.INTEGER,
+        primaryKey : true,
+        autoIncrement : true
+      }
+      ,
       image_path: {
         type: DataTypes.STRING(350),
         allowNull : false

@@ -1,11 +1,11 @@
 
-
 'use strict';
 
 const express = require('express');
 const router = express.Router();
-const ProductControl = require('../../controller').ProductControl;
-const Warehouse = ProductControl.WarehouseController
+const Controller = require('../../controller');
+const Warehouse = Controller.ProductControl.WarehouseController
+const auth = Controller.ActualUserControl.Auth
 
 
 
@@ -17,15 +17,13 @@ router.get('/:product_line_id', Warehouse.get )
 router.get('/:product_line_id/:color_id', Warehouse.getByColorAndLine)
 
 /*------------------------------------------------------POST------------------------------------------------------------*/
-router.post('/add', Warehouse.add)
+router.post('/add', auth.AuthenticateAdminToken,Warehouse.add)
 
 /*------------------------------------------------------PUT------------------------------------------------------------*/
-router.put('/update/:product_line_id', Warehouse.update)
+router.put('/update/:product_line_id', auth.AuthenticateAdminToken, Warehouse.update)
 
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
-router.delete('/delete', Warehouse.delete)
-
-
+router.delete('/delete', auth.AuthenticateAdminToken, Warehouse.delete)
 
 
 

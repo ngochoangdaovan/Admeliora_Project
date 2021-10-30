@@ -41,10 +41,10 @@ module.exports = (sequelize, DataTypes) => {
     {
     
       product_line_id : {
-        type        : DataTypes.UUID,
+        type        : DataTypes.INTEGER,
         allowNull   : false,
         primaryKey  : true,
-        defaultValue : DataTypes.UUIDV4
+        autoIncrement : true
       },
 
       name : {

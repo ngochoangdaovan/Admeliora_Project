@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   class Cart extends Model {
 
 
-    toJSON(){return { ...this.get(), id: undefined }}
+    toJSON(){return { ...this.get(), user_id: undefined }}
 
     static associate({Users, Warehouse}) {
 
@@ -42,18 +42,22 @@ module.exports = (sequelize, DataTypes) => {
             type : DataTypes.STRING,
             allowNull   : false,
         },
+
         quantity : {
             type : DataTypes.INTEGER,
             allowNull   : false,
         },
+
         discount : {
             type : DataTypes.FLOAT,
             allowNull   : false,
         },
+
         price : {
             type : DataTypes.FLOAT,
             allowNull : false,
         },
+        
         image : {
             type : DataTypes.STRING(500),
             allowNull : false

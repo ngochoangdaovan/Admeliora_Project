@@ -5,6 +5,7 @@
 const db = require('../../models')();
 const ColorModel = db.ProductColors;
 const {ColorValidation} = require('../../utils/schemaValidation');
+const responseHandler = require('../../utils/responseHandler')
 
 
 module.exports = new class ColorController {
@@ -22,18 +23,12 @@ module.exports = new class ColorController {
                 product_line_id: req.body.product_line_id, 
                 color_name: req.body.color_name})
             .then(()=>{
-                res.status(201).send({
-                    success: true,
-                    message: 'color added successfully'
-                })
+                responseHandler.sendSuccess(req, res, 201, 'color added successfully')
             })
         }
         
         catch(err) {
-            res.status(500).send({
-                success: false,
-                message: err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
         }
     };
     
@@ -44,26 +39,19 @@ module.exports = new class ColorController {
     async getAll(req, res){
 
         // get all color
-        await ColorModel.findAll({where: {product_line_id:req.params.product_line_id}})
+        await ColorModel.findAll({where: {product_line_id:req.params.product_line_id}, 
+        attributes: ['color_id', 'color_name']})
         .then((data) => {
             if (data.length > 0){
-                res.status(200).send({
-                    success: true,
-                    data: data
-                })
+                responseHandler.sendSuccess(req, res, 200, data)
+                
             }else{
-                res.status(404).send({
-                    success: false,
-                    message: 'no Color is found'
-                })
+                responseHandler.sendFailure(req, res, 404, 'no Color is found')
             }
             
         })
         .catch((err) => {
-            res.status(500).send({
-                success : false,
-                message: err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
         })
     };
 
@@ -80,19 +68,14 @@ module.exports = new class ColorController {
 
         .then((data) =>{
             if (data !== (null || undefined)){
-                res.status(200).send({
-                    success: true,
-                    data: data
-                })
+                responseHandler.sendSuccess(req, res, 200, data)
+                
             }else{
                 throw new Error('no product found')
             }
         })
         .catch((err) => {
-            res.status(400).send({
-                success : false,
-                message: err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
         })
         
     }
@@ -103,16 +86,8 @@ module.exports = new class ColorController {
     async delete(req, res) {
 
         await ColorModel.destroy({where: {color_id : req.params.color_id}})
-        .then(() => res.status(200).send({
-            success : true,
-            message : 'color successfully deleted'
-        }))
-        .catch((err) => {
-            res.status(400).send({
-                success : false,
-                message : err.message
-            })
-        })
+        .then(() =>responseHandler.sendSuccess(req, res, 200, 'color successfully deleted'))
+        .catch((err) => {responseHandler.sendFailure(req, res, 400, err)})
     }
     
     

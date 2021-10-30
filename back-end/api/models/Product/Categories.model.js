@@ -32,10 +32,10 @@ module.exports = (sequelize, DataTypes) => {
     // attributes
     {
       category_id : {
-        type : DataTypes.UUID,
+        type : DataTypes.INTEGER,
         allowNull   : false,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4
+        autoIncrement : true
       },
       name : {
           type : DataTypes.STRING(100),

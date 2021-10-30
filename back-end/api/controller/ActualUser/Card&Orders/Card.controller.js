@@ -2,22 +2,17 @@
 const db = require('../../../models')();
 const CartModel = db.Cart;
 const ImageModel = db.ProductImages
+const responseHandler = require('../../../utils/responseHandler')
+
 
 
 
 module.exports = new class CartController{
 
 
-
-
-
 /* ----------------------------------------------CREATE---------------------------------------*/
     async addToCart (req, res) {
-        let image = await ImageModel.findOne({
-            where : {
 
-            }
-        })
         await CartModel.create({
             user_id : req.user.user_id,
             product_detail_id: req.body.product_detail_id,
@@ -26,20 +21,9 @@ module.exports = new class CartController{
             quantity: req.body.quantity,
             discount: req.body.discount,
             image: req.body.image          
-
         })
-        .then(() => {
-            res.status(200).send({
-                success: true,
-                message: 'product added to cart successfully'
-            })
-        })
-        .catch(err => {
-            res.status(400).send({
-                success: false,
-                message: err.message
-            })
-        })
+        .then(() => responseHandler.sendSuccess(req, res, 200, 'product added to cart successfully'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
 
 
     }
@@ -50,21 +34,10 @@ module.exports = new class CartController{
         await CartModel.findAll({
             where: {
                 user_id: req.user.user_id
-            },
-            attributes : ['product_detail_id', 'name', 'quantity', 'price', 'discount', 'image']
+            }
         })
-        .then((data) => {
-            res.status(200).send({
-                success: true,
-                data : data
-            })
-        })
-        .catch((error) => {
-            res.status(400).send({
-                success : false,
-                message : error.message
-            })
-        })
+        .then(data => responseHandler.sendSuccess(req, res, 200, data))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))       
 
     }
 
@@ -77,39 +50,19 @@ module.exports = new class CartController{
                 id : req.body.id
             }
         })
-        .then(() => {
-            res.status(200).send({
-                success : true,
-                message : 'Updated successfully'
-            })
-        })
-        .catch(err => {
-            res.status(400).send({
-                success : false,
-                message : err.message
-            })
-        })
+        .then(() => responseHandler.sendSuccess(req, res, 200, 'updated successfully'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 /* ----------------------------------------------DELETE---------------------------------------*/
     async delete (req, res) {
         await CartModel.destroy({
             where : {
-                id : req.body.id
+                id : req.params.id
             }
         })
-        .then(() => {
-            res.status(200).send({
-                success : true,
-                message : 'deleted successfully'
-            })
-        })
-        .catch(err => {
-            res.status(400).send({
-                success : false,
-                message : err.message
-            })
-        })
+        .then(() => responseHandler.sendSuccess(req, res, 200, "deleted successfully"))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 };

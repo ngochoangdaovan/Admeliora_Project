@@ -4,26 +4,10 @@
 const {ProductLineValidation} = require('../../utils/schemaValidation')
 const db = require('../../models')();
 const ProductLineModel = db.ProductLines
+const responseHandler = require('../../utils/responseHandler')
+
 
 module.exports = new class ProductLineController {
-
-
-    async refresh (req, res){
-        await ProductLineModel.drop()
-        await ProductLineModel.sync()
-        .then(() => {
-            res.status(200).send({
-                success: true,
-                message: 'refresh successfully'
-            })
-        })
-        .catch(err => {
-            res.status(500).send({
-                success: false,
-                message: err.message
-            })
-        })
-    }
 
 
 /*--------------------------------------------CREATE-------------------------------------------------*/ 
@@ -41,17 +25,9 @@ module.exports = new class ProductLineController {
                 rate: 0,
                 price: req.body.price
             })
-            .then(()=> {
-                res.status(201).send({
-                    success : true,
-                    message : 'product line successfully created'
-                })
-            })
+            .then(() => responseHandler.sendSuccess(req, res, 201, 'product line successfully created'))
         }catch(err){
-            res.status(500).send({
-                success : false,
-                message : err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
         }
     
     }
@@ -73,48 +49,38 @@ module.exports = new class ProductLineController {
         })
         .then((product_line) => {
             if (product_line !== (null || undefined)){
-                res.status(200).send({
-                    success : true,
-                    data : product_line
-                })
+                
+                responseHandler.sendSuccess(req, res, 200, product_line)
+
             }else {
-                res.status(404).send({
-                    success : false,
-                    message : 'product line not found'
-                })
+                responseHandler.sendFailure(req, res, 404, "product line not found")
             }
     
         })
-        .catch(err => {
-            res.status(500).send({
-                success : false,
-                message : err.message
-            })
-        })
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+
     }
     
+
+
     
     async getAll(req, res){
 
-        await ProductLineModel.findAll({attributes: ['product_line_id', 'name'],})
+        await ProductLineModel.findAll({
+            attributes: ['product_line_id', 'name', 'price', 'information', 'material'],
+            include :{model: db.Categories, attributes: ['name']}
+        })
         .then((product_lines) =>{
             if (product_lines.length > 0) {
-                res.status(200).send({
-                    success : true,
-                    data : product_lines
-                })
+                responseHandler.sendSuccess(req, res, 200, product_lines)
+                
             }else {
-                res.status(404).send({
-                    success : false,
-                    message : 'not found any item'
-                })
+                responseHandler.sendFailure(req, res, 404, 'not found any item')
+                
             }
         })
         .catch (err => {
-            res.status(500).send({
-                success : true,
-                message : err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
         })
     }
     
@@ -131,18 +97,9 @@ module.exports = new class ProductLineController {
                 where: {product_line_id : req.params.product_line_id}
             }
         )
-        .then(async () => {
-            res.status(200).send({
-                success : true,
-                message : 'Updated information successfully'   
-            })
-        })
-        .catch (err => {
-            res.status(500).send({
-                success : false,
-                message : err.message
-            })
-        })
+        .then(() => responseHandler.sendSuccess(req, res, 200, 'Updated information successfully'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+
     }
     
     
@@ -156,18 +113,9 @@ module.exports = new class ProductLineController {
     async delete(req, res) {
 
         await ProductLineModel.destroy({where: {product_line_id: req.params.product_line_id}})
-        .then (() => {
-            res.status(200).send({
-                success : true,
-                message : 'successfully deleted!'
-            })
-        })
-        .catch (err => {
-            res.status(500).send({
-                success : false,
-                message : err.message
-            })
-        })
+        .then(() => responseHandler.sendSuccess(req, res, 200, 'Deleted successfully'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+        
     }
     
     

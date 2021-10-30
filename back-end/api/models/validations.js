@@ -1,4 +1,4 @@
-const isUnique = (model,condition, next)=>{
+const isUnique = (model, condition, next) => {
 
     model.findAll({
         where: condition
@@ -6,7 +6,7 @@ const isUnique = (model,condition, next)=>{
         if (value.length > 0) {
             return next(`${Object.keys(condition)} is already in use`);
         }
-        next();
+        next()
     })
     .catch((err)=>{return next(err.message);});
 

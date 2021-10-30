@@ -2,6 +2,8 @@
 
 const db = require('../../../models')();
 const AddressesModel = db.Addresses;
+const responseHandler = require('../../../utils/responseHandler')
+
 
 
 
@@ -20,7 +22,7 @@ module.exports = new class AddressController {
 
         // get user's addresses from the database
         const result = await AddressesModel.findOne({
-            where: {user_id : user_id, default: true},
+            where: {user_id : user.user_id, default: true},
         });
 
         // if there is no address in the database, then the new one is default
@@ -40,17 +42,8 @@ module.exports = new class AddressController {
             }
         )
         // send back the response
-        .then(async() => {
-                res.status(201).send({
-                    success : true,
-                    message : 'address successfully added'
-                })
-    
-            })
-        .catch (err => res.send({
-            ok: false,
-            message:  err.message
-        }))
+        .then(() => {responseHandler.sendSuccess(req, res, 200, 'address successfully added')})
+        .catch (err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 
@@ -67,17 +60,13 @@ module.exports = new class AddressController {
                 },
                 attributes: {exclude : ['user_id', 'address_id']}
             })
-            res.send({
-                success : true,
-                data: address
-            })
+
+            // send response
+            responseHandler.sendSuccess(req, res, 200, address)
 
         }catch (err) {
 
-            res.status(400).send({
-                success : false,
-                message: err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
         }
     }
 
@@ -95,16 +84,12 @@ module.exports = new class AddressController {
                     required: true,
                 }
             )
-            res.status(200).send({
-                success : true,
-                data: addresses
-            })
+            // send back the response 
+            responseHandler.sendSuccess(req, res, 200, addresses)
 
         }catch(err) {
-            res.status(400).send({
-                success : false,
-                message: err.message
-            })
+            // send back the failure
+            responseHandler.sendFailure(req, res, 400, err)
         }
     }
 
@@ -134,16 +119,10 @@ module.exports = new class AddressController {
                     }
                 });
 
-            res.status(200).send({
-                success : true,
-                data    : 'successfully updated address'
-            })
+            responseHandler.sendSuccess(req, res, 200, 'successfully updated address')
           
         }catch(err){
-            res.status(400).send({
-                success: false,
-                message: err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
         }
 
     }
@@ -163,9 +142,11 @@ module.exports = new class AddressController {
         await AddressesModel.update({
             default: true,
         },{where: {
-            address_id  :req.body.address_id, 
-            user_id     :req.body.user_id,
+            address_id  :req.body.address_id
         }})
+
+        .then( ()=> responseHandler.sendSuccess(req, res, 200, "updated successfully"))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
 
     }
 
@@ -178,11 +159,11 @@ module.exports = new class AddressController {
     async delete(req, res) {
         await AddressesModel.destroy({
             where: {
-                address_id: req.params.address_id, 
-                user_id: req.user.user_id
+                address_id: req.params.address_id
         }})
-        .then(()=>{res.status(200).send({success: true, message: 'Deleted successfully'});})
-        .catch(err =>{res.status(400).send({success: false, message : err.message})})
+        .then(() => responseHandler.sendSuccess(req, res, 200, 'Deleted successfully'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+
     }
     
         

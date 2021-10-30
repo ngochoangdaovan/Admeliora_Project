@@ -10,9 +10,6 @@ module.exports = (sequelize, DataTypes) => {
   class ActivityLogs extends Model {
 
 
-    toJSON() {
-      return { ...this.get(), id: undefined }
-    }
 
     // define the associations relationship between tables
     static associate({Users}) {

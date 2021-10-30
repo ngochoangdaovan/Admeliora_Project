@@ -9,10 +9,10 @@ const CategoryControl = ProductControl.CategoryController
 
 
 /*------------------------------------------------------GET------------------------------------------------------------*/
-router.get('/', CategoryControl.getAll)
+router.get('/', auth.AuthenticateAdminToken, CategoryControl.getAll)
 
 /*------------------------------------------------------POST------------------------------------------------------------*/
-router.post('/add', CategoryControl.addNewCategory)
+router.post('/add', auth.AuthenticateAdminToken, CategoryControl.addNewCategory)
 
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
 router.delete('/delete/:category_id', auth.AuthenticateAdminToken, CategoryControl.delete)

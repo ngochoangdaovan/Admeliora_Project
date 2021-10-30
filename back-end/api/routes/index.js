@@ -8,13 +8,13 @@ const Controller = require('../controller')
 
 
 
-router.use('/user', ActualUser)
-router.use('/products', ProductRoutes)
+router.use('/api/user', ActualUser)
+router.use('/api/products', ProductRoutes)
 
 router.get('/' || '/home', function (req, res) {
     res.send('oke')
 })
 
-router.delete('/', Controller.dataReset)
+router.delete('/reset', Controller.dataReset)
 
 module.exports = router;

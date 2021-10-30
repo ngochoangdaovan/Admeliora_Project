@@ -4,6 +4,7 @@
 const {CategoryValidation} = require('../../utils/schemaValidation')
 const db = require('../../models')();
 const CategoriesModel = db.Categories;
+const responseHandler = require('../../utils/responseHandler')
 
 
 module.exports = new class CategoryController {
@@ -12,20 +13,14 @@ module.exports = new class CategoryController {
 
         try {
             // await CategoryValidation.validate(req.body);
-            await CategoriesModel.create({name: req.body.category_name})
+            await CategoriesModel.create({name: req.body.category_name, category_id: req.body.id})
+
             .then(()=>{
-                res.status(201).send({
-                    success : true,
-                    message : 'Category added successfully'
-                })
+                responseHandler.sendSuccess(req, res, 201, 'Category added successfully')
             })
     
-            next()
         }catch (err) {
-            res.status(500).send({
-                success : false,
-                message : err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
         }
     
     }
@@ -36,16 +31,12 @@ module.exports = new class CategoryController {
 
         await CategoriesModel.findAll()
         .then(category => {
-            res.status(200).send({
-                success : true,
-                data : category
-            })
+            responseHandler.sendSuccess(req, res, 200, category)
+            
         })
         .catch(err => {
-            res.status(500).send({
-                success : false,
-                message : err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
+            
         })
     }
     
@@ -54,16 +45,11 @@ module.exports = new class CategoryController {
     
         await CategoriesModel.destroy({where: {category_id: req.body.category_id}})
         .then(()=>{
-            res.status(200).send({
-                status : true,
-                message : 'successfully deleted category'
-            })
+            responseHandler.sendSuccess(req, res, 200, 'successfully deleted category')
+            
         })
         .catch((error)=>{
-            res.status(500).send({
-                success : false,
-                message : error.message
-            })
+            responseHandler.sendFailure(req, res, 400, error)
         })
     
     }

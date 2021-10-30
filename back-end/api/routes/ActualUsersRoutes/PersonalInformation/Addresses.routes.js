@@ -9,12 +9,16 @@ const auth = require('../../../controller/ActualUser/auth')
 
 
 /*------------------------------------------------------GET------------------------------------------------------------*/
+/**/ 
 AddressRouter.get('/', auth.AuthenticateToken, AddressControl.get)
+
+
+/**/ 
 AddressRouter.get('/all', auth.AuthenticateToken, AddressControl.getAllAddress)
 
 
 /*------------------------------------------------------POST------------------------------------------------------------*/
-// http://localhost:5000/user/address/add
+// http://localhost:5000/api/user/address/add
 /*
     this api required a body as in the example below
     {

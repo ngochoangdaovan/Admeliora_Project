@@ -54,10 +54,10 @@ module.exports = (sequelize, DataTypes) => {
     // attributes
     {
       color_id : {
-        type        : DataTypes.UUID,
+        type        : DataTypes.INTEGER,
         allowNull   : false,
         primaryKey: true,
-        defaultValue : Sequelize.UUIDV4
+        autoIncrement : true
       },
 
       color_name : {

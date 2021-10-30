@@ -38,6 +38,19 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: 'CASCADE'
       });
 
+
+      this.belongsTo(PhoneNumbers, {
+        foreignKey : {
+          name : 'phone_number',
+          allowNull : false,
+          validate : {
+            isNumeric  : {message : "invalid phone number"}
+          }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      })
+
     }
   };
 
@@ -53,8 +66,7 @@ module.exports = (sequelize, DataTypes) => {
 
       order_name : {
         type : DataTypes.DATE,
-        allowNull : false, 
-        defaultValue : DataTypes.NOW
+        allowNull : false
       },
 
       total_price : {
@@ -71,19 +83,6 @@ module.exports = (sequelize, DataTypes) => {
       status : {
           type : DataTypes.BOOLEAN,
           defaultValue : false
-      },
-
-      address_id : { 
-          type : DataTypes.UUID,
-          allowNull   : true
-      },
-
-      phone_id : {
-          type : DataTypes.UUID,
-          allowNull : true,
-          validate : {
-            isNumeric  : {message : "invalid phone number"}
-          }
       }
 
     },

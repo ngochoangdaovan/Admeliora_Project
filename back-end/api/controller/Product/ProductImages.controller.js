@@ -1,8 +1,10 @@
 'use strict';
 
 const db = require('../../models')();
-const ProductImagesModel = db.ProductImages
+const ProductImagesModel = db.ProductImages;
 const fs = require('fs');
+const path = require('path');
+const responseHandler = require('../../utils/responseHandler')
 
 
 module.exports = new class ImageController {
@@ -15,38 +17,43 @@ module.exports = new class ImageController {
         try {
             
             let files = req.files;
+            let color_id = req.body.color_id;
             let im_paths = []
 
             // get the array of file object from request
             if (files.length > 0){
                 for (let img of files){ // get only the filename from the file object
                     const object = {
-                        file_path : img.filename,
+                        image_path : img.filename,
                         default : false,
+                        color_id : color_id
                     }
                     im_paths.push(object);
                 };
 
-                // set the first image to be default image 
-                im_paths[0].default = true;
+                const exist = await ProductImagesModel.findOne({where: {
+                    color_id: color_id,
+                    default : true
+                }})
+
+                // if there is no default image in database then insert the first element as default
+                if (exist === null) {
+                    // set the first image to be default image 
+                    im_paths[0].default = true;
+                }
+                
 
                 await ProductImagesModel.bulkCreate(im_paths)
-                .then(()=>{
-                    res.status(201).send({
-                        success : true,
-                        message : 'Image successfully added'
-                    })
-                })
+                .then(() => responseHandler.sendSuccess(req, res, 201, 'Image successfully added'))
+
         
             }else{
                 throw new Error('no image sent to server')
             }
             
         }catch (err) {
-            res.status(400).send({
-                success : false,
-                message : err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
+
         }
     }
     
@@ -65,23 +72,15 @@ module.exports = new class ImageController {
                 attributes: ['id','image_path']})
             if (images.length > 0){
 
-                res.status(200).send({
-                    success : true,
-                    data : images
-                })
+                responseHandler.sendSuccess(req, res, 200, images)
     
             }else {
-                res.status(404).send ({
-                    success: false,
-                    message: 'Image not found'
-                })
+                responseHandler.sendFailure(req, res, 404, 'Image not found')
+
             }
     
         }catch (err) {
-            res.status(400).send({
-                success : false,
-                message : err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
         }
         
     }
@@ -91,19 +90,17 @@ module.exports = new class ImageController {
 /* ----------------------------------------------DELETE---------------------------------------*/
     
     async delete (req, res){
+    
         await ProductImagesModel.destroy({where: {color_id: req.params.image_id}})
         .then(() => {
-            res.status(200).send({
-                success: true,
-                message: 'image deleted successfully'
-            })
+
+            fs.unlinkSync(path.join(path.resolve(), 'data/product_images', req.body.image_path));
+            
+            responseHandler.sendSuccess(req, res, 200, 'image deleted successfully')
 
         })
         .catch(err => {
-            res.status(400).send({
-                success: false,
-                message: err.message
-            })
+            responseHandler.sendFailure(req, res, 400, err)
         })
     }
     

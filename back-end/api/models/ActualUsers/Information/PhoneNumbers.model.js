@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 
     
     // relations
-    static associate({Users}) {
+    static associate({Users, Orders}) {
       
       this.belongsTo(Users, {
         foreignKey : {
@@ -24,6 +24,14 @@ module.exports = (sequelize, DataTypes) => {
       })
 
 
+      this.hasMany(Orders, {
+        foreignKey : {
+          name : 'phone_number',
+          allowNull : false
+        }
+      })
+
+
     }
   };
 
@@ -31,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
   // table columns
   PhoneNumbers.init({
 
-      phoneNumbers : {
+      phone_number : {
         type       :  DataTypes.STRING(15),
         primaryKey : true,
         allowNull : false,
@@ -39,7 +47,10 @@ module.exports = (sequelize, DataTypes) => {
         validate : {
           notNull : {msg : 'enter your phone, please'},
           notEmpty : {msg : 'your phone can not be empty'},
-          checkUnique : function(value, next){isUnique(PhoneNumbers, {phoneNumbers : value}, next)},
+          checkUnique : function(value, next){
+            isUnique(PhoneNumbers, {
+              phone_number : value
+            }, next)},
         }
 
       },

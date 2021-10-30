@@ -7,7 +7,7 @@ const userAvatarUpload = require('../../../middleWares/imageHandler/userImg')
 
 
 /*------------------------------------------------------GET------------------------------------------------------------*/
-// http://localhost:5000/user
+// http://localhost:5000/api/user
 // this api to get all user, used by admin
 // router.get('/', auth.AuthenticateAdminToken, UsersControl.showAllUsers)
 // router.get('/',  UsersControl.showAllUsers)
@@ -17,13 +17,13 @@ router.use('/avatar', express.static('./data/user_images'))
 
 
 
-// http://localhost:5000/user/profile
+// http://localhost:5000/api/user/profile
 // this apt for getting user's detail profile
 router.get('/profile', auth.AuthenticateToken, UsersControl.getInformation) 
 
 /*------------------------------------------------------POST------------------------------------------------------------*/
 
-// http://localhost:5000/user/register
+// http://localhost:5000/api/user/register
 /*
     required a req.body which contains as in the sample
     {
@@ -39,7 +39,7 @@ router.get('/profile', auth.AuthenticateToken, UsersControl.getInformation)
 */
 router.post('/register', auth.registerUser);
 
-// http://localhost:5000/user/login
+// http://localhost:5000/api/user/login
 /*
     login required user_name, password
     {
@@ -54,7 +54,7 @@ router.post('/login', auth.Login);
 
 /*------------------------------------------------------PUT------------------------------------------------------------*/
 
-// http://localhost:5000/user/profile/update
+// http://localhost:5000/api/user/profile/update
 /*
     this api required a body that contains all info to be updated, for instance
     {
@@ -65,16 +65,16 @@ router.post('/login', auth.Login);
 router.put('/profile/update', auth.AuthenticateToken, UsersControl.updateInfo) 
 
 
-// http://localhost:5000/user/profile/avatar
+// http://localhost:5000/api/user/profile/avatar
 // as the example above 
 router.put('/profile/avatar', auth.AuthenticateToken, userAvatarUpload.single('avatar'), UsersControl.updateAvatar)
 
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
 
-// http://localhost:5000/user/delete
+// http://localhost:5000/api/user/delete
 router.delete('/delete', auth.AuthenticateToken, UsersControl.delete)
 
-// http://localhost:5000/user/delete/avatar
+// http://localhost:5000/api/user/delete/avatar
 router.delete('/delete/avatar', auth.AuthenticateToken, UsersControl.updateAvatar)
 
 

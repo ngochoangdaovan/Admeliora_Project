@@ -7,25 +7,23 @@ const ProductControl = require('../../controller').ProductControl;
 const ImageControl = ProductControl.ImagesController
 const productImageUpload = require('../../middleWares/imageHandler/productImg')
 const path = require('path');
+const ActualUserControl = require('../../controller').ActualUserControl
+const auth = ActualUserControl.Auth
 
 
 
 
 
 /*------------------------------------------------------GET------------------------------------------------------------*/
-// console.log(path.join(path.resolve(),'data/product_images'))
-// router.use(express.static('./data/product_images'))
 router.use(express.static(path.join(path.resolve(),'data/product_images')))
 
 /*------------------------------------------------------POST-----------------------------------------------------------*/
 // this api need a body contain color_id and an array of images
-router.post('/upload', productImageUpload.array('product_images'), ImageControl.add)
+router.post('/upload', auth.AuthenticateAdminToken, productImageUpload.array('product_images'), ImageControl.add)
 
-/*------------------------------------------------------PUT------------------------------------------------------------*/
-router.put('/')
 
 /*------------------------------------------------------DELETE---------------------------------------------------------*/
-router.delete('/')
+router.delete('/delete/:image_id', auth.AuthenticateAdminToken, ImageControl.delete)
 
 
 

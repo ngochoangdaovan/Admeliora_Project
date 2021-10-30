@@ -1,5 +1,7 @@
 const db = require('../../../models')();
 const phoneModel = db.PhoneNumbers
+const responseHandler = require('../../../utils/responseHandler')
+
 
 
 
@@ -20,8 +22,8 @@ module.exports = new class PhoneNumberController {
                 required: true
             }
         )
-        .catch(err => res.send(err.message));
-        res.send(phoneNumbers);
+        .catch(err => responseHandler.sendFailure(req, res, 400, err));
+        responseHandler.sendSuccess(req, res, 200, phoneNumbers)
     
     };
     
@@ -36,7 +38,9 @@ module.exports = new class PhoneNumberController {
 
         // check if that phone is the first => default : true, else default : false
         const result = await phoneModel.findOne({
-            where: {user_id : user_id, default : true}
+            where: {
+                user_id : user_id, 
+                default : true}
         });
 
 
@@ -49,22 +53,14 @@ module.exports = new class PhoneNumberController {
 
         // add to database
         await phoneModel.create({
-            phoneNumbers: phone,
+            phone_number: phone,
             default : defaultValue,
             user_id : user_id
         })
-        .then(async ()=> {
-            // send back the respond if successful create
-            res.status(200).send ({
-                status: true,
-                message: `phone number ${phone} successfully added`
-            })
-        })
-        // send the error message if it failed to add to database
-        .catch(err => res.send({
-            success: false,
-            message: err.message,
-        }));
+        // send back the respond if successful create
+        .then(()=> {responseHandler.sendSuccess(req, res, 200, `phone number ${phone} successfully added`)})
+            // send the error message if it failed to add to database
+        .catch(err => responseHandler.sendFailure(req, res, 400, err));
     }
 
 
@@ -91,8 +87,8 @@ module.exports = new class PhoneNumberController {
             {where : {phoneNumbers:newDefaultPhone}}
         )
 
-        .then(() => res.status(200).send({success:true, message: "updated successful"}))
-        .catch(err => res.status(500).send({success:false, message: err.message}))
+        .then(()=> responseHandler.sendSuccess(req, res, 200, "updated successful"))
+        .catch(err => responseHandler.sendFailure(req, res, 400, err))
 
     }
 
@@ -113,16 +109,8 @@ module.exports = new class PhoneNumberController {
                 },
             }
         )
-        .then(() => {
-            res.send({
-                success: true,
-                message: 'deleted successfully'
-            })
-        })
-        .catch(err => res.send({
-            success: false,
-            message : err.message
-        }));
+        .then(() => { responseHandler.sendSuccess(req, res, 200, 'deleted successfully')})
+        .catch(err => responseHandler.sendFailure(req, res, 400, err));
     };
 
 
@@ -132,7 +120,8 @@ module.exports = new class PhoneNumberController {
         await phoneModel.destroy({
             where: {user_id : req.user.user_id}
         })
-        .then(() => res.send ('delete all'));
+        .then(() => { responseHandler.sendSuccess(req, res, 200, 'deleted all successfully')})
+        .catch(err => responseHandler.sendFailure(req, res, 400, err));
     }
     
     

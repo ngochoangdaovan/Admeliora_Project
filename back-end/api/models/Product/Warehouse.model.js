@@ -61,10 +61,10 @@ module.exports = (sequelize, DataTypes) => {
   Warehouse.init(
     {
       product_detail_id :{
-        type : DataTypes.UUID,
+        type : DataTypes.INTEGER,
         primaryKey: true,
         allowNull: false,
-        defaultValue: DataTypes.UUIDV4
+        autoIncrement : true
       },
       
       quantity : {

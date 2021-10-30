@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
   
   class Addresses extends Model {
 
-    static associate({Users}) {
+    static associate({Users, Orders}) {
       // define association here
       this.belongsTo(Users, {
         foreignKey : {
@@ -21,6 +21,14 @@ module.exports = (sequelize, DataTypes) => {
         onDelete : 'CASCADE'
       });
 
+
+      this.hasMany(Orders,{
+        foreignKey : {
+          name : 'address_id',
+          allowNull : false
+        }
+      })
+
     }
   };
 
@@ -29,10 +37,10 @@ module.exports = (sequelize, DataTypes) => {
     { 
       
       address_id: {
-        type      : DataTypes.UUID,
+        type      : DataTypes.INTEGER,
         primaryKey: true,
         allowNull : false,
-        defaultValue: DataTypes.UUIDV4,
+        autoIncrement : true,
 
       },
       province : {

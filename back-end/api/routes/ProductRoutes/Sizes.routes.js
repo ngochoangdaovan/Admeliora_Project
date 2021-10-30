@@ -3,8 +3,10 @@
 
 const express = require('express');
 const router = express.Router();
-const ProductControl = require('../../controller').ProductControl;
-const SizeControl = ProductControl.SizeController
+const Controller = require('../../controller');
+const SizeControl = Controller.ProductControl.SizeController
+const auth = Controller.ActualUserControl.Auth
+
 
 
 
@@ -12,15 +14,16 @@ const SizeControl = ProductControl.SizeController
 
 /*------------------------------------------------------GET------------------------------------------------------------*/
 router.get('/', SizeControl.getAll)
+router.get('/:category_id', SizeControl.getAllByCategory)
 router.get('/:size_id', SizeControl.get)
 /*------------------------------------------------------POST------------------------------------------------------------*/
-router.post('/add', SizeControl.add)
+router.post('/add', auth.AuthenticateAdminToken, SizeControl.add)
 
 /*------------------------------------------------------PUT------------------------------------------------------------*/
-router.put('/update/:size_id', SizeControl.update)
+router.put('/update/:size_id', auth.AuthenticateAdminToken, SizeControl.update)
 
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
-router.delete('/delete/:size_id', SizeControl.delete)
+router.delete('/delete/:size_id', auth.AuthenticateAdminToken, SizeControl.delete)
 
 
 

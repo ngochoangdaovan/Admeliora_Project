@@ -22,16 +22,8 @@ module.exports = new class ActivityLogs {
             }
             }
         )
-        .then ((Logs)=>{
-            res.send({
-                success : true,
-                data : Logs
-            })
-        })
-        .catch (err => res.send({
-            success: false,
-            message: err.message,
-        }))
+        .then(data => responseHandler.sendSuccess(req, res, 200, data))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 
@@ -41,19 +33,8 @@ module.exports = new class ActivityLogs {
         await ActivityLogModel.destroy({
             where : {user_id : req.user.user_id, id : req.params.log_id}
         })
-        .then(()=>{
-            res.status(200).send({
-                success: true,
-                message : 'Log deleted successfully'
-            })
-        })
-        .catch(err => {
-            res.status(500).send({
-                success: false,
-                message : err.message
-            })
-
-        })
+        .then(() => responseHandler.sendSuccess(req, res, 200, 'Log deleted successfully'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 

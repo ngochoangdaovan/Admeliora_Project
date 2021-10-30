@@ -4,7 +4,7 @@
 const db = require('../../models')();
 const WarehouseModel = db.Warehouse;
 const ProductImagesModel = db.ProductImages;
-
+const responseHandler = require('../../utils/responseHandler')
 
 
 module.exports = new class WarehouseController {
@@ -22,24 +22,17 @@ module.exports = new class WarehouseController {
             color_id: input.color_id,
             quantity: input.quantity,
             discount: 0,
-            rate : 0,
-            price : input.price
+            rate : 0
         })
-        .then(()=>{res.status(200).send({
-            success: true,
-            message: 'Product line added successfully'
-        })})
-        .catch((error)=>{
-            res.status(200).send({
-                success: false,
-                message: error.message
-            })
-        })
+        .then(() => responseHandler.sendSuccess(req, res, 201, 'Product line added successfully'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+
     }
+    
 
 /*--------------------------------------------GET----------------------------------------------------*/ 
     async getAll (req, res) {
-        try{
+        // try{
             // get all product and necessary info form database
             // group them by product_line_id, color_id 
             let product = await WarehouseModel.findAll({
@@ -47,11 +40,15 @@ module.exports = new class WarehouseController {
                 include : [
                     {
                         model: db.ProductLines,
-                        attributes : ['name', 'price']
+                        attributes : ['name', 'price'],
+                        include : {
+                            model: db.Categories,
+                            attributes : ['name']
+                        }
                     },
                     {
                         model: db.ProductColors,
-                        attributes : ['color_name'],
+                        attributes : ['color_id','color_name'],
                     }
                 ],
                 group : ['product_line_id', 'color_id'],
@@ -59,22 +56,26 @@ module.exports = new class WarehouseController {
             })
     
     
-    
+            // console.log(item)
             const products = []
             // rearrange properties and add to an array
             for (let item of product) {
+                
+                console.log(item)
                 const info = {}
                 info.product_line_id = item.product_line_id;
-                info.color_id = item.color_id;
-                info.name = item.ProductLine.name
+                info.color_id = item.ProductColor.color_id;
+                info.product_line = item.ProductLine.name
+                info.category = item.ProductLine.Category.name
                 info.price = item.ProductLine.price
-                info.color = item.ProductLine.color
+                info.color_name = item.ProductColor.color_name
+                info.name = info.category + ' ' + info.product_line +' '+ info.color_name
                 info.images = []
                 // get 3 image relate to the product
                 let paths =  await ProductImagesModel.findAll({
                     where: {
-                        color_id : color_id},
-                        attributes: ['id','image_path'],
+                        color_id : info.color_id},
+                        attributes: ['image_path', 'default'],
                         limit: 3
                     }
                 );
@@ -84,23 +85,19 @@ module.exports = new class WarehouseController {
 
                 products.push(info)
             }
-    
-            res.status(200).send({
-                success: true,
-                data : product
-            })
-        }catch(err) {
-            res.status(400).send({
-                success: false, 
-                message: err.message
-        })}
+
+            responseHandler.sendSuccess(req, res, 200, products)
+            
+        // }catch(err) {
+        //     responseHandler.sendFailure(req, res, 400, err)    
+        // }
     }
 
 
 
 
 
-    async get (req, res){
+    async get(req, res){
         
         await WarehouseModel.findOne({
             where: {
@@ -117,7 +114,7 @@ module.exports = new class WarehouseController {
                     attributes : ['color_id', 'color_name'],
                     include : {
                         model: db.ProductImages,
-                        attributes : ['image_path']
+                        attributes : ['image_path'],
                     }
                 },
                 {
@@ -127,18 +124,8 @@ module.exports = new class WarehouseController {
                 }
             ]
         })
-        .then((detailData) => {
-            res.status(200).send({
-                success: true, 
-                message: detailData
-            })
-        })
-        .catch((error) => {
-            res.status(500).send({
-                success: false, 
-                message: error.message
-            })
-        })
+        .then(data => responseHandler.sendSuccess(req, res, 200, data))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
     
 
@@ -160,6 +147,10 @@ module.exports = new class WarehouseController {
                     {
                         model: db.ProductLines,
                         attributes : ['name', 'price'],
+                        include :{
+                            model: db.Categories,
+                            attributes : ['name']
+                        }
                     },
                     {
                         model: db.ProductColors,
@@ -178,11 +169,15 @@ module.exports = new class WarehouseController {
             const info = {}
 
             // because these product share the same properties, then we rearrange them in to a object
-            info.name = product_info[0].ProductLine.name;
+            
+            info.product_line = product_info[0].ProductLine.name;
+            info.category = product_info[0].ProductLine.Category[0].name;
             info.price = product_info[0].ProductLine.price;
             info.color = product_info[0].ProductColor.color_name;
             info.discount = product_info[0].discount;
             info.rate = product_info[0].rate;
+            info.name = info.category + ' ' + info.product_line + ' ' + info.color
+
             info.Sizes = Sizes;
             info.images = images;
             info.defaultImage = await ProductImagesModel.findOne({
@@ -219,17 +214,11 @@ module.exports = new class WarehouseController {
                 info.images.push(img.image_path);
             }
 
-            res.status(200).send({
-                success: true, 
-                data: info
-            })
+            responseHandler.sendSuccess(req, res, 200, info)
 
         // if error then send the error message
         }catch(error) {
-            res.status(400).send({
-                success: false, 
-                message: error.message
-            })
+            responseHandler.sendFailure(req, res, 400, error)
         }
     };
 
@@ -241,20 +230,15 @@ module.exports = new class WarehouseController {
     async update (req, res) {
 
         await WarehouseModel.update(req.body, {where: {product_line_id: req.params.product_line_id}})
-        .then(() =>{res.status(200).send({
-            success: true,
-            message: 'Updated successfully!'
-        })})
-        .catch(err =>{res.status(400).send({
-            success: false, 
-            message: err.message})})
+        .then(() => responseHandler.sendSuccess(req, res, 200, 'Updated successfully!'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 /*--------------------------------------------DELETE-------------------------------------------------*/ 
     async delete (req, res) {
         await WarehouseModel.delete({where: {product_line_id: req.params.product_line_id}})
-        .then(() => {res.status(200).send({success: true, message: 'Deleted successfully'});})
-        .catch(err => {res.status(500).send({success: false, message: err.message})})
+        .then(() => responseHandler.sendSuccess(req, res, 200, 'Deleted successfully'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 

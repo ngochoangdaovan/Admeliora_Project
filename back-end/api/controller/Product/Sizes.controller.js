@@ -3,6 +3,8 @@
 
 const db = require('../../models')();
 const SizeModel = db.Sizes
+const responseHandler = require('../../utils/responseHandler')
+
 
 
 
@@ -22,37 +24,34 @@ module.exports = new class SizeController {
             size_name : inputSize.size_name,
             size_info : inputSize.size_info
         })
-        .then(() => res.status(200).send({
-                success: true,
-                message: 'Size added successfully'
-            }
-        ))
-        .catch((err) => res.status(500).send({
-            success: false,
-            message: err.message
-        }))
+
+        .then(() => responseHandler.sendSuccess(req, res, 200, "Size created successfully"))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 
 
 /*--------------------------------------------GET----------------------------------------------------*/ 
-
+    
     async getAll(req, res){
-        await SizeModel.findAll ()
-        .then((Sizes)=>{
-            res.status(200).send({
-                success: true,
-                data: Sizes 
-            })
-        })
-        .catch((err)=>{
-            res.status(500).send({
-                success: false,
-                data: err.message
-            })
-        })
+        await SizeModel.findAll ({
+            include : {
+                model : db.Categories, attributes : ['name']
+        }})
+        .then(Sizes => responseHandler.sendSuccess(req, res, 200, Sizes))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
+    async getAllByCategory(req, res) {
+        await SizeModel.findAll ({
+            where : {category_id : req.params.category_id},
+            include : {
+                model : db.Categories, attributes : ['name']
+            }
+        })
+        .then(Sizes => responseHandler.sendSuccess(req, res, 200, Sizes))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+    }
 
 
     async get(req, res){
@@ -60,18 +59,8 @@ module.exports = new class SizeController {
         await SizeModel.findOne ({ 
             where : {size_id : req.params.size_id}
         })
-        .then((data)=>{
-            res.status(200).send({
-                success: true,
-                data: data
-            })
-        })
-        .catch((err)=>{
-            res.status(500).send({
-                success: false,
-                message: err.message
-            })
-        })
+        .then(data => responseHandler.sendSuccess(req, res, 200, data))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 
@@ -81,16 +70,8 @@ module.exports = new class SizeController {
     async update(req, res){
 
         await SizeModel.update (req.body, {where : {size_id : req.params.size_id}})
-        .then(()=> {res.status(200).send({
-            success: true,
-            message: 'Updated size successfully'
-        })})
-        .catch(err=> {
-            res.status(500).send({
-                success: false,
-                message: err.message
-            })
-        })
+        .then(() => responseHandler.sendSuccess(req, res, 200, 'Updated size successfully'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 
@@ -101,14 +82,8 @@ module.exports = new class SizeController {
     async delete(req, res){
 
         await SizeModel.destroy({where: {size_id: req.params.size_id}})
-        .then(()=> {res.status(200).send({
-            success: true, 
-            message: 'Deleted successfully'
-        });})
-        .catch(err=>{res.status(500).send({
-            success: false,
-            message: err.message
-        });})
+        .then(() => responseHandler.sendSuccess(req, res, 200, 'Deleted successfully'))
+        .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 
