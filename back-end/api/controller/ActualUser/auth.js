@@ -115,13 +115,10 @@ auth.Login = async function(req, res, next) {
 
 auth.AuthenticateAdminToken = async function(req, res, next){
 
-    await auth.AuthenticateToken(req, res, next);
-
-    console.log(req.user)
-    if (!req.user.is_admin){
-        res.statusSend(403)
+    if ( req.user=== (null || undefined) || !req.user.is_admin){
+        return res.sendStatus(403)
     }
-
+    next()
 
 }
 
@@ -189,7 +186,6 @@ auth.AuthenticateToken = async function(req, res, next) {
             message: 'authentication failed, please try again!'
         })
     }
-
     
 
 };

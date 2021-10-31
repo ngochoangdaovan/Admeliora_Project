@@ -9,8 +9,7 @@ const userAvatarUpload = require('../../../middleWares/imageHandler/userImg')
 /*------------------------------------------------------GET------------------------------------------------------------*/
 // http://localhost:5000/api/user
 // this api to get all user, used by admin
-// router.get('/', auth.AuthenticateAdminToken, UsersControl.showAllUsers)
-// router.get('/',  UsersControl.showAllUsers)
+router.get('/', auth.AuthenticateToken, auth.AuthenticateAdminToken, UsersControl.showAllUsers)
 
 
 router.use('/avatar', express.static('./data/user_images'))

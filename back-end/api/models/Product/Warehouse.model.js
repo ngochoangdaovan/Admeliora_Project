@@ -63,7 +63,6 @@ module.exports = (sequelize, DataTypes) => {
       product_detail_id :{
         type : DataTypes.INTEGER,
         primaryKey: true,
-        allowNull: false,
         autoIncrement : true
       },
       

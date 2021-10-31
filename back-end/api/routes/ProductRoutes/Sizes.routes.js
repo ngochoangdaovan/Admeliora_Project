@@ -17,13 +17,13 @@ router.get('/', SizeControl.getAll)
 router.get('/:category_id', SizeControl.getAllByCategory)
 router.get('/:size_id', SizeControl.get)
 /*------------------------------------------------------POST------------------------------------------------------------*/
-router.post('/add', auth.AuthenticateAdminToken, SizeControl.add)
+router.post('/add', auth.AuthenticateToken, auth.AuthenticateAdminToken, SizeControl.add)
 
 /*------------------------------------------------------PUT------------------------------------------------------------*/
-router.put('/update/:size_id', auth.AuthenticateAdminToken, SizeControl.update)
+router.put('/update/:size_id', auth.AuthenticateToken, auth.AuthenticateAdminToken, SizeControl.update)
 
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
-router.delete('/delete/:size_id', auth.AuthenticateAdminToken, SizeControl.delete)
+router.delete('/delete/:size_id', auth.AuthenticateToken, auth.AuthenticateAdminToken, SizeControl.delete)
 
 
 

@@ -17,11 +17,11 @@ router.get('/:product_line_id/:color_id', productColorControl.get)
 
 
 /*------------------------------------------------------POST------------------------------------------------------------*/
-router.post('/add',auth.AuthenticateAdminToken ,productColorControl.add)
+router.post('/add', auth.AuthenticateToken, auth.AuthenticateAdminToken ,productColorControl.add)
 
 
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
-router.delete('/delete/:color_id',auth.AuthenticateAdminToken, productColorControl.delete)
+router.delete('/delete/:color_id', auth.AuthenticateToken, auth.AuthenticateAdminToken, productColorControl.delete)
 
 
 module.exports = router;

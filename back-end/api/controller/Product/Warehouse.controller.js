@@ -5,11 +5,14 @@ const db = require('../../models')();
 const WarehouseModel = db.Warehouse;
 const ProductImagesModel = db.ProductImages;
 const responseHandler = require('../../utils/responseHandler')
-
+const Op = db.Sequelize.Op;
 
 module.exports = new class WarehouseController {
 
-
+    constructor() {
+        this.filterBy = this.filterBy.bind(this)
+        this.getAll = this.getAll.bind(this)
+    }
 
 
 /*--------------------------------------------CREATE-------------------------------------------------*/ 
@@ -32,7 +35,7 @@ module.exports = new class WarehouseController {
 
 /*--------------------------------------------GET----------------------------------------------------*/ 
     async getAll (req, res) {
-        // try{
+        try{
             // get all product and necessary info form database
             // group them by product_line_id, color_id 
             let product = await WarehouseModel.findAll({
@@ -55,87 +58,102 @@ module.exports = new class WarehouseController {
                    
             })
     
-    
-            // console.log(item)
-            const products = []
-            // rearrange properties and add to an array
-            for (let item of product) {
-                
-                console.log(item)
-                const info = {}
-                info.product_line_id = item.product_line_id;
-                info.color_id = item.ProductColor.color_id;
-                info.product_line = item.ProductLine.name
-                info.category = item.ProductLine.Category.name
-                info.price = item.ProductLine.price
-                info.color_name = item.ProductColor.color_name
-                info.name = info.category + ' ' + info.product_line +' '+ info.color_name
-                info.images = []
-                // get 3 image relate to the product
-                let paths =  await ProductImagesModel.findAll({
-                    where: {
-                        color_id : info.color_id},
-                        attributes: ['image_path', 'default'],
-                        limit: 3
-                    }
-                );
-                for (let path of paths) {
-                    info.images.push(path);
-                }
+            const final_data = await this.PreProcessing(product)
+            responseHandler.sendSuccess(req, res, 200, final_data)
+            
+        }catch(err) {
+            responseHandler.sendFailure(req, res, 400, err)    
+        }
+    }
 
-                products.push(info)
+
+    async PreProcessing(data) {
+        const products = []
+        // rearrange properties and add to an array
+        for (let item of data) {
+            
+            const info = {}
+            info.product_line_id = item.product_line_id;
+            info.color_id = item.ProductColor.color_id;
+            info.product_line = item.ProductLine.name
+            info.category = item.ProductLine.Category.name
+            info.price = item.ProductLine.price
+            info.color_name = item.ProductColor.color_name
+            info.name = info.category + ' ' + info.product_line +' '+ info.color_name
+            info.images = []
+            // get 3 image relate to the product
+            let paths =  await ProductImagesModel.findAll({
+                where: {
+                    color_id : info.color_id},
+                    attributes: ['image_path'],
+                    limit: 3
+                }
+            );
+            for (let path of paths) {
+                info.images.push(path);
             }
 
-            responseHandler.sendSuccess(req, res, 200, products)
-            
-        // }catch(err) {
-        //     responseHandler.sendFailure(req, res, 400, err)    
-        // }
+            products.push(info)
+        }
+
+        return products
     }
 
 
 
+    async filterBy(req, res){
 
+        const price_from = req.query.price_from ===(null ||undefined )? 0:req.query.price_from;
+        const price_to = req.query.price_to ===(null ||undefined )? Number.POSITIVE_INFINITY : req.query.price_to;
+        const product_line_id = req.query.product_line_id === (null || undefined) ? {} : {product_line_id: req.query.product_line_id};
 
-    async get(req, res){
         
-        await WarehouseModel.findOne({
-            where: {
-                product_detail_id : req.params.product_line_id
-            },
-            attributes : ['product_detail_id', 'quantity', 'discount', 'rate'],
-            include: [
+        await WarehouseModel.findAll({
+            where: product_line_id,
+            attributes : ['product_line_id', 'color_id'],
+            include : [
                 {
                     model: db.ProductLines,
-                    attributes : ['product_line_id', 'name', 'price'],
-                },
-                {
-                    model: db.ProductColors,
-                    attributes : ['color_id', 'color_name'],
+                    attributes : ['name', 'price'],
+                    where : {
+                        price : {
+                            [Op.gte]: price_from,
+                            [Op.lte] : price_to
+
+                        }
+                    },
                     include : {
-                        model: db.ProductImages,
-                        attributes : ['image_path'],
+                        model: db.Categories,
+                        attributes : ['name']
                     }
                 },
                 {
-                    model: db.Sizes,
-                    attributes : ['size_id', 'size_name', 'size_info'],
-                    
+                    model: db.ProductColors,
+                    attributes : ['color_id','color_name'],
                 }
-            ]
+            ],
+            group : ['product_line_id', 'color_id']
         })
-        .then(data => responseHandler.sendSuccess(req, res, 200, data))
+
+        .then(async data =>{
+            
+            const final_data = await this.PreProcessing(data)
+            responseHandler.sendSuccess(req, res, 200, final_data)
+        })
         .catch( err => responseHandler.sendFailure(req, res, 400, err))
     }
     
 
 
+    async filterByPrice(req, res){
+
+    }
 
 
     async getByColorAndLine (req, res){    
         
-        try{
-
+        try{    
+            console.log(req.params)
             // get all product that has the same color and product line and it's related information
             let product_info = await WarehouseModel.findAll({
                 where: {
@@ -171,7 +189,7 @@ module.exports = new class WarehouseController {
             // because these product share the same properties, then we rearrange them in to a object
             
             info.product_line = product_info[0].ProductLine.name;
-            info.category = product_info[0].ProductLine.Category[0].name;
+            info.category = product_info[0].ProductLine.Category.name;
             info.price = product_info[0].ProductLine.price;
             info.color = product_info[0].ProductColor.color_name;
             info.discount = product_info[0].discount;
@@ -180,12 +198,7 @@ module.exports = new class WarehouseController {
 
             info.Sizes = Sizes;
             info.images = images;
-            info.defaultImage = await ProductImagesModel.findOne({
-                where: {
-                    color_id : req.params.color_id,
-                    default : true
-                }
-            })
+            info.defaultImage = {}
 
 
             // because a product line with a specific color has different sizes, then we put it to an array 
@@ -206,12 +219,16 @@ module.exports = new class WarehouseController {
                 where: {
                     color_id : req.params.color_id
                 }, 
-                    attributes: ['image_path']
+                    attributes: ['image_path', 'default']
                 }
             );
             // get only the paths
             for (let img of image_paths) {
-                info.images.push(img.image_path);
+                if (img.default !== true){
+                    info.images.push({image_path : img.image_path});
+                }else{
+                    info.defaultImage.image_path = img.image_path
+                }
             }
 
             responseHandler.sendSuccess(req, res, 200, info)
