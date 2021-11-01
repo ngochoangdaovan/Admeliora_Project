@@ -3,9 +3,6 @@ import React, { useCallback, useState, useEffect, useRef } from 'react'
 import Helmet from '../components/Helmet'
 import CheckBox from '../components/CheckBox'
 
-import category from '../assets/fake-data/category'
-import colors from '../assets/fake-data/product-color'
-import size from '../assets/fake-data/product-size'
 import Button from '../components/Button'
 import InfinityList from '../components/InfinityList'
 import axios from 'axios'
@@ -16,6 +13,38 @@ const Catalog = () => {
     color: [],
     size: [],
   }
+  const [category, setCategory] = useState([])
+
+  useEffect(() => {
+    const fetchCategory = async () => {
+      const { data } = await axios.get('/api/category')
+      console.log('data', data)
+      setCategory(data)
+    }
+    fetchCategory()
+  }, [])
+
+  const [size, setSize] = useState([])
+
+  useEffect(() => {
+    const fetchSize = async () => {
+      const { data } = await axios.get('/api/size')
+      console.log('data', data)
+      setSize(data)
+    }
+    fetchSize()
+  }, [])
+
+  const [colors, setColors] = useState([])
+
+  useEffect(() => {
+    const fetchColor = async () => {
+      const { data } = await axios.get('/api/colors')
+      console.log('data', data)
+      setColors(data)
+    }
+    fetchColor()
+  }, [])
 
   const [product, setProduct] = useState([])
 
@@ -27,10 +56,6 @@ const Catalog = () => {
     }
     fetchProducts()
   }, [])
-
-  useEffect(() => {
-    console.log(product)
-  }, [product])
 
   //   =============================================
   const getAllProducts = () => product
