@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router()
-const Controller = require('../../../controller').ActualUserControl;
+const Controller = require('../../../controllers').ActualUserControl;
 const UsersControl = Controller.UsersController;
-const auth = require('../../../controller/ActualUser/auth');
+const auth = require('../../../controllers/ActualUser/auth');
 const userAvatarUpload = require('../../../middleWares/imageHandler/userImg')
 
 

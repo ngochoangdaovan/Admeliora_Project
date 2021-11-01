@@ -1,7 +1,7 @@
 const express = require('express');
 const ActivityLogsRouter = express.Router();
-const ActivityLogsController = require('../../../controller').ActualUserControl.ActivityLogsController
-const auth = require('../../../controller/ActualUser/auth')
+const ActivityLogsController = require('../../../controllers').ActualUserControl.ActivityLogsController
+const auth = require('../../../controllers/ActualUser/auth')
 
 
 

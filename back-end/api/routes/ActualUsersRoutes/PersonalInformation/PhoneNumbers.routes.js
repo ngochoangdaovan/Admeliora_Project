@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-const Controller = require('../../../controller');
+const Controller = require('../../../controllers');
 
 const PhoneControl = Controller.ActualUserControl.PhoneNumbersController
 const auth = Controller.ActualUserControl.Auth

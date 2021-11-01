@@ -1,8 +1,8 @@
 const express = require('express');
 const AddressRouter = express.Router();
-const ActualUserControl = require('../../../controller').ActualUserControl
+const ActualUserControl = require('../../../controllers').ActualUserControl
 const AddressControl = ActualUserControl.AddressesController
-const auth = require('../../../controller/ActualUser/auth')
+const auth = require('../../../controllers/ActualUser/auth')
 
 
 

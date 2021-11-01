@@ -3,11 +3,11 @@
 
 const express = require('express');
 const router = express.Router();
-const ProductControl = require('../../controller').ProductControl;
+const ProductControl = require('../../controllers').ProductControl;
 const ImageControl = ProductControl.ImagesController
 const productImageUpload = require('../../middleWares/imageHandler/productImg')
 const path = require('path');
-const ActualUserControl = require('../../controller').ActualUserControl
+const ActualUserControl = require('../../controllers').ActualUserControl
 const auth = ActualUserControl.Auth
 
 

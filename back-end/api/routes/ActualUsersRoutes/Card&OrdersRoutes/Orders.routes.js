@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router = express.Router();
-const ActualUserControl = require('../../../controller').ActualUserControl
+const ActualUserControl = require('../../../controllers').ActualUserControl
 const OrderController  = ActualUserControl.OrderController
 const auth = ActualUserControl.Auth
 

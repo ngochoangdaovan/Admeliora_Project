@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const auth = require('../../controller/ActualUser/auth');
-const ProductControl = require('../../controller').ProductControl
+const auth = require('../../controllers/ActualUser/auth');
+const ProductControl = require('../../controllers').ProductControl
 const CategoryControl = ProductControl.CategoryController
 
 

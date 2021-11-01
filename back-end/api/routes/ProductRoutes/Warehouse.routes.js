@@ -3,7 +3,7 @@
 
 const express = require('express');
 const router = express.Router();
-const Controller = require('../../controller');
+const Controller = require('../../controllers');
 const Warehouse = Controller.ProductControl.WarehouseController
 const auth = Controller.ActualUserControl.Auth
 

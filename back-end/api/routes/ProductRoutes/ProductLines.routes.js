@@ -3,7 +3,7 @@
 
 const express = require('express');
 const router = express.Router();
-const controller = require('../../controller');
+const controller = require('../../controllers');
 const auth = controller.ActualUserControl.Auth;
 const productLine = controller.ProductControl.ProductLinesController;
 

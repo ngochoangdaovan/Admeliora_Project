@@ -3,7 +3,7 @@
 
 const express = require('express');
 const router = express.Router();
-const ActualUserControl = require('../../../controller').ActualUserControl
+const ActualUserControl = require('../../../controllers').ActualUserControl
 const CartController = ActualUserControl.CardController
 const auth = ActualUserControl.Auth
 
