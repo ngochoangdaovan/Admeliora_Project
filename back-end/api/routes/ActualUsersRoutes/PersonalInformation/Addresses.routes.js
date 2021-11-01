@@ -8,13 +8,21 @@ const auth = require('../../../controller/ActualUser/auth')
 
 
 
+
 /*------------------------------------------------------GET------------------------------------------------------------*/
-/**/ 
-AddressRouter.get('/', auth.AuthenticateToken, AddressControl.get)
 
 
-/**/ 
-AddressRouter.get('/all', auth.AuthenticateToken, AddressControl.getAllAddress)
+/*
+    get all user's addresses with this url
+    http://localhost:5000/api/user/address
+*/ 
+AddressRouter.get('/', auth.AuthenticateToken, AddressControl.getAllAddress)
+
+
+/*
+get detail by user_id via url  http://localhost:5000/api/user/address/detail/address_id <= by push address's id here
+*/ 
+AddressRouter.get('/detail/:address_id', auth.AuthenticateToken, AddressControl.getDetail)
 
 
 /*------------------------------------------------------POST------------------------------------------------------------*/

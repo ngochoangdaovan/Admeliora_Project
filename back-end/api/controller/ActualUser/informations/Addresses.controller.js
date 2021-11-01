@@ -49,7 +49,7 @@ module.exports = new class AddressController {
 
 /*--------------------------------------------GET----------------------------------------------------*/ 
     
-    async get(req, res){
+    async getDetail(req, res){
 
         try {
             //  get detail addresses information

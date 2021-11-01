@@ -15,8 +15,8 @@ module.exports = new class ProductLineController {
     async add(req, res){
 
         try {
-
-            await ProductLineValidation.validate(req.body);
+            
+            ProductLineValidation.validate(req.body);
             await ProductLineModel.create({
                 category_id: req.body.category_id, 
                 name: req.body.name,

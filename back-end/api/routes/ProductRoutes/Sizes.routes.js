@@ -13,6 +13,10 @@ const auth = Controller.ActualUserControl.Auth
 
 
 /*------------------------------------------------------GET------------------------------------------------------------*/
+/*
+
+*/ 
+
 router.get('/', SizeControl.getAll)
 router.get('/:category_id', SizeControl.getAllByCategory)
 router.get('/:size_id', SizeControl.get)

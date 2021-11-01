@@ -115,10 +115,9 @@ auth.Login = async function(req, res, next) {
 
 auth.AuthenticateAdminToken = async function(req, res, next){
 
-    if ( req.user=== (null || undefined) || !req.user.is_admin){
+    if ( req.user === (null || undefined) || !req.user.is_admin){
         return res.sendStatus(403)
     }
-    next()
 
 }
 
@@ -177,7 +176,6 @@ auth.AuthenticateToken = async function(req, res, next) {
 
             // put the user information to the request
             req.user = info;
-            next()
         })
     }else {
         // if the authentication header is empty send error.
