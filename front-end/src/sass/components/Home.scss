@@ -1,0 +1,36 @@
+.contents{
+    min-height: 200px;
+    min-width: 400px;
+    background-color: #F3F3F3;
+    border-radius: 20px;
+    justify-self: center;
+
+    @include tablet {
+        text-align: center;
+        margin-top: -200px;
+       
+      }
+  
+      @include mobile {
+        text-align: center;
+        width: 10px;
+        margin-top: -200px;
+      }
+
+      
+}
+
+.Imghome{
+  margin-top: 50px;
+}
+.IMG1{
+  width: 50%;
+}
+
+.IMG2{
+  width: 45%;
+}
+
+
+
+
