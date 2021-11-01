@@ -34,7 +34,7 @@ module.exports = new class UsersController {
             .then(data => responseHandler.sendSuccess(req, res, 200, data))
             .catch( err => responseHandler.sendFailure(req, res, 400, err))
         }else{
-            responseHandler.sendFailure(req, res, 403, 'use dont have the authorization to do this!')
+            responseHandler.sendFailure(req, res, 403, 'U dont have the authorization to do this bitch!')
         }
     
     };
