@@ -59,7 +59,7 @@ const Product = () => {
  
 
   return(
-    <Helmet title="Trang chủ">
+    <Helmet title="product_view">
 
 <Section>
          <h1 style = {{textAlign:"center", margin:"40px"}}>kkkkkkkkkkkkkkk</h1>

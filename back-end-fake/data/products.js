@@ -1,6 +1,6 @@
 const products = [
   {
-    title: 'Áo thun Dinosaur 01',
+    title: 'Áo-thun-Dinosaur-01',
 
     price: '189000',
 

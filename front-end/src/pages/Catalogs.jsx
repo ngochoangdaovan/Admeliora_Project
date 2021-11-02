@@ -10,7 +10,7 @@ import Button from '../components/Button'
 import InfinityList from '../components/InfinityList'
 import axios from 'axios'
 
-const Catalog = () => {
+const Catalogs = () => {
   const initFilter = {
     category: [],
     color: [],
@@ -223,4 +223,4 @@ const Catalog = () => {
   )
 }
 
-export default Catalog
+export default Catalogs
