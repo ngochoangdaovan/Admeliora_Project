@@ -17,10 +17,11 @@ const ProductCard = props => {
 
     return (
         <div className="product-card">
-            <Link to={`/catalog/${props.slug}`}>
+            <Link to={`/${props.slug}`}>
                 <div className="product-card__image">
-                    <img src={props.img01} alt="" />
-                    <img src={props.img02} alt="" />
+                    <img src={props.image01} alt="" />
+                    <img src={props.image02} alt="" />
+                    {/* <img src={props.images} alt=""/> */}
                 </div>
                 <h3 className="product-card__name">{props.name}</h3>
                 <div className="product-card__price">
@@ -45,8 +46,8 @@ const ProductCard = props => {
 }
 
 ProductCard.propTypes = {
-    img01: PropTypes.string.isRequired,
-    img02: PropTypes.string.isRequired,
+    image01: PropTypes.string.isRequired,
+    image02: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     slug: PropTypes.string.isRequired,

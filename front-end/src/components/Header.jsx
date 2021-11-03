@@ -6,19 +6,20 @@ import logo from '../assets/images/logo.jpg'
 const mainNav = [
   {
     display: 'Home',
-    path: '/',
+    path: '/Home',
   },
   {
     display: 'Product',
-    path: '/catalog',
+    path: '/Product',
   },
+
   {
     display: 'News',
-    path: '/accessories',
+    path: '/News',
   },
   {
     display: 'Contact',
-    path: '/contact',
+    path: '/Contacts',
   },
 ]
 

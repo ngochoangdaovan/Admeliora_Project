@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 
 import Grid from './Grid'
 import ProductCard from './ProductCard'
+import axios from 'axios'
 
 const InfinityList = (props) => {
   const perLoad = 6 // items each load
@@ -57,11 +58,12 @@ const InfinityList = (props) => {
         {data.map((item, index) => (
           <ProductCard
             key={index}
-            img01={item.image01}
-            img02={item.image02}
-            name={item.title}
+            image01 = {'http://54.169.130.83:9092/api/products/images/' + item.images[0]}
+            image02 = { 'http://54.169.130.83:9092/api/products/images/' + item.images[1]}
+            name={item.name}
             price={Number(item.price)}
             slug={item.slug}
+           
           />
         ))}
       </Grid>
