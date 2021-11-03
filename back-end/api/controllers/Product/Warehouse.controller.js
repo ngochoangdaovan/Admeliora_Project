@@ -90,7 +90,7 @@ module.exports = new class WarehouseController {
                 }
             );
             for (let path of paths) {
-                info.images.push(path);
+                info.images.push(path.image_path);
             }
 
             products.push(info)

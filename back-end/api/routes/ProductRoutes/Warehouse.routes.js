@@ -12,19 +12,19 @@ const auth = Controller.ActualUserControl.Auth
 
 
 /*------------------------------------------------------GET------------------------------------------------------------*/
-router.get('/', Warehouse.getAll)
+router.get('/', auth.ProductAccessAllow, Warehouse.getAll)
 
 /*
 we can get product based on product line, price threshold
 http://localhost:5000/api/products/filter_by_product_line?product_line_id=1&price=100
 
 */ 
-router.get('/filter', Warehouse.filterBy)
+router.get('/filter', auth.ProductAccessAllow, Warehouse.filterBy)
 
 /*
 http://localhost:5000/api/products/detail/1&1
 */ 
-router.get('/detail/:product_line_id&:color_id', Warehouse.getByColorAndLine)
+router.get('/detail/:product_line_id&:color_id', auth.ProductAccessAllow, Warehouse.getByColorAndLine)
 
 /*------------------------------------------------------POST------------------------------------------------------------*/
 router.post('/add', auth.AuthenticateToken, auth.AuthenticateAdminToken,Warehouse.add)

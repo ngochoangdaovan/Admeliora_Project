@@ -1,15 +1,17 @@
 
 const express = require('express');
 const app = express();
-const fs = require('fs');
+const cors = require('cors');
 require('dotenv').config()
 
 
 
 const router = require('./api/routes')
 const bodyParser = require('body-parser');
-// console.log(bodyParser)
 
+
+// use cors to allow cross origin resource sharing
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())

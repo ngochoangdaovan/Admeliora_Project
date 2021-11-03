@@ -119,18 +119,32 @@ auth.AuthenticateAdminToken = async function(req, res, next){
         return res.sendStatus(403)
     }
 
+    next()
+
+    
+
 }
 
 
 
-    
+auth.ProductAccessAllow = async function(req, res, next){
+    const authHeader = req.headers.authorization;
+    if (!(authHeader === (null || undefined))){
+        await auth.AuthenticateToken(req, res, next);
+    }else{
+        next()
+    }
+}
+
 auth.AuthenticateToken = async function(req, res, next) {
+
     
     // get token from request header
     const authHeader = req.headers.authorization;
 
     // check if there is a header with authorization token
     if (!(authHeader === (null || undefined))) {
+
 
         // get the token from the splitting token from (token: uaieo0q9840....)
         const token = await authHeader.split(' ')[1]; // get the second part which is the token
@@ -176,6 +190,7 @@ auth.AuthenticateToken = async function(req, res, next) {
 
             // put the user information to the request
             req.user = info;
+            next()
         })
     }else {
         // if the authentication header is empty send error.
@@ -184,7 +199,6 @@ auth.AuthenticateToken = async function(req, res, next) {
             message: 'authentication failed, please try again!'
         })
     }
-    
 
 };
     
