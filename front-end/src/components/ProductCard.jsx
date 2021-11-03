@@ -11,17 +11,18 @@ import Button from './Button'
 
 import numberWithCommas from '../utils/numberWithCommas'
 
+
 const ProductCard = props => {
 
     const dispatch = useDispatch()
+    // console.log('props',props)
 
     return (
         <div className="product-card">
-            <Link to={`/${props.slug}`}>
+            <Link to={`/Product/detail/${props.product_line_id}/${props.color_id}`}>
                 <div className="product-card__image">
                     <img src={props.image01} alt="" />
                     <img src={props.image02} alt="" />
-                    {/* <img src={props.images} alt=""/> */}
                 </div>
                 <h3 className="product-card__name">{props.name}</h3>
                 <div className="product-card__price">
@@ -51,6 +52,8 @@ ProductCard.propTypes = {
     name: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     slug: PropTypes.string.isRequired,
+    product_line_id: PropTypes.number.isRequired,
+    color_id: PropTypes.number.isRequired
 }
 
 export default ProductCard

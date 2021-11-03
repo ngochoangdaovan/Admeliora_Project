@@ -63,6 +63,8 @@ const InfinityList = (props) => {
             name={item.name}
             price={Number(item.price)}
             slug={item.slug}
+            color_id={item.color_id}
+            product_line_id={item.product_line_id}
            
           />
         ))}

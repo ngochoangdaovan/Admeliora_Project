@@ -11,13 +11,14 @@ import News from '../pages/News'
 const Routes = () => {
   return (
     <Switch>
+      <Route path="/Product/detail/:product_line_id/:color_id"  component={Product} />
       <Route path="/Home" exact component={Home} />
       <Route path="/Product" component={Catalogs} />
       <Route path="/cart" component={Cart} />
       <Route path="/Contacts" component={Contacts} />
       <Route path="/News" component={News} />
 
-      <Route path="/"  component={Product} />
+     
 
 
       
