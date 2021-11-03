@@ -73,6 +73,7 @@ module.exports = new class WarehouseController {
         for (let item of data) {
             
             const info = {}
+            let slug = ''
             info.product_line_id = item.product_line_id;
             info.color_id = item.ProductColor.color_id;
             info.product_line = item.ProductLine.name
@@ -80,6 +81,15 @@ module.exports = new class WarehouseController {
             info.price = item.ProductLine.price
             info.color_name = item.ProductColor.color_name
             info.name = info.category + ' ' + info.product_line +' '+ info.color_name
+            for (let i of info.name ){
+                if (i === ' '){
+                        slug += '-';
+                }else{
+                        slug += i;
+                }
+            }
+
+            info.slug = slug;
             info.images = []
             // get 3 image relate to the product
             let paths =  await ProductImagesModel.findAll({
@@ -153,7 +163,7 @@ module.exports = new class WarehouseController {
     async getByColorAndLine (req, res){    
         
         try{    
-            console.log(req.params)
+            
             // get all product that has the same color and product line and it's related information
             let product_info = await WarehouseModel.findAll({
                 where: {
@@ -187,7 +197,7 @@ module.exports = new class WarehouseController {
             const info = {}
 
             // because these product share the same properties, then we rearrange them in to a object
-            
+            let slug = ''
             info.product_line = product_info[0].ProductLine.name;
             info.category = product_info[0].ProductLine.Category.name;
             info.price = product_info[0].ProductLine.price;
@@ -195,6 +205,15 @@ module.exports = new class WarehouseController {
             info.discount = product_info[0].discount;
             info.rate = product_info[0].rate;
             info.name = info.category + ' ' + info.product_line + ' ' + info.color
+            for (let i of info.name ){
+                if (i === ' '){
+                        slug += '-';
+                }else{
+                        slug += i;
+                }
+            }
+
+            info.slug = slug;
 
             info.Sizes = Sizes;
             info.images = images;

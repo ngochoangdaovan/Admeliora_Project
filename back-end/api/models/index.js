@@ -33,7 +33,8 @@ module.exports =  () => {
           dateStrings: true,
           typeCast: true
         },
-        timezone: '+07:00' //for writing to database
+        timezone: '+07:00', //for writing to database,
+        logging: false
       });
     }
 

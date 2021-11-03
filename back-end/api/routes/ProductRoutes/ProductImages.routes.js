@@ -9,7 +9,7 @@ const productImageUpload = require('../../middleWares/imageHandler/productImg')
 const path = require('path');
 const ActualUserControl = require('../../controllers').ActualUserControl
 const auth = ActualUserControl.Auth
-
+const requestLog = require('../../middleWares/requestLog')
 
 
 
@@ -28,7 +28,7 @@ router.use(express.static(path.join(path.resolve(),'data/product_images')))
     - url : http://localhost:5000/api/products/images/upload
 
 */
-router.post('/upload', auth.AuthenticateToken, auth.AuthenticateAdminToken, productImageUpload.array('product_images'), ImageControl.add)
+router.post('/upload', requestLog, auth.AuthenticateToken, auth.AuthenticateAdminToken, productImageUpload.array('product_images'), ImageControl.add)
 
 
 /*------------------------------------------------------DELETE---------------------------------------------------------*/
@@ -39,7 +39,7 @@ router.post('/upload', auth.AuthenticateToken, auth.AuthenticateAdminToken, prod
 
 */
 
-router.delete('/delete/:image_id', auth.AuthenticateToken, auth.AuthenticateAdminToken, ImageControl.delete)
+router.delete('/delete/:image_id',requestLog, auth.AuthenticateToken, auth.AuthenticateAdminToken, ImageControl.delete)
 
 
 

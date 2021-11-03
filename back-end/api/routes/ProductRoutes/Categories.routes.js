@@ -3,7 +3,7 @@ const router = express.Router();
 const auth = require('../../controllers/ActualUser/auth');
 const ProductControl = require('../../controllers').ProductControl
 const CategoryControl = ProductControl.CategoryController
-
+const requestLog = require('../../middleWares/requestLog')
 
 
 
@@ -14,7 +14,7 @@ const CategoryControl = ProductControl.CategoryController
     - only admin 
     - url: http://localhost:5000/api/products/categories
 */ 
-router.get('/', auth.AuthenticateToken, auth.AuthenticateAdminToken, CategoryControl.getAll)
+router.get('/', requestLog, auth.AuthenticateToken, auth.AuthenticateAdminToken, CategoryControl.getAll)
 
 /*------------------------------------------------------POST------------------------------------------------------------*/
 /*
@@ -22,7 +22,7 @@ router.get('/', auth.AuthenticateToken, auth.AuthenticateAdminToken, CategoryCon
     - role: admin only
     - url : http://localhost:5000/api/products/categories/add
 */ 
-router.post('/add', auth.AuthenticateToken, auth.AuthenticateAdminToken, CategoryControl.addNewCategory)
+router.post('/add', requestLog, auth.AuthenticateToken, auth.AuthenticateAdminToken, CategoryControl.addNewCategory)
 
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
 /*
@@ -30,7 +30,7 @@ router.post('/add', auth.AuthenticateToken, auth.AuthenticateAdminToken, Categor
     - http://localhost:5000/api/products/categories
     - url : http://localhost:5000/api/products/categories/delete/1 <= this is the category id
 */ 
-router.delete('/delete/:category_id', auth.AuthenticateToken, auth.AuthenticateAdminToken, CategoryControl.delete)
+router.delete('/delete/:category_id', requestLog, auth.AuthenticateToken, auth.AuthenticateAdminToken, CategoryControl.delete)
 
 
 

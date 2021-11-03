@@ -7,6 +7,9 @@ const controller = require('../../controllers');
 const auth = controller.ActualUserControl.Auth;
 const productLine = controller.ProductControl.ProductLinesController;
 
+// require requestLog 
+const requestLog = require('../../middleWares/requestLog');
+
 
 
 /*------------------------------------------------------GET------------------------------------------------------------*/
@@ -17,8 +20,8 @@ const productLine = controller.ProductControl.ProductLinesController;
     - url 1: http://localhost:5000/api/products/productLines/
     - url 2: http://localhost:5000/api/products/productLines/1 <= this is the product line id
 */ 
-router.get('/', productLine.getAll) // get all product line
-router.get('/:product_line_id', productLine.get) // get details of a specific product line 
+router.get('/',requestLog, productLine.getAll) // get all product line
+router.get('/:product_line_id', requestLog,productLine.get) // get details of a specific product line 
 
 /*------------------------------------------------------POST------------------------------------------------------------*/
 /*
@@ -35,7 +38,7 @@ router.get('/:product_line_id', productLine.get) // get details of a specific pr
                     }
     - url: http://localhost:5000/api/products/productLines/add
 */ 
-router.post('/add', auth.AuthenticateToken, auth.AuthenticateAdminToken, productLine.add)
+router.post('/add',requestLog, auth.AuthenticateToken, auth.AuthenticateAdminToken, productLine.add)
 
 /*------------------------------------------------------PUT------------------------------------------------------------*/
 /*
@@ -54,12 +57,12 @@ router.post('/add', auth.AuthenticateToken, auth.AuthenticateAdminToken, product
     - product_line_id is a required params
 
 */ 
-router.put('/update/:product_line_id', auth.AuthenticateToken, auth.AuthenticateAdminToken, productLine.update)
+router.put('/update/:product_line_id',requestLog, auth.AuthenticateToken, auth.AuthenticateAdminToken, productLine.update)
 
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
 // delete specific product line by product_line_id
 // url: http://localhost:5000/api/products/productLines/delete/:product_line_id
-router.delete('/delete/:product_line_id', auth.AuthenticateToken, auth.AuthenticateAdminToken ,productLine.delete)
+router.delete('/delete/:product_line_id', requestLog, auth.AuthenticateToken, auth.AuthenticateAdminToken ,productLine.delete)
 
 
 

@@ -6,7 +6,7 @@ const router = express.Router();
 const controller = require('../../controllers');
 const productColorControl = controller.ProductControl.ColorController
 const auth = controller.ActualUserControl.Auth
-
+const requestLog = require('../../middleWares/requestLog')
 
 
 
@@ -17,7 +17,7 @@ const auth = controller.ActualUserControl.Auth
     - role any one can request this
     - url http//localhost:5000/api/products/colors/1 <= product line id here
 */ 
-router.get('/:product_line_id', productColorControl.getAll)
+router.get('/:product_line_id', requestLog, productColorControl.getAll)
 
 
 /*
@@ -26,7 +26,7 @@ router.get('/:product_line_id', productColorControl.getAll)
     - url : http://localhost:5000/api/products/colors/1/1 <= product line id and color id one by one
 
 */ 
-router.get('/:product_line_id/:color_id', productColorControl.get)
+router.get('/:product_line_id/:color_id', requestLog, productColorControl.get)
 
 
 /*------------------------------------------------------POST------------------------------------------------------------*/
@@ -41,7 +41,7 @@ router.get('/:product_line_id/:color_id', productColorControl.get)
     - url : http://localhost:5000/api/products/colors/add
 
 */ 
-router.post('/add', auth.AuthenticateToken, auth.AuthenticateAdminToken ,productColorControl.add)
+router.post('/add', requestLog, auth.AuthenticateToken, auth.AuthenticateAdminToken ,productColorControl.add)
 
 
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
@@ -51,7 +51,7 @@ router.post('/add', auth.AuthenticateToken, auth.AuthenticateAdminToken ,product
     - required color_id at the end of the url
     - url : http://localhost:5000/api/products/colors/1 <= this is the color id
 */ 
-router.delete('/delete/:color_id', auth.AuthenticateToken, auth.AuthenticateAdminToken, productColorControl.delete)
+router.delete('/delete/:color_id', requestLog, auth.AuthenticateToken, auth.AuthenticateAdminToken, productColorControl.delete)
 
 
 module.exports = router;

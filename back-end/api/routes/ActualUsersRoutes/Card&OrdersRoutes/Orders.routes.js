@@ -5,21 +5,21 @@ const router = express.Router();
 const ActualUserControl = require('../../../controllers').ActualUserControl
 const OrderController  = ActualUserControl.OrderController
 const auth = ActualUserControl.Auth
-
+const requestLog = require('../../../middleWares/requestLog')
 
 
 
 
 
 /*------------------------------------------------------GET------------------------------------------------------------*/
-router.get('/', auth.AuthenticateToken, OrderController.getAll)
-router.get('/detail/:order_id', auth.AuthenticateToken, OrderController.getDetails)
+router.get('/', requestLog, auth.AuthenticateToken, OrderController.getAll)
+router.get('/detail/:order_id', requestLog, auth.AuthenticateToken, OrderController.getDetails)
 /*------------------------------------------------------POST------------------------------------------------------------*/
-router.post('/pay', auth.AuthenticateToken, OrderController.Pay)
+router.post('/pay', requestLog, auth.AuthenticateToken, OrderController.Pay)
 /*------------------------------------------------------PUT------------------------------------------------------------*/
-router.put('/update/:order_id',auth.AuthenticateToken, OrderController.update)
+router.put('/update/:order_id',requestLog, auth.AuthenticateToken, OrderController.update)
 /*------------------------------------------------------DELETE------------------------------------------------------------*/
-router.delete('/delete/:order_id', auth.AuthenticateToken, OrderController.delete)
+router.delete('/delete/:order_id', requestLog, auth.AuthenticateToken, OrderController.delete)
 
 
 
