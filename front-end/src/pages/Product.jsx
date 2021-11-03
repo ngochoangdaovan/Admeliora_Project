@@ -15,12 +15,6 @@ import axios from 'axios'
 const Product = () => {
 
 
-  
-  
-
-
-
-
   const [product, setProduct] = useState([])
 
   useEffect(() => {

@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/daovanngochoang/Admeliora_Project#readme",
   "dependencies": {
+    "emailjs-com": "^3.2.0",
     "express": "^4.17.1"
   }
 }

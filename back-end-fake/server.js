@@ -1,14 +1,20 @@
 const express = require('express')
 const products = require('./data/products')
 const heroSliderData = require('./data/hero-slider')
+const feedback = require('./data/feedback')
+
 
 
 
 const app = express()
 
-app.get('/', (req, res) => {
-  res.send('API is running ')
+app.get('/api/feedback', (req, res) => {
+  res.json(feedback)
 })
+
+// app.get('/', (req, res) => {
+//   res.send('API is running ')
+// })
 
 app.get('/api/products', (req, res) => {
   res.json(products)
@@ -40,6 +46,11 @@ app.get('/catalog/images/products/:slug', (req, res) => {
 
 app.get('/catalog/images/products', (req, res) => {
   res.json(products)
+})
+
+app.get('catalog/:slug', (req, res) => {
+  const product = products.find((p) => p.slug === req.params.slug)
+  res.json(product)
 })
 
 app.listen(5000, console.log('Server running on port 5000'))

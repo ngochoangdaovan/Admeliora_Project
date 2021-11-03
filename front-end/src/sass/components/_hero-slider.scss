@@ -50,7 +50,7 @@
           text-align: center;
           margin-right: 1400px;
           height: 700px;
-          margin-bottom: 0px;
+          margin-bottom: 20px;
          
          
           
@@ -113,10 +113,12 @@
       bottom: 50px;
       left: 50%;
       transform: translateX(-50%);
+     
       
 
       @include tablet {
           bottom: 20px;
+         
           
       }
 
@@ -124,6 +126,8 @@
 
       &__item ~ &__item {
           margin-left: 10px;
+          
+          
          
       }
 
@@ -131,6 +135,8 @@
           @include flex(center, center);
           font-size: 2rem;
           cursor: pointer;
+          
+          
           
 
           @include tablet {
