@@ -244,9 +244,9 @@ module.exports = new class WarehouseController {
             // get only the paths
             for (let img of image_paths) {
                 if (img.default !== true){
-                    info.images.push({image_path : img.image_path});
+                    info.images.push(img.image_path);
                 }else{
-                    info.defaultImage.image_path = img.image_path
+                    info.defaultImage = img.image_path
                 }
             }
 
