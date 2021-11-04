@@ -19,9 +19,9 @@ module.exports = (req, res, next) => {
     const _month = date.getMonth(); 
     const _year = date.getFullYear();
     const _hour = Number(date.getHours()) + 7;
-    const _GMT7_hour = _hour > 24 ? _hour - 24 : _hour;
+    const _GMT7_hour = _hour > 24 ? `${_hour - 24}`  : _hour;
     const _minute = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes();
-    const _dateTime = `${_date}/${_month}/${_year} 0${_GMT7_hour}:0${_minute} GTM-7`;
+    const _dateTime = `${_date}/${_month}/${_year} ${_GMT7_hour}:${_minute} GTM-7`;
  
 
     const log = {
