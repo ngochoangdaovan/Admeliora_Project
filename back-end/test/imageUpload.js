@@ -337,7 +337,300 @@ module.exports = async () => {
         await imgModel.bulkCreate(jacket_signature);
 
 
-}
+
+    const ao_thun_Dreamer_Tshirt_blue = [
+        {
+            image_path: "123694379_219356889800823_6010563252641384358_n.jpg",
+            default: true,
+            color_id: 9
+        },
+        {
+            image_path: "124054764_219356893134156_4771778557987799812_n.jpg" ,
+            default: false,
+            color_id: 9
+        },
+        {
+            image_path: "123833496_219356899800822_2572004570308623786_n.jpg" ,
+            default: false,
+            color_id: 9
+        },
+        {
+            image_path:"125212708_222620816141097_5086881851848968790_n.jpg" , 
+            default: false,
+            color_id: 9
+        },
+
+    ]
+
+    await imgModel.bulkCreate(ao_thun_Dreamer_Tshirt_blue);
+
+
+    const ao_thun_Dreamer_sesson2_white = [
+        {
+            image_path: "125938719_225609715842207_2025538508263658512_n.jpg",
+            default: true,
+            color_id: 11
+        },
+        {
+            image_path: "142116326_272404981162680_3212541827674991253_n.jpg" ,
+            default: false,
+            color_id: 11
+        },        
+    ]
+
+    await imgModel.bulkCreate(ao_thun_Dreamer_sesson2_white);
+
+
+
+    const ao_thun_happiness_session1_blue = [
+        {
+            image_path: "122139025_213175103752335_9181648813560021825_n.jpg",
+            default: true,
+            color_id: 18
+        },
+
+        {
+            image_path: "125212708_222620816141097_5086881851848968790_n.jpg",
+            default: false,
+            color_id: 18
+        },
+
+        {
+            image_path: "125436179_222620822807763_3916868983095538298_n.jpg",
+            default: false,
+            color_id: 18
+        },
+
+        {
+            image_path: "126178260_222620819474430_3250147842712111347_n.jpg",
+            default: false,
+            color_id: 18
+        }
+    ]
+
+
+    await imgModel.bulkCreate(ao_thun_happiness_session1_blue);
+
+    const ao_thun_signature_blue = [
+        {
+            image_path: "122139025_213175103752335_9181648813560021825_n.jpg",
+            default: true,
+            color_id: 15
+        },
+
+        {
+            image_path: "125212708_222620816141097_5086881851848968790_n.jpg",
+            default: false,
+            color_id: 15
+        },
+
+        {
+            image_path: "125436179_222620822807763_3916868983095538298_n.jpg",
+            default: false,
+            color_id: 15
+        },
+
+        {
+            image_path: "126178260_222620819474430_3250147842712111347_n.jpg",
+            default: false,
+            color_id: 15
+        }
+    ]
+
+
+    await imgModel.bulkCreate(ao_thun_signature_blue);
+
+
+
+
+    const ao_thun_signature_white = [
+        {
+            image_path: "196149577_356527266083784_1968077833952293411_n.jpg",
+            default: true,
+            color_id: 14
+        },
+
+        {
+            image_path: "196017494_356527222750455_792592738304558608_n.jpg",
+            default: false,
+            color_id: 14
+        },
+
+        {
+            image_path: "195845677_356527292750448_2837876292505064173_n.jpg",
+            default: false,
+            color_id: 14
+        },
+
+        {
+            image_path: "196149577_356527266083784_1968077833952293411_n.jpg",
+            default: false,
+            color_id: 14
+        }
+    ]
+
+
+    await imgModel.bulkCreate(ao_thun_signature_white);
+
+
+    const ao_thun_passion_tee_blue = [
+        {
+            image_path: "123694379_219356889800823_6010563252641384358_n.jpg",
+            default: true,
+            color_id: 6
+        },
+        {
+            image_path: "124054764_219356893134156_4771778557987799812_n.jpg" ,
+            default: false,
+            color_id: 6
+        },
+        {
+            image_path: "123833496_219356899800822_2572004570308623786_n.jpg" ,
+            default: false,
+            color_id: 6
+        },
+        {
+            image_path:"125212708_222620816141097_5086881851848968790_n.jpg" , 
+            default: false,
+            color_id: 6
+        },
+    ]
+
+
+    await imgModel.bulkCreate(ao_thun_passion_tee_blue);
+
+
+    const ao_thun_passion_tee_white = [
+        {
+            image_path: "196149577_356527266083784_1968077833952293411_n.jpg",
+            default: true,
+            color_id: 5
+        },
+
+        {
+            image_path: "196017494_356527222750455_792592738304558608_n.jpg",
+            default: false,
+            color_id: 5
+        },
+
+        {
+            image_path: "195845677_356527292750448_2837876292505064173_n.jpg",
+            default: false,
+            color_id: 5
+        },
+
+        {
+            image_path: "196149577_356527266083784_1968077833952293411_n.jpg",
+            default: false,
+            color_id: 5
+        }
+    ]
+
+
+    await imgModel.bulkCreate(ao_thun_passion_tee_white);
+
+
+    const ao_thun_passion_tee_black = [
+        {
+            image_path: "121679470_213175143752331_8099647783509929979_n.jpg",
+            default: true,
+            color_id: 4
+        },
+
+        {
+            image_path: "122145486_213175063752339_743054091671345849_n.jpg",
+            default: false,
+            color_id: 4
+        },
+
+        {
+            image_path: "124021083_218970673172778_9162308191691559614_n.jpg",
+            default: false,
+            color_id: 4
+        },
+
+        {
+            image_path: "133357042_254705112932667_8541951749833728845_n.jpg",
+            default: false,
+            color_id: 4
+        },
+
+        {
+            image_path: "140680241_272404861162692_901073767736716313_n.jpg",
+            default: false,
+            color_id: 4
+        }
+    ]
+
+
+
+    await imgModel.bulkCreate(ao_thun_passion_tee_black);
+
+
+    const ao_thun_eyes_Polo_white = [
+        {
+            image_path: "3beaf48f493d8063d92c23.jpg",
+            default: true,
+            color_id: 2
+        },
+
+        {
+            image_path: "9c0cca6877dabe84e7cb18.jpg",
+            default: false,
+            color_id: 2
+        },
+
+        {
+            image_path: "9e92b9f60444cd1a945521.jpg",
+            default: false,
+            color_id: 2
+        },
+
+        {
+            image_path: "956c6c09d1bb18e541aa16.jpg",
+            default: false,
+            color_id: 2
+        },
+
+        {
+            image_path: "3531e7545ae693b8caf720.jpg",
+            default: false,
+            color_id: 2
+        }
+    ]
+
+
+    await imgModel.bulkCreate(ao_thun_eyes_Polo_white);
+
+
+
+
+    const ao_thun_eyes_Polo_blue = [
+        {
+            image_path: "1db4fdf02b78e226bb6912.jpg",
+            default: true,
+            color_id: 3
+        },
+
+        {
+            image_path: "7aa99ef148798127d86811.jpg",
+            default: false,
+            color_id: 3
+        },
+
+        {
+            image_path: "a3bd68e6be6e77302e7f13.jpg",
+            default: false,
+            color_id: 3
+        },
+
+        
+    ]
+
+
+    await imgModel.bulkCreate(ao_thun_eyes_Polo_blue);
+
+    }
 
 
 
