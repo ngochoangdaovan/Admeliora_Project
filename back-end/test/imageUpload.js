@@ -630,6 +630,43 @@ module.exports = async () => {
 
     await imgModel.bulkCreate(ao_thun_eyes_Polo_blue);
 
+
+    const ao_thun_Polo_black = [
+        {
+            image_path: "137533180_264480551955123_342551269483455382_n.jpg",
+            default: true,
+            color_id: 1
+        },
+        {
+            image_path: "115770043_184935573242955_4839596695601269594_n.jpg" ,
+            default: false,
+            color_id: 1
+        },
+        {
+            image_path: "116433168_184935513242961_665900465497517347_n.jpg" ,
+            default: false,
+            color_id: 1
+        },
+        {
+            image_path:"116832497_185813029821876_784408715569972103_n.jpg" , 
+            default: false,
+            color_id: 1
+        },
+        {
+            image_path:"116887075_185813039821875_2051895716465090552_n.jpg" , 
+            default: false,
+            color_id: 1
+        },
+        {
+            image_path:"118631824_197108585358987_5111106897490513191_n.jpg" , 
+            default: false,
+            color_id: 1
+        }
+
+    ]
+    await imgModel.bulkCreate(ao_thun_Polo_black);
+
+
     }
 
 
