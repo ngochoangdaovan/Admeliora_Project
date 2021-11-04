@@ -32,7 +32,6 @@ module.exports = (req, res, next) => {
         headers,
         _dateTime,
     };
-    console.log(log);
     console.log('method: '+log.method + '-- url: ' + log.url +  '  --date: ' + log._dateTime + '  -- use-agent: ' + headers['user-agent'] );
 
     next();
