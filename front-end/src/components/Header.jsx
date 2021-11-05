@@ -6,7 +6,7 @@ import logo from '../assets/images/logo.jpg'
 const mainNav = [
   {
     display: 'Home',
-    path: '/Home',
+    path: '/',
   },
   {
     display: 'Product',

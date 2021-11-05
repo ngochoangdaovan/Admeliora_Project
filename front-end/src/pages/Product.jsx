@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Helmet from '../components/Helmet'
-import Section, {SectionBody, SectionTitle} from '../components/Section'
+import Section, {SectionBody} from '../components/Section'
 import Grid from '../components/Grid'
 import ProductCard from '../components/ProductCard'
 import axios from 'axios'
 import ProductView from '../components/ProductView'
+
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
+
 
 
 const Product = (props) => {
@@ -67,12 +71,12 @@ const Product = (props) => {
             Khám phá thêm
         </SectionTitle>
               <SectionBody> 
-                  <Grid
+              <Grid
                       col={4}
                       mdCol={2}
                       smCol={1}
                       gap={20}>
-                        {
+                          {
                             productData.getProducts(8).map((item, index) => (
                                 <ProductCard
                                     key={index}

@@ -1,11 +1,7 @@
 import React from 'react'
 
 const News = () => {
-    return (
-        <div>
-            new page
-        </div>
-    )
+  return <div> châu hoài vũ here </div>
 }
 
 export default News

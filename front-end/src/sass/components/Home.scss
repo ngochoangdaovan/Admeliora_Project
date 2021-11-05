@@ -4,17 +4,20 @@
     background-color: #F3F3F3;
     border-radius: 20px;
     justify-self: center;
+    margin-top: -100px;
+    
+    
 
     @include tablet {
         text-align: center;
-        margin-top: -200px;
+        margin-top: -300px;
        
       }
   
       @include mobile {
         text-align: center;
         width: 10px;
-        margin-top: -200px;
+        margin-top: -450px;
       }
 
       

@@ -21,8 +21,8 @@ const ProductCard = props => {
         <div className="product-card">
             <Link to={`/Product/detail/${props.product_line_id}/${props.color_id}`}>
                 <div className="product-card__image">
-                    <img src={props.image01} alt="" />
-                    <img src={props.image02} alt="" />
+                    <img className = "border_radius1" src={props.image01} alt="" />
+                    <img className = "border_radius2" src={props.image02} alt="" />
                 </div>
                 <h3 className="product-card__name">{props.name}</h3>
                 <div className="product-card__price">
