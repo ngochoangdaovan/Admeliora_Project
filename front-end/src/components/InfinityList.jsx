@@ -16,6 +16,7 @@ const InfinityList = (props) => {
 
   const [data, setData] = useState([])
 
+
   useEffect(() => {
     setData(props.data.slice(0, perLoad))
     setIndex(1)

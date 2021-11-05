@@ -9,27 +9,32 @@ import ProductView from '../components/ProductView'
 
 const Product = (props) => {
   // console.log('props.product_line',props)
-  const [slug, setslug] = useState([])
-  // console.log('props', props)
-  useEffect(() => {
+  const [productDetail, setProductDetail] = useState({images:[]})
+  
+  useEffect(()  => {
     const fetchProducts = async () => {
       const respone = await axios.get(`http://54.169.130.83:9092/api/products/detail/${props.match.params.product_line_id}&${props.match.params.color_id}`)
-      // console.log('data', data)
-      
-      setslug(respone.data.data)
+      console.log('data', respone.data.data)
+      setProductDetail(respone.data.data)
     }
-    fetchProducts()
+   fetchProducts()
   }, [])
+  // console.log('slug', slug)
+  // axios.get(`http://54.169.130.83:9092/api/products/detail/${props.match.params.product_line_id}&${props.match.params.color_id}`)
+  // .then((respone)=>{console.log("respone",respone)})
+  
   // =======================================
   const [product, setProduct] = useState([])
   useEffect(() => {
     const fetchProducts = async () => {
       const respone = await axios.get('http://54.169.130.83:9092/api/products/')
       // console.log('data', data)
+      console.log("datapro", respone.data.data)
       setProduct(respone.data.data)
     }
     fetchProducts()
   }, [])  
+  // console.log("product 2",product)
   
 
   const getAllProducts = () => product
@@ -48,13 +53,13 @@ const Product = (props) => {
     getAllProducts,
     getProducts,
   }
-
+  // console.log("productdetail",productDetail)
   return(
     <div >
-    <Section>
-        <SectionBody>
-            <ProductView slug={slug}/>
-        </SectionBody>
+    <Section style={{marginBottom:'500px'}}>
+        
+            <ProductView productDetail={productDetail}/>
+        
     
     </Section>
     <Section>
