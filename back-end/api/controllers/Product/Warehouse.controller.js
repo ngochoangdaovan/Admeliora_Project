@@ -19,16 +19,44 @@ module.exports = new class WarehouseController {
     async add (req, res) {
         let input = req.body;
 
-        await WarehouseModel.create ({
-            product_line_id: input.product_line_id,
-            size_id: input.size_id,
-            color_id: input.color_id,
-            quantity: input.quantity,
-            discount: 0,
-            rate : 0
-        })
-        .then(() => responseHandler.sendSuccess(req, res, 201, 'Product line added successfully'))
-        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+        try {
+
+        
+
+            // check if product_line_id and color is exist
+            let item = await WarehouseModel.findOne({
+                where: {
+                    product_line_id: input.product_line_id,
+                    color_id : input.color_id, 
+                    size_id: input.size_id
+                },
+                attributes: ['product_detail_id','quantity']
+            })
+
+            if (item !== null && item > 0){
+                // update quantity 
+                await WarehouseModel.update({
+                    quantity: item.quantity + input.quantity
+                },
+                {
+                    where: {
+                        product_detail_id: item.product_detail_id
+                }})
+            }else{
+                // create new product line
+                await WarehouseModel.create ({
+                    product_line_id: input.product_line_id,
+                    size_id: input.size_id,
+                    color_id: input.color_id,
+                    quantity: input.quantity,
+                    discount: 0,
+                    rate : 0
+                })
+            }
+            responseHandler.sendSuccess(req, res, 201, 'Product line added successfully')
+        }catch(err){
+            responseHandler.sendFailure(req, res, 400, err.message)
+        }
 
     }
     
