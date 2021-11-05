@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import PropTypes from 'prop-types'
+import Grid from './Grid'
 // import { Link } from 'react-router-dom'
 
 
@@ -36,15 +37,24 @@ const HeroSlider = props => {
         }
     }, [nextSlide, timeOut, props])
 
+
+   
+
+
     return (
 
-
+        
         <div className="hero-slider">
+
             {
                 data.map((item, index) => (
-                    <HeroSliderItem key={index} item={item} active={index === activeSlide}/>
+                    <HeroSliderItem key={index} item={'http://54.169.130.83:9092/api/banner/' + item} active={index === activeSlide}/>
                 ))
+
+                
             }
+
+           
             {
                 props.control ? (
                     <div className="hero-slider__control">
@@ -63,6 +73,7 @@ const HeroSlider = props => {
                 ) : null
             }
         </div>
+      
     )
 }
 
@@ -74,12 +85,17 @@ HeroSlider.propTypes = {
 }
 
 const HeroSliderItem = props => (
+
+    
     <div className={`hero-slider__item ${props.active ? 'active' : ''}`}>
         <div className="hero-slider__item__image">
-            <div className={`shape bg-${props.item.color}`}></div>
-            <img src={props.item.img} alt="" />
+           
+            <img src={props.item} alt="" />
         </div>
+        
     </div>
 )
+
+
 
 export default HeroSlider

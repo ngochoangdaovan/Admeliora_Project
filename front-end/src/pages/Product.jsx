@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Helmet from '../components/Helmet'
-import Section, {SectionBody, SectionTitle} from '../components/Section'
+import Section, {SectionBody} from '../components/Section'
 import Grid from '../components/Grid'
 import ProductCard from '../components/ProductCard'
 import axios from 'axios'
 // import PropTypes from 'prop-types'
+
+import AliceCarousel from 'react-alice-carousel';
+import 'react-alice-carousel/lib/alice-carousel.css';
+
 
 
 const Product = (props) => {
@@ -54,19 +58,35 @@ const Product = (props) => {
     getProducts,
   }
 
+
+//   const handleDragStart = (e) => e.preventDefault();
+
+// const items = [
+//   <img src="./image/products/product-01a.jpg" onDragStart={handleDragStart} />,
+//   <img src="" onDragStart={handleDragStart} />,
+//   <img src="" onDragStart={handleDragStart} />,
+// ];
+
+
   return(
     <Helmet title= {slug.name}>
 
+    <section>
+
+    {/* <AliceCarousel mouseTracking items={items} /> */}
+      
+    </section>
+
   <Section>
          <h1 style = {{textAlign:"center", margin:"40px"}}>Khám phá thêm</h1>
-         {/* <div>{}</div> */}
+         
               <SectionBody> 
-                  <Grid
+              <Grid
                       col={4}
                       mdCol={2}
                       smCol={1}
                       gap={20}>
-                        {
+                          {
                             productData.getProducts(8).map((item, index) => (
                                 <ProductCard
                                     key={index}
