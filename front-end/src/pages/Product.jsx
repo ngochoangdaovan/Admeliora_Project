@@ -4,13 +4,13 @@ import Section, {SectionBody, SectionTitle} from '../components/Section'
 import Grid from '../components/Grid'
 import ProductCard from '../components/ProductCard'
 import axios from 'axios'
-// import PropTypes from 'prop-types'
+import ProductView from '../components/ProductView'
 
 
 const Product = (props) => {
   // console.log('props.product_line',props)
   const [slug, setslug] = useState([])
-  console.log('props', props)
+  // console.log('props', props)
   useEffect(() => {
     const fetchProducts = async () => {
       const respone = await axios.get(`http://54.169.130.83:9092/api/products/detail/${props.match.params.product_line_id}&${props.match.params.color_id}`)
@@ -32,11 +32,6 @@ const Product = (props) => {
   }, [])  
   
 
-  useEffect(() => {
-    console.log(product)
-  }, [product])
-
-
   const getAllProducts = () => product
 
   const getProducts = (count) => {
@@ -55,11 +50,17 @@ const Product = (props) => {
   }
 
   return(
-    <Helmet title= {slug.name}>
-
-  <Section>
-         <h1 style = {{textAlign:"center", margin:"40px"}}>Khám phá thêm</h1>
-         {/* <div>{}</div> */}
+    <div >
+    <Section>
+        <SectionBody>
+            <ProductView slug={slug}/>
+        </SectionBody>
+    
+    </Section>
+    <Section>
+        <SectionTitle>
+            Khám phá thêm
+        </SectionTitle>
               <SectionBody> 
                   <Grid
                       col={4}
@@ -85,7 +86,7 @@ const Product = (props) => {
                   </Grid>
               </SectionBody>
               </Section>
-    </Helmet>
+    </div>
   )
 }
 export default Product
