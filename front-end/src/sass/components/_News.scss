@@ -54,6 +54,11 @@
     justify-self: center;
     justify-content: center;
     justify-items: center;
+    background-color: #191a1b;
+    color: white;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
 }
 
 .container_new{
@@ -73,9 +78,7 @@
         }
 
         @include mobile {
-            font-size: 10px;
-         
-         
+            font-size: 10px;                 
              }
      
 }
@@ -85,19 +88,11 @@
     width: 300px;
 
     @include tablet {
-        font-size: 15px;
-     
-     
+        font-size: 15px;     
          }
-
          
         @include mobile {
-            font-size: 10px;
-         
-         
-             }
-
-
-    
+            font-size: 10px;        
+             }    
 }
 

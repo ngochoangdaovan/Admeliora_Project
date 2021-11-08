@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react'
+
 import Grid from '../components/Grid'
+
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import ImageSlider from './ImageSlider';
 
 const ProductView = (props) => {
-    let imageApi = 'http://admeliora.tk/api/products/images/'
 
     const options = [
         'XL', '2XL', '3XL'
@@ -18,14 +18,15 @@ const ProductView = (props) => {
     useEffect(()=>{
         setProductDetail(props.productDetail)
     },[props])
-
+    let api = 'http://admeliora.tk/api/products/images/'
     console.log("props", props)
     
-    const [previewImg, setPreviewImg] = useState(imageApi+productDetail.images[0])
+    const [previewImg, setPreviewImg] = useState(api+productDetail.images[0])
 
+    // console.log("cac",previewImg)
     useEffect(()=>{
-        setPreviewImg(imageApi+productDetail.images[0])
-    },[imageApi+productDetail.images[0]])
+        setPreviewImg(api+productDetail.images[0])
+    },[api+productDetail.images[0]])
    
     return (
         <div className="products">               
@@ -40,28 +41,20 @@ const ProductView = (props) => {
                     < img className ="main_img" src={previewImg} alt=""/>
                     </div>
 
-                     {/* <div className="list_images">
-                    <div className="product_images_mages"  onClick={() => setPreviewImg(imageApi+productDetail.images[1])}>
-                        <img className = "children_img"  src={imageApi+productDetail.images[1]} alt="" />
+                    <div className="list_images">
+                    <div className="product_images_mages"  onClick={() => setPreviewImg(api+productDetail.images[1])}>
+                        <img className = "children_img"  src={api+productDetail.images[1]} alt="" />
                     </div>
-                    <div className="product_images_mages"  onClick={() => setPreviewImg(imageApi+productDetail.images[2])}>
-                        <img className = "children_img" src={imageApi+productDetail.images[2]} alt="" />
+                    <div className="product_images_mages"  onClick={() => setPreviewImg(api+productDetail.images[2])}>
+                        <img className = "children_img" src={api+productDetail.images[2]} alt="" />
                     </div>
-                    <div className="product_images_list_item" onClick={() => setPreviewImg(imageApi+productDetail.images[3])} >
-                        <img className = "children_img" src={imageApi+productDetail.images[3]} alt="" />
+                    <div className="product_images_list_item" onClick={() => setPreviewImg(api+productDetail.images[3])} >
+                        <img className = "children_img" src={api+productDetail.images[3]} alt="" />
                     </div>
-                    <div className="product_images_list_item" onClick={() => setPreviewImg(imageApi+productDetail.images[4])} >
-                        <img className = "children_img" src={imageApi+productDetail.images[4]} alt="" />
-                    </div>  */}
-                     <div className="list_images">
-                        {productDetail.images.map((item,index)=>(                 
-                            <ImageSlider 
-                                key={index}
-                                src={imageApi+item} setPreviewImg={setPreviewImg} className ="image"> 
-                        
-                            </ImageSlider>                      
-                        ))}        
-                    </div>  
+                    <div className="product_images_list_item" onClick={() => setPreviewImg(api+productDetail.images[4])} >
+                        <img className = "children_img" src={api+productDetail.images[4]} alt="" />
+                    </div>
+                </div>
 
                 </div>
 

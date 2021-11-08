@@ -59,18 +59,18 @@ const News = () => {
               </div>
 
               <div className = "frame_img">
-              <img className = "imgg" src = "./images/img_news/img_New_2.jpg" />
+                <img className = "imgg" src = "./images/img_news/img_New_2.jpg" />
 
              
               <div className ="container_new">
                   <p className = "content_new1">Cùng tham gia mini game ngay hôm nay với Admeloria để nhận được nhiều phần quà giá trị. </p>
                 </div>
-              <div ><button className = "button_new">Xem Thêm</button></div>
+              <div><button className = "button_new">Xem Thêm</button></div>
               
               </div>
 
               <div className = "frame_img">
-              <img className = "imgg" src = "./images/img_news/img_New_3.jpg" />
+                <img className = "imgg" src = "./images/img_news/img_New_3.jpg" />
               <div ><button className = "button_new" style ={{marginTop:"50px",marginBottom:"50px"}}>Xem Thêm</button></div></div>
 
 
@@ -78,18 +78,6 @@ const News = () => {
               <img className = "imgg" src = "./images/img_news/img_New_4.jpg" />
               <div ><button className = "button_new" style ={{marginTop:"50px",marginBottom:"50px"}}>Xem Thêm</button></div>
               </div>
-
-
-
-            
-            
-
-
-
-
-
-
-
       </Grid>
 
       </section>

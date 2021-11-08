@@ -12,7 +12,7 @@
 
 .product_images_main{
   @include flex (center,center);
-  background-color:gainsboro;
+  background-color:rgb(247, 245, 245);
   margin: 0px;
 }
 
@@ -78,8 +78,8 @@
 
 
 .main_img{
-    height: 600px;
-    width: 600px;
+    height: 800px;
+    width: 800px;
     margin: 50px;
     border-radius: 10px;
     @include flex(center,center);

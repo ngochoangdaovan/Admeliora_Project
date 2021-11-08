@@ -18,14 +18,6 @@ const Routes = () => {
       <Route path="/cart" component={Cart} />
       <Route path="/Contacts" component={Contacts} />
       <Route path="/News" component={News} />
-
-     
-
-
-      
-    
-
-
       
     </Switch>
   )
