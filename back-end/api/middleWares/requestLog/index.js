@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
 
     const date = new Date();
     const _date = date.getDate()
-    const _month = date.getMonth(); 
+    const _month = date.getMonth()+1 ; 
     const _year = date.getFullYear();
     const _hour = Number(date.getHours()) + 7;
     const _GMT7_hour = _hour >= 24 ? `${_hour - 24}`  : _hour;

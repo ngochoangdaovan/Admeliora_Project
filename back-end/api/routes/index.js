@@ -9,14 +9,11 @@ const Controller = require('../controllers')
 
 
 
-router.use('/api/user', ActualUser)
-router.use('/api/products', ProductRoutes)
-router.use('/api/banner', bannerRoutes)
+router.use('/user', ActualUser)
+router.use('/products', ProductRoutes)
+router.use('/banner', bannerRoutes)
 
-router.get('/' || '/home', function (req, res) {
-    res.send('oke')
-})
 
-router.delete('/reset', Controller.dataReset)
+// router.delete('/resetDB', Controller.dataReset)
 
 module.exports = router;
