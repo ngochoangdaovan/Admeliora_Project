@@ -59,8 +59,8 @@ const InfinityList = (props) => {
         {data.map((item, index) => (
           <ProductCard
             key={index}
-            image01 = {'http://54.169.130.83:9092/api/products/images/' + item.images[0]}
-            image02 = { 'http://54.169.130.83:9092/api/products/images/' + item.images[1]}
+            image01 = {'http://admeliora.tk/api/products/images/' + item.images[0]}
+            image02 = { 'http://admeliora.tk/api/products/images/' + item.images[1]}
             name={item.name}
             price={Number(item.price)}
             slug={item.slug}

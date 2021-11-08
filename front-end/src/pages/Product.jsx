@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import Helmet from '../components/Helmet'
-import Section, {SectionBody} from '../components/Section'
+
 import Grid from '../components/Grid'
 import ProductCard from '../components/ProductCard'
 import axios from 'axios'
 import ProductView from '../components/ProductView'
+import Section, {  SectionBody,SectionTitle } from '../components/Section'
 
-import AliceCarousel from 'react-alice-carousel';
-import 'react-alice-carousel/lib/alice-carousel.css';
 
 
 
@@ -17,7 +16,7 @@ const Product = (props) => {
   
   useEffect(()  => {
     const fetchProducts = async () => {
-      const respone = await axios.get(`http://54.169.130.83:9092/api/products/detail/${props.match.params.product_line_id}&${props.match.params.color_id}`)
+      const respone = await axios.get(`http://admeliora.tk/api/products/detail/${props.match.params.product_line_id}&${props.match.params.color_id}`)
       console.log('data', respone.data.data)
       setProductDetail(respone.data.data)
     }
@@ -31,7 +30,7 @@ const Product = (props) => {
   const [product, setProduct] = useState([])
   useEffect(() => {
     const fetchProducts = async () => {
-      const respone = await axios.get('http://54.169.130.83:9092/api/products/')
+      const respone = await axios.get('http://admeliora.tk/api/products/')
       // console.log('data', data)
       console.log("datapro", respone.data.data)
       setProduct(respone.data.data)
@@ -66,10 +65,11 @@ const Product = (props) => {
         
     
     </Section>
-    <Section>
-        <SectionTitle>
+    <Section >
+        <h1 style ={{textAlign:"center" ,marginTop:"10%",marginBottom:"5%",textDecoration:"underline"}}>
             Khám phá thêm
-        </SectionTitle>
+        </h1>
+        
               <SectionBody> 
               <Grid
                       col={4}
@@ -80,8 +80,8 @@ const Product = (props) => {
                             productData.getProducts(8).map((item, index) => (
                                 <ProductCard
                                     key={index}
-                                    image01 = {'http://54.169.130.83:9092/api/products/images/' + item.images[0]}
-                                    image02 = { 'http://54.169.130.83:9092/api/products/images/' + item.images[1]}
+                                    image01 = {'http://admeliora.tk/api/products/images/' + item.images[0]}
+                                    image02 = { 'http://admeliora.tk/api/products/images/' + item.images[1]}
                                     name={item.name}
                                     price={Number(item.price)}
                                     slug={item.slug}

@@ -1,10 +1,11 @@
 .contents{
     min-height: 200px;
-    min-width: 400px;
+    min-width: 300px;
     background-color: #F3F3F3;
     border-radius: 20px;
     justify-self: center;
     margin-top: -100px;
+    
     
     
 
@@ -16,8 +17,13 @@
   
       @include mobile {
         text-align: center;
-        width: 10px;
+        width: auto;
         margin-top: -450px;
+        
+       
+
+        
+
       }
 
       

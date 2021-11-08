@@ -1,22 +1,27 @@
-import React,{useEffect, useState} from 'react'
+// import React,{useEffect, useState} from 'react'
 
-const ImageSlider = ({src}) => {
-    const [soucre, setSource] = useState([])
-    useEffect(()=>{
-        setSource(soucre)
-    },[src])
+
+
+// // import {Link} from 'react-router-dom';
+
+
+
+// const ImageSlider = ({src}) => {
+//     const [soucre, setSource] = useState([])
+//     useEffect(()=>{
+//         setSource(soucre)
+//     },[src])
     
 
-    return (
-        <div> 
+//     return (
 
-            <div>
-                <img style={{height: '50px',width:'50px'}} src={src} alt="" />
+        
+//         <div> 
+//             <img style={{height: '500px',width:'500px'}} src={src} alt="" />
                 
-            </div>
-        </div>
+//         </div>
 
-    )
-}
+//     )
+// }
 
-export default ImageSlider
+// export default ImageSlider

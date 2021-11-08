@@ -22,4 +22,10 @@
   }
 }
 
+@mixin tablet2 {
+  @media only screen and (max-width: $tablet2-width) {
+    @content;
+  }
+}
+
 

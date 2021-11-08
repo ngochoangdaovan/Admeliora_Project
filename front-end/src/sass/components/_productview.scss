@@ -1,24 +1,283 @@
-// .slider{
-//     position: relative;
-//     height: 50vh;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-// // }
-// .image {
-//     width: 100px;
-//     height: 100px;
-//     border-radius: 3rem;
-//     color: #000;
-// // }
-// .button{
-//     font-size: 20px;
-    
-// }
-// .btn-right{
-//     text-align: right;
 
-// }
-// .btn-left{
-//     text-align: leftx;
-// }
+
+.product{
+  @include flex (center,center);
+  box-sizing: border-box;
+  
+
+
+
+}
+
+
+.product_images_main{
+  @include flex (center,center);
+  background-color:gainsboro;
+  margin: 0px;
+}
+
+
+.list_images{
+  @include flex (center,center);
+  display: flex;
+  border:2px solid #F0F0F0;
+
+  @include mobile{
+    width: 100%;
+    height: 100px;
+
+  }
+
+
+
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.second_frame{
+  // @include flex(center,center);
+  margin-top:0px;
+  margin-left: 150px;
+
+  @include tablet {
+    margin: 0px;
+
+  }
+
+  @include mobile {
+    margin: 0px;
+  }
+
+
+}
+
+
+
+.main_img{
+    height: 600px;
+    width: 600px;
+    margin: 50px;
+    border-radius: 10px;
+    @include flex(center,center);
+
+    @include tablet1 {
+    
+      width: 83%;
+      height: 80%; 
+     
+    }
+    
+  @include tablet {
+    
+    width: 83%;
+    height: 80%; 
+  }
+  @include mobile {
+    width: 90%;
+    height: 100%;
+    
+    @include flex(center,center);
+    
+    
+
+  }
+}
+
+
+
+
+
+
+.children_img{
+    width: 100px;
+    height: 90px;
+    padding: 5px;
+
+    @include mobile {
+      width: 60px;
+      height: 80px;
+    }
+    
+
+}
+.children_img:hover{
+  border: 2px solid black;
+}
+
+
+
+
+// ---------------------
+
+
+
+
+
+.product_infor_title{
+  margin:0px;
+
+  @include tablet {
+    margin-top: 0px;
+    
+    font-size: 10px;
+  }
+
+}
+.product_infor_category{
+  font-size: 15px;
+  padding-top: 15px;
+  color: #C2B466;
+}
+
+
+
+.dropdown_frame{
+  display: flex;
+ 
+  text-align: center;
+  margin-top: 30px;
+  background-color:white;
+
+  
+  @include tablet{
+    // width: 200px ;
+  }
+ 
+
+}
+.dropdown_size{
+  width: 100px;
+  border-radius: 40px;
+  background-color:white;
+  @include tablet{
+    width: 80px ;
+  }
+
+  
+  
+}
+.dropdown_number{
+  width: 170px;
+  margin-left: 90px;
+  @include tablet{
+    margin-left: 20px;
+    width: 150px;
+    
+  }
+  
+  
+}
+
+
+.product_infor_price{
+  font-size: 20px;
+  color:#C2B466;
+  text-decoration: underline;
+  margin-top: 50px;
+
+
+  @include tablet {
+    margin-top: 10px;
+    margin-left: 0px;
+  }
+  
+  @include mobile {
+    // @include flex(center,center);
+    margin: 0px;
+    margin-top: 20px;
+  }
+}
+
+
+.button_frame{
+
+  @include mobile{
+    @include flex(center,center);
+    margin-left: -50px;
+  }
+}
+
+.button_enter{
+  margin-left: 50px;
+  height: 50px;
+  width:400px;
+  border-radius: 20px;
+  color:#C2B466;
+  background-color: black;
+  margin-top: 50px;
+  margin-bottom: 30px;
+
+
+  @include tablet{
+   width: 150px;
+   margin-top: 20px;
+  }
+  
+  @include mobile {
+    
+    // margin-left: 25%;
+    
+    @include flex(center,center);
+    
+  }
+
+}
+
+.name_describe{
+  margin-left: 100px;
+  font-size: 20px;
+  
+
+}
+.describe_content{
+  font-family: 'Raleway', sans-serif;
+  font-weight: lighter;
+  margin-top: -20px;
+}
+
+
+.child{
+  margin-top: 1000px;
+  background-color: blanchedalmond;
+  height: 10
+
+}
+
+
+
+.font_size_description{
+  font-size: 20px;
+
+  @include tablet {
+    font-size: 15px;
+
+  }
+
+  @include mobile{
+    font-size:15px ;
+  }
+}

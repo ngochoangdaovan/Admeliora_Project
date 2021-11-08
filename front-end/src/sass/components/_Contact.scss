@@ -1,0 +1,662 @@
+
+
+
+// .left_First{
+//     background-color:white;
+//     min-height: 100px;
+//     width: 100%;
+//     @include tablet {
+//         width: 100%;
+//         height: 400px;
+            
+//         }
+//         @include mobile  {
+//         width: 100%;
+//         height: 400px;
+           
+//         }
+    
+// }
+
+// .right_First{
+//     background-color:white;
+//     height: 150px;
+//     width: 200px;
+//     justify-self:center;
+//     text-align: center;
+//     margin-top: 40%;
+//     border-bottom: 2px solid gray ;
+    
+//     @include tablet {
+//         width: 150px;
+//         height: 100px;
+
+            
+//         }
+//         @include mobile  {
+//         width: 150px;
+//         height: 80px;
+//         margin-top:0px;
+           
+//         }
+    
+// }
+
+// .IMGA{
+//     width: 100%;
+//     height: 600px;
+
+//     @include tablet {
+//     width: 100%;
+//     height: 400px;
+        
+//     }
+//     @include mobile  {
+//     width: 100%;
+//     height: 400px;
+       
+//     }
+
+// }
+
+// .IMGB{
+//     width: 100%;
+//     height: 560px;
+
+//     @include tablet {
+//     width: 100%;
+//     height: 400px;
+        
+//     }
+//     @include mobile  {
+//     width: 100%;
+//     height: 400px;
+       
+//     }
+
+// }
+
+
+// .one{
+//     margin-left: -40px;
+//     font-size: 35px;
+//     font-family: 'Courier New', Courier, monospace;
+//     @include tablet {
+//         font-size: 20px;
+//         font-family: 'Courier New', Courier, monospace;
+
+            
+//         }
+//         @include mobile  {
+//             font-size: 15px;
+//             font-family: 'Courier New', Courier, monospace;
+            
+       
+           
+//         }
+// }
+
+// .two{
+//     margin-left: 80px;
+//     font-size: 20px;
+//     font-family: 'Courier New', Courier, monospace;
+//     @include tablet {
+//         font-size: 20px;
+
+            
+//     }
+//     @include mobile  {
+//         font-size: 15px;
+    
+        
+//     }
+// }
+// .three{
+//     margin-left: 130px;
+//     font-size: 35px;
+//     font-family: 'Courier New', Courier, monospace;
+
+//     @include tablet {
+//         font-size: 20px;
+
+            
+//     }
+//     @include mobile  {
+//         font-size: 15px;
+    
+        
+//     }
+// }
+
+
+// .left_Second{
+//     background-color:white;
+//     height: 600px;
+//     @include tablet {
+//         height: 550px;
+
+            
+//     }
+//     @include mobile  {
+//         height: 400px;
+    
+        
+//     }
+
+  
+    
+// }   
+
+// .right_Second{
+//     background-color:white;
+//     min-height: 100px;
+// }
+
+
+
+
+// .Title {
+//     margin-top: 10px;
+//     text-align: center;
+//     @include tablet {
+//         font-size: 10px;
+
+            
+//     }
+//     @include mobile  {
+//         font-size: 15px;
+    
+        
+//     }
+// }
+
+// .introduction1 {
+//     margin-top: 30px;
+//     text-align: center;
+//     font-size: 17px;
+//     font-weight: 400;
+
+//     @include tablet {
+//         font-size: 13px;
+
+            
+//     }
+//     @include mobile  {
+//         font-size: 12px;
+    
+        
+//     }
+// }
+
+
+// .introduction2 {
+//     margin-top: 30px;
+//     text-align: center;
+//     font-size: 17px;
+//     font-weight: 400;
+//     @include tablet {
+//         font-size: 13px;
+
+            
+//     }
+//     @include mobile  {
+//         font-size: 12px;
+    
+        
+//     }
+// }
+
+
+// .left_third {
+//     background-color:white;
+//     min-height: 100px;
+// }
+
+// .right_third {
+//     background-color:white;
+//     min-height: 100px;
+// }
+
+
+// .CONTENT_TITLE{
+//     @include tablet{
+//         font-size: 20px;
+        
+    
+//         }
+//         @include mobile{
+//         font-size: 13px;
+        
+//         }
+
+// }
+
+
+// .ICON{
+//     font-size: 20px;
+//     padding: 20px;
+
+//     @include tablet{
+//     font-size: 20px;
+//     padding: 15px;
+
+//     }
+//     @include mobile{
+//     font-size: 13px;
+//     padding: 15px;
+//     }
+// }
+
+
+
+
+// .FEEDBACK_CONTENT{
+
+//     margin-top: 20px;
+//     font-weight: 400;
+//     @include tablet{
+//         font-size: 20px;
+        
+    
+//         }
+//         @include mobile{
+//         font-size: 13px;
+        
+//         }
+
+// }
+
+// .FEEDBACK_TITLE{
+//     @include tablet{
+//         font-size: 20px;
+        
+    
+//         }
+//         @include mobile{
+//         font-size: 13px;
+        
+//         }
+
+// }
+
+// .input1{
+//     width: 100%;
+//     height: 40px;
+//     border-radius: 5px;
+//     @include tablet{
+//         height: 35px;
+    
+//         }
+//     @include mobile{
+//             height: 35px;
+//         }
+// }
+
+
+
+// .input2{
+//     width: 45%;
+//     height: 40px;
+//     border-radius: 5px;
+    
+    
+
+//     @include tablet{
+//         height: 35px;
+    
+//         }
+//     @include mobile{
+//             height: 35px;
+//         }
+    
+// }
+
+
+// .input3{
+//     width: 45%;
+//     height: 40px;
+//     border-radius: 5px;
+//     margin-left: 10%;
+//     @include tablet{
+//         height: 35px;
+    
+//         }
+//     @include mobile{
+//             height: 35px;
+//         }
+// }
+
+
+// .input4{
+//     width: 100%;
+//     text-align: center;
+//     height:140px; 
+//     border-radius: 5px;
+
+//     @include tablet{
+//         height: 35px;
+    
+//         }
+//     @include mobile{
+//             height: 35px;
+//         }
+// }
+
+// .BUTTON{
+//     height: 40px;
+//     width: 130px;
+//     color: white;
+//     background-color: black;
+//     margin-left: 10px;
+//     border-radius: 10px;
+// }
+
+
+// .IMGC{
+//     width: 40%;
+//     height: 350px;
+
+//     @include tablet {
+//     width: 100%;
+//     height: 300px;
+        
+//     }
+//     @include mobile  {
+//     width: 100%;
+//     height: 300px;
+       
+//     }
+
+// }
+
+// .IMGD{
+//     width: 60%;
+//     height: 350px;
+
+//     @include tablet {
+//     width: 100%;
+//     height: 300px;
+        
+//     }
+//     @include mobile  {
+//     width: 100%;
+//     height: 280px;
+       
+//     }
+
+// }
+
+
+
+
+
+.support-contact__wrapper {
+    background-color: white;
+    min-height: 100px;
+    width: 100%;
+    @include tablet {
+      width: 100%;
+      height: 400px;
+    }
+    @include mobile {
+      width: 100%;
+      height: 400px;
+    }
+  
+    &__img {
+      width: 100%;
+      height: 600px;
+  
+      @include tablet {
+        width: 100%;
+        height: 400px;
+      }
+      @include mobile {
+        width: 100%;
+        height: 400px;
+      }
+    }
+  }
+  
+  .background-img-a {
+    width: 40%;
+    height: 350px;
+  
+    @include tablet {
+      width: 100%;
+      height: 300px;
+    }
+    @include mobile {
+      width: 100%;
+      height: 300px;
+    }
+  }
+  
+  .background-img-b {
+    width: 60%;
+    height: 350px;
+  
+    @include tablet {
+      width: 100%;
+      height: 300px;
+    }
+    @include mobile {
+      width: 100%;
+      height: 280px;
+    }
+  }
+  
+  .support-contact__title {
+    background-color: white;
+    height: 150px;
+    width: 200px;
+    justify-self: center;
+    text-align: center;
+    margin-top: 40%;
+    border-bottom: 2px solid gray;
+  
+    @include tablet {
+      width: 150px;
+      height: 100px;
+    }
+    @include mobile {
+      width: 150px;
+      height: 80px;
+      margin-top: 0px;
+    }
+  
+    &__first {
+      margin-left: -40px;
+      font-size: 35px;
+      font-family: $contact-font;
+      @include tablet {
+        font-size: 20px;
+      }
+      @include mobile {
+        font-size: 15px;
+      }
+    }
+  
+    &__second {
+      margin-left: 80px;
+      font-size: 20px;
+      font-family: $contact-font;
+      @include tablet {
+        font-size: 20px;
+      }
+      @include mobile {
+        font-size: 15px;
+      }
+    }
+  
+    &__third {
+      margin-left: 130px;
+      font-size: 35px;
+      font-family: $contact-font;
+  
+      @include tablet {
+        font-size: 20px;
+      }
+      @include mobile {
+        font-size: 15px;
+      }
+    }
+  }
+  
+  .support-contact__content {
+    background-color: white;
+    height: 600px;
+    @include tablet {
+      height: 550px;
+    }
+    @include mobile {
+      height: 400px;
+    }
+  
+    &__title {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 17px;
+      @include tablet {
+        font-size: 10px;
+      }
+      @include mobile {
+        font-size: 15px;
+      }
+    }
+  
+    &__intro {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.3;
+  
+      @include tablet {
+        font-size: 13px;
+        line-height: 1.1;
+        margin-top: 15px;
+      }
+      @include mobile {
+        font-size: 12px;
+        line-height: 1.2;
+        margin-top: 12px;
+      }
+    }
+  
+    &__text {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 17px;
+      font-weight: 400;
+      line-height: 1.3;
+      @include tablet {
+        font-size: 13px;
+        line-height: 1.1;
+        margin-top: 15px;
+      }
+      @include mobile {
+        font-size: 12px;
+        line-height: 1.2;
+        margin-top: 12px;
+      }
+    }
+  }
+  
+  .left_third {
+    background-color: white;
+    min-height: 100px;
+  }
+  
+  .support-contact__feedback {
+    background-color: white;
+    min-height: 100px;
+  
+    &__title {
+      margin-top: 20px;
+      font-weight: 400;
+      @include tablet {
+        font-size: 20px;
+      }
+      @include mobile {
+        font-size: 13px;
+      }
+    }
+  
+    &__content {
+      margin-top: 10px;
+    }
+  
+    &__btn {
+      height: 40px;
+      width: 130px;
+      color: white;
+      background-color: black;
+      margin-left: 10px;
+      border-radius: 10px;
+    }
+  }
+  
+  // problem
+  .CONTENT_TITLE {
+    @include tablet {
+      font-size: 20px;
+    }
+    @include mobile {
+      font-size: 13px;
+    }
+  }
+  
+  .ICON {
+    font-size: 20px;
+    padding: 20px;
+  
+    @include tablet {
+      font-size: 20px;
+      padding: 15px;
+    }
+    @include mobile {
+      font-size: 13px;
+      padding: 15px;
+    }
+  }
+  // ====================
+  
+  input[type='text'] {
+    padding: 12px 20px;
+    display: inline-block;
+  }
+  
+  .input-full-col {
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    @include tablet {
+      height: 35px;
+    }
+    @include mobile {
+      height: 35px;
+    }
+  }
+  
+  #content {
+    height: 140px;
+    padding-bottom: 90px;
+  }
+  
+  .input-2-col {
+    width: 47.5%;
+    height: 40px;
+    border-radius: 5px;
+    @include tablet {
+      height: 35px;
+    }
+    @include mobile {
+      height: 35px;
+    }
+  }
+  
+  input[name='email'] {
+    margin-left: 5%;
+  }
+  

@@ -19,7 +19,7 @@ const Home = () => {
   const [heroSliderData, setslider] = useState([])
     useEffect(() => {
       const fetchProducts = async () => {
-        const { data } = await axios.get('http://54.169.130.83:9092/api/banner/all')
+        const { data } = await axios.get('http://admeliora.tk/api/banner/all')
         console.log('data', data)
         setslider(data.data)
       }
@@ -34,7 +34,7 @@ const Home = () => {
     const [product, setProduct] = useState([])
   useEffect(() => {
     const fetchProducts = async () => {
-      const respone = await axios.get('http://54.169.130.83:9092/api/products/')
+      const respone = await axios.get('http://admeliora.tk/api/products/')
       // console.log('data', data)
       setProduct(respone.data.data)
     }
@@ -70,7 +70,10 @@ const Home = () => {
 
   return (
     
+    
     <Helmet title="Trang chủ">
+
+    
       {/* hero slider */}
       <Grid col={1}>
       <HeroSlider
@@ -79,8 +82,9 @@ const Home = () => {
           auto={false}
           timeOut={5000}/>
           </Grid>
+       
 
-      <section>
+      <section >
       <Grid >
         <div className = "contents">
         <h1 style = {{textAlign:"center", marginTop:"20px"}}>GIỚI THIỆU</h1>
@@ -134,8 +138,8 @@ const Home = () => {
                             productData.getProducts(8).map((item, index) => (
                                 <ProductCard
                                     key={index}
-                                    image01 = {'http://54.169.130.83:9092/api/products/images/' + item.images[0]}
-                                    image02 = { 'http://54.169.130.83:9092/api/products/images/' + item.images[1]}
+                                    image01 = {'http://admeliora.tk/api/products/images/' + item.images[0]}
+                                    image02 = { 'http://admeliora.tk/api/products/images/' + item.images[1]}
                                     name={item.name}
                                     price={Number(item.price)}
                                     slug={item.slug}

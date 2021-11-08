@@ -46,15 +46,12 @@ const HeroSlider = props => {
         
         <div className="hero-slider">
 
+
             {
                 data.map((item, index) => (
-                    <HeroSliderItem key={index} item={'http://54.169.130.83:9092/api/banner/' + item} active={index === activeSlide}/>
+                    <HeroSliderItem   key={index} item={'http://admeliora.tk/api/banner/' + item} active={index === activeSlide}/>
                 ))
-
-                
             }
-
-           
             {
                 props.control ? (
                     <div className="hero-slider__control">
@@ -72,6 +69,9 @@ const HeroSlider = props => {
                     </div>
                 ) : null
             }
+
+
+            
         </div>
       
     )
@@ -86,14 +86,13 @@ HeroSlider.propTypes = {
 
 const HeroSliderItem = props => (
 
-    
     <div className={`hero-slider__item ${props.active ? 'active' : ''}`}>
         <div className="hero-slider__item__image">
-           
-            <img src={props.item} alt="" />
+            <img className = "imgslider" src={props.item} alt="" />
         </div>
         
     </div>
+
 )
 
 

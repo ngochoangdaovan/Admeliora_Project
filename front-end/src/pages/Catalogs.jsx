@@ -21,7 +21,7 @@ const Catalog = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const respone = await axios.get('http://54.169.130.83:9092/api/products/')
+      const respone = await axios.get('http://admeliora.tk/api/products/')
       console.log('products', respone.data.data)
       setProduct(respone.data.data)
       // for (let i of respone.data){
