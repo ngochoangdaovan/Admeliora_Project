@@ -220,69 +220,75 @@ module.exports = new class WarehouseController {
                 ]
             })
 
-            const Sizes = []
-            const images = []
-            const info = {}
+            if (product_info.length !== 0){
+                const Sizes = []
+                const images = []
+                const info = {}
 
-            // because these product share the same properties, then we rearrange them in to a object
-            let slug = ''
-            info.product_line = product_info[0].ProductLine.name;
-            info.category = product_info[0].ProductLine.Category.name;
-            info.price = product_info[0].ProductLine.price;
-            info.color = product_info[0].ProductColor.color_name;
-            info.discount = product_info[0].discount;
-            info.rate = product_info[0].rate;
-            info.name = info.category + ' ' + info.product_line + ' ' + info.color
-            for (let i of info.name ){
-                if (i === ' '){
-                        slug += '-';
-                }else{
-                        slug += i;
+                // because these product share the same properties, then we rearrange them in to a object
+                let slug = ''
+                info.product_line = product_info[0].ProductLine.name;
+                info.category = product_info[0].ProductLine.Category.name;
+                info.price = product_info[0].ProductLine.price;
+                info.color = product_info[0].ProductColor.color_name;
+                info.discount = product_info[0].discount;
+                info.rate = product_info[0].rate;
+                info.name = info.category + ' ' + info.product_line + ' ' + info.color
+                for (let i of info.name ){
+                    if (i === ' '){
+                            slug += '-';
+                    }else{
+                            slug += i;
+                    }
                 }
+
+                info.slug = slug;
+
+                info.Sizes = Sizes;
+                info.images = images;
+                info.defaultImage = {}
+
+
+                // because a product line with a specific color has different sizes, then we put it to an array 
+                // which contain info about quantity, size's info
+                for (let item of product_info){
+                    let product = {}
+                    product.product_detail_id = item.product_detail_id
+                    product.size_name = item.Size.size_name
+                    product.size_info = item.Size.size_info
+                    product.quantity = item.quantity
+                    info.Sizes.push(product)
+
+                }
+
+                // because a color share the same image for every size, then images will contain in a array.
+                // we get images from database
+                const image_paths = await ProductImagesModel.findAll({
+                    where: {
+                        color_id : req.params.color_id
+                    }, 
+                        attributes: ['image_path', 'default']
+                    }
+                );
+                // get only the paths
+                for (let img of image_paths) {
+                    if (img.default !== true){
+                        info.images.push(img.image_path);
+                    }else{
+                        info.defaultImage = img.image_path
+                    }
+                }
+
+                responseHandler.sendSuccess(req, res, 200, info)
+            }else{
+                responseHandler.sendSuccess(req, res, 200, 'no product found')
             }
 
-            info.slug = slug;
-
-            info.Sizes = Sizes;
-            info.images = images;
-            info.defaultImage = {}
-
-
-            // because a product line with a specific color has different sizes, then we put it to an array 
-            // which contain info about quantity, size's info
-            for (let item of product_info){
-                let product = {}
-                product.product_detail_id = item.product_detail_id
-                product.size_name = item.Size.size_name
-                product.size_info = item.Size.size_info
-                product.quantity = item.quantity
-                info.Sizes.push(product)
-
-            }
-
-            // because a color share the same image for every size, then images will contain in a array.
-            // we get images from database
-            const image_paths = await ProductImagesModel.findAll({
-                where: {
-                    color_id : req.params.color_id
-                }, 
-                    attributes: ['image_path', 'default']
-                }
-            );
-            // get only the paths
-            for (let img of image_paths) {
-                if (img.default !== true){
-                    info.images.push(img.image_path);
-                }else{
-                    info.defaultImage = img.image_path
-                }
-            }
-
-            responseHandler.sendSuccess(req, res, 200, info)
 
         // if error then send the error message
         }catch(error) {
-            responseHandler.sendFailure(req, res, 400, error)
+            // responseHandler.sendFailure(req, res, 400, error)
+            res.send("jkl")
         }
     };
 

@@ -29,7 +29,7 @@ services:
       - admeliora
 
   admeliora:
-    image: adreaseless/admeliora:1.10.02
+    image: adreasalexander/admeliora:1.10.02
     container_name: admeliora
     build: .
     ports:
@@ -42,3 +42,5 @@ services:
 
 volumes:
   admeliora-persistent-data:
+    driver: local
+    name: admeliora-persistent-data
