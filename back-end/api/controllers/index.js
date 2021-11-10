@@ -10,15 +10,6 @@ const db = require('../models')()
 
 
 
-const dataReset = async function(req, res) {
-    await db.sequelize.drop()
-    await db.sequelize.sync()
-    .then(()=>{res.send('ok')})
-    .catch(err => res.send(err.message))
-}
-
-
-
 /*--------------------------------------------GET----------------------------------------------------*/ 
 /*--------------------------------------------UPDATE-------------------------------------------------*/ 
 /*--------------------------------------------DELETE-------------------------------------------------*/ 
@@ -29,6 +20,5 @@ module.exports = {
     ProductControl,
     AnonOrdersControl,
     ActualUserControl,
-    dataReset
 };
 

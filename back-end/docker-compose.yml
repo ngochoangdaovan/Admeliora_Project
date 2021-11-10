@@ -1,0 +1,44 @@
+version: "2"
+
+services:
+  admeliora-database:
+    container_name: admeliora-database
+    image: mysql:8.0.27
+    restart: always
+    volumes:
+      - admeliora-persistent-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "Hoangdao@236"
+      MYSQL_DATABASE: "admeliora"
+    cap_add:
+      - SYS_NICE
+
+  server-config:
+    container_name: server-config
+    image: nginx:latest
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - admeliora
+    volumes_from:
+      - admeliora
+
+  admeliora:
+    image: adreaseless/admeliora:1.10.02
+    container_name: admeliora
+    build: .
+    ports:
+      - "5000:5000"
+      - "8080:8080"
+    depends_on:
+      - admeliora-database
+    volumes_from:
+      - admeliora-database
+
+volumes:
+  admeliora-persistent-data:

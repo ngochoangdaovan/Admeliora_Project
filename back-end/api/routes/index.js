@@ -5,7 +5,7 @@ const router = express.Router() ;
 const ActualUser = require('./ActualUsersRoutes')
 const ProductRoutes = require('./ProductRoutes')
 const bannerRoutes = require('./bannerRoutes')
-const Controller = require('../controllers')
+const db = require('../models')();
 
 
 
@@ -14,6 +14,9 @@ router.use('/products', ProductRoutes)
 router.use('/banner', bannerRoutes)
 
 
-// router.delete('/resetDB', Controller.dataReset)
+router.delete('/createTestDB', async (req, res) => {
+    res.send('ok')
+    await db.createTestDB()
+})
 
 module.exports = router;

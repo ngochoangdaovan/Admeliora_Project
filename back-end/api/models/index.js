@@ -10,7 +10,7 @@ module.exports =  () => {
     const AnonOrders = require('./AnonUsersOrders')();
     const env = process.env.NODE_ENV || 'development';
     const config = require(__dirname + '/../config/config.json')[env];
-
+    const createTables = require('./createData/index');
 
 
 
@@ -22,6 +22,7 @@ module.exports =  () => {
     } else {
       sequelize = new Sequelize(config.database, config.username, config.password, {
         dialect: config.dialect,
+        host: config.host,
         pool : {
           max: 100,
           min: 0,
@@ -37,6 +38,8 @@ module.exports =  () => {
         logging: false
       });
     }
+
+
 
 
     for (let model of [product_models, ActualUsers , AnonOrders]) {
@@ -56,7 +59,25 @@ module.exports =  () => {
 
     db.sequelize = sequelize;
     db.Sequelize = Sequelize;
+    db.createTestDB = async () => {
+      await createTables(db);
+    }
 
+    // check connection to database
+    sequelize
+    .authenticate()
+    .then(() => {
+      console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+      
+      console.log('config', config);
+      console.error('Unable to connect to the database:', err.message);
+
+    });
+
+    // createTables(db);
+   
 
     return db;
 }
