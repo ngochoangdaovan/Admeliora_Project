@@ -32,7 +32,9 @@ module.exports = (req, res, next) => {
         headers,
         _dateTime,
     };
-    console.log('method: '+log.method + '-- url:  ' + req.protocol + "://" + req.get('host') + req.originalUrl +  '  --date: ' + log._dateTime + '  -- use-agent: ' + headers['user-agent'] );
+    let access ='method: '+log.method + '-- url:  ' + req.protocol + "://" + req.get('host') + req.originalUrl +  '  --date: ' + log._dateTime + '  -- use-agent: ' + headers['user-agent'] ;
+    req.access=access;
+
 
     next();
     }
