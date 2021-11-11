@@ -3,5 +3,8 @@ node_modules
 .gitignore
 init.sh
 .dockerignore
-.docker-compose.yml
+docker-compose.yml
+test.js
 Dockerfile
+test.js
+docker-compose-after-build.yml

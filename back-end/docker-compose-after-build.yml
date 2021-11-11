@@ -15,23 +15,9 @@ services:
     cap_add:
       - SYS_NICE
 
-  server-config:
-    container_name: server-config
-    image: nginx:latest
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
-    ports:
-      - "80:80"
-      - "443:443"
-    depends_on:
-      - admeliora
-    volumes_from:
-      - admeliora
-
   admeliora:
-    image: adreasalexander/admeliora:1.10.02
+    image: andreasalexander/admeliora:latest
     container_name: admeliora
-    build: .
     volumes:
       - node_modules:/app/node_modules
       - ./logs:/app/logs
@@ -45,8 +31,12 @@ services:
 
 volumes:
   admeliora-persistent-data:
-    external: true
+    # external: true
     name: admeliora-persistent-data
   node_modules:
-    external: true
+    # external: true
     name: node_modules
+
+networks:
+  default:
+    name: admeliora-network   
