@@ -3,36 +3,87 @@ import Grid from '../components/Grid'
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import ImageSlider from './ImageSlider';
+import Size from './Size';
+import { addItem } from '../redux/shopping-cart/cartItemsSlide'
+import { useDispatch } from 'react-redux'
+import { withRouter } from 'react-router'
+
 
 
 const ProductView = (props) => {
+    const dispatch = useDispatch()
+
+    const number =[1,2,3,4,5,6,7,8,9,10]
+
     let imageApi = 'http://admeliora.tk/api/products/images/'
   
-
-    const options = [
-        'XL', '2XL', '3XL'
-      ];
-      const numbers = [
-        '1', '2', '3', '4','5','6','7','8','9'
-      ];
-
-    const [productDetail, setProductDetail] = useState({images:[],defaultImage: null})
+    const [productDetail, setProductDetail] = useState({images:[],defaultImage: null,Size:[]})
     useEffect(()=>{
         setProductDetail(props.productDetail)
     },[props])
 
-    console.log("props", props)
+    // console.log("props", props)
     
     const [previewImg, setPreviewImg] = useState(imageApi+props.productDetail.defaultImage)
-    // console.log('previewimg',props.productDetail.defaultImage)
 
     useEffect(()=>{
         setPreviewImg(imageApi+props.productDetail.defaultImage)
     },[imageApi+props.productDetail.defaultImage])
-   
+    // ========================================
+
+//  set size
+    const [size, setsize] = useState([])
+    useEffect(()=>{
+        if  (props.productDetail.Sizes ===undefined){
+            setsize([])
+        }
+      
+        else {setsize(props.productDetail.Sizes)}
+        
+    },[props])
+// =========================================
+
+    
+    const [value, setvalue] = useState(undefined)
+
+    const getinfor = (e) =>{
+        setvalue(e.target.value)
+    }
+
+    const check = () => {
+
+        if (value === undefined) {
+            alert('Vui lòng chọn kích cỡ!')
+            return false
+        }
+
+        return true
+    }
+    // =======================================
+    const addCard =()=>{
+        // console.log({value})
+        if (check()) {
+        var newitem ={
+            image: props.productDetail.defaultImage,
+            name :productDetail.name,
+            product_detail_id : value,
+            price : productDetail.price,
+            discount: productDetail.discount
+        }
+        if (dispatch(addItem(newitem))) {
+            alert('Success')
+            props.history.push('/cart')
+            
+        } else {
+            alert('Fail')
+        }
+        console.log("newitem", newitem)
+    }}
+
+
     return (
-        <div className="products">               
-           
+        <div className="products">    
+  
                 <Grid   col={2}
                       mdCol={2} 
                       smCol={1}
@@ -66,10 +117,31 @@ const ProductView = (props) => {
 
 
                     <div className = "dropdown_frame">
-                    <Dropdown  options={options} placeholder="Size"  className ="dropdown_size" >
-                    </Dropdown>
-                    <Dropdown  options={numbers} placeholder="Số lượng" className ="dropdown_number" >
-                    </Dropdown>
+
+                    <select onChange={getinfor} value={value} className="dropdown_size">
+                        <option hidden="hidden">Size</option>
+                            {
+                                                   
+                                size.map((item,index)=>(
+                                    
+                                    
+                                <option key={index} value ={item.product_detail_id}  >
+                                    {item.size_name}
+                                </option>
+                       
+                                ))}
+                        </select>
+                        <select className="dropdown_number">
+                                <option className="dropdown_list" hidden="hidden">Quantity</option>
+                                    { 
+                                    number.map((item)=>(
+                                    <option>                                            
+                                        {item}
+                                    </option>
+                                    ))}
+
+                        </select>
+    
                     </div>
                     
                         
@@ -77,7 +149,7 @@ const ProductView = (props) => {
                         {productDetail.price + " " + "VND"}
                     </div>
                     <div className = "button_frame">
-                    <button className = "button_enter">Thêm Vào Giỏ Hàng</button>
+                    <button onClick={()=> addCard()} className = "button_enter">Thêm Vào Giỏ Hàng</button>
                     </div>
 
                     <div className="description">
@@ -86,7 +158,17 @@ const ProductView = (props) => {
                         <p className = "font_size_description"> 
                             {"Color"+" : "+productDetail.color}
                         </p>
-                        <p className = "font_size_description">Size: S, M, L, XL</p>
+                        <p className = "font_size_description">
+                            <h5>Size</h5>
+                            {
+                                size.map((item,index)=>(
+                                    <Size
+                                    key={index}
+                                    size_name={item.size_name}>
+                                   </Size>                                   
+                                ))
+                            }
+                        </p>
                         <h3 className = "font_size_description">Thông điệp : </h3>
                         <p className = "font_size_description">“Do what you want while you can“ đây
                              là cụm từ các bạn đã quá quen
@@ -101,9 +183,9 @@ const ProductView = (props) => {
                                 mơ mộng hãy biến giấc mơ của mình thành
                              hiện thực. Thêm nữa, làm gì cũng sẽ có khó
                               khăn với thử thách nên cứ “I don’t give
-                               a fuck“ và bước tiếp. 𝙂</p>
+                               a fuck“ và bước tiếp. </p>
                     </div>                   
-        
+                            
                 </div>  
                 </div>               
             </Grid>    
@@ -112,4 +194,4 @@ const ProductView = (props) => {
 } 
 
 
-export default ProductView
+export default withRouter(ProductView)

@@ -182,16 +182,19 @@
   
 }
 .dropdown_number{
-  width: 170px;
+  width: 50px;
+  border-radius: 40px;
+  background-color:white;
   margin-left: 90px;
   @include tablet{
     margin-left: 20px;
-    width: 150px;
+    width: 50px;
     
   }
   
   
 }
+
 
 
 .product_infor_price{

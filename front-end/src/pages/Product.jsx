@@ -57,7 +57,7 @@ const Product = (props) => {
 
 
   return(
-    <div >
+    <Helmet title={productDetail.name} >
     <Section style={{marginBottom:'500px'}}>        
             <ProductView productDetail={productDetail}/>    
     </Section>
@@ -88,7 +88,7 @@ const Product = (props) => {
                   </Grid>
               </SectionBody>
               </Section>
-    </div>
+    </Helmet>
   )
 }
 export default Product
