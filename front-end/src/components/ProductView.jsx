@@ -8,12 +8,15 @@ import { addItem } from '../redux/shopping-cart/cartItemsSlide'
 import { useDispatch } from 'react-redux'
 import { withRouter } from 'react-router'
 
+import { remove } from '../redux/product-modal/productModalSlice'
+import axios from 'axios';
+
 
 
 const ProductView = (props) => {
     const dispatch = useDispatch()
 
-    const number =[1,2,3,4,5,6,7,8,9,10]
+    const numbers =[1,2,3,4,5,6,7,8,9,10]
 
     let imageApi = 'http://admeliora.tk/api/products/images/'
   
@@ -41,11 +44,18 @@ const ProductView = (props) => {
         else {setsize(props.productDetail.Sizes)}
         
     },[props])
+
 // =========================================
 
-    
-    const [value, setvalue] = useState(undefined)
+    const [number, setnumber] = useState(1)
+    const getnumber = (e) =>{
+        setnumber(Number(e.target.value))
 
+    }
+
+// =====================================
+
+    const [value, setvalue] = useState(undefined)
     const getinfor = (e) =>{
         setvalue(e.target.value)
     }
@@ -60,26 +70,47 @@ const ProductView = (props) => {
         return true
     }
     // =======================================
-    const addCard =()=>{
-        // console.log({value})
+    
+    const addtoCard =()=>{
+       
         if (check()) {
-        var newitem ={
-            image: props.productDetail.defaultImage,
-            name :productDetail.name,
-            product_detail_id : value,
-            price : productDetail.price,
-            discount: productDetail.discount
-        }
+            var newitem ={
+                image: props.productDetail.defaultImage,
+                name :productDetail.name,
+                product_detail_id : value,
+                price : productDetail.price,
+                discount: productDetail.discount,
+                quantity: number
+                
+            }
+            
+            let token = localStorage.getItem("accessToken" )
+         
+            if (token === ""){
+                console.log("token",token)
+                props.history.push('/Login')
+            
+            }
+            else (
+                axios({
+                    method: 'post',
+                    url: 'http://admeliora.tk/api/user/cart/add',
+                    data: newitem,
+                    headers:{authorization: "token: " + token},
+                    })
+            ) 
+           
+                        
+
         if (dispatch(addItem(newitem))) {
             alert('Success')
-            props.history.push('/cart')
             
         } else {
             alert('Fail')
         }
         console.log("newitem", newitem)
     }}
-
+    
 
     return (
         <div className="products">    
@@ -131,11 +162,11 @@ const ProductView = (props) => {
                        
                                 ))}
                         </select>
-                        <select className="dropdown_number">
-                                <option className="dropdown_list" hidden="hidden">Quantity</option>
+                        <select  onChange={getnumber} value={number} className="dropdown_number">
+                               
                                     { 
-                                    number.map((item)=>(
-                                    <option>                                            
+                                    numbers.map((item)=>(
+                                    <option  value={item}>                                            
                                         {item}
                                     </option>
                                     ))}
@@ -149,8 +180,13 @@ const ProductView = (props) => {
                         {productDetail.price + " " + "VND"}
                     </div>
                     <div className = "button_frame">
-                    <button onClick={()=> addCard()} className = "button_enter">Thêm Vào Giỏ Hàng</button>
+                    
+                    <button onClick={()=> addtoCard()} className="button_enter">Thêm vào giỏ hàng</button>
+                   
                     </div>
+                   
+                    
+                                        
 
                     <div className="description">
                         <h3 className = "font_size_description">Mô tả</h3>
@@ -159,17 +195,21 @@ const ProductView = (props) => {
                             {"Color"+" : "+productDetail.color}
                         </p>
                         <p className = "font_size_description">
-                            <h5>Size</h5>
-                            {
-                                size.map((item,index)=>(
-                                    <Size
-                                    key={index}
-                                    size_name={item.size_name}>
-                                   </Size>                                   
-                                ))
-                            }
+                            
+                            <div style={{display: "flex"}} >
+                                <h5>{"Size" +" : " }</h5>
+                                {   
+                                    size.map((item,index)=>(
+                                        <Size
+                                            key={index}
+                                            size_name={item.size_name}>
+                                    </Size>                                   
+                             
+                                    ))}
+                            </div>
+                            
                         </p>
-                        <h3 className = "font_size_description">Thông điệp : </h3>
+                        <h3 className = "font_description">Thông điệp : </h3>
                         <p className = "font_size_description">“Do what you want while you can“ đây
                              là cụm từ các bạn đã quá quen
                               rồi đúng không nào. Trên Dreamer
