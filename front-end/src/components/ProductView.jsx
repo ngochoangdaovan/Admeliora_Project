@@ -55,10 +55,14 @@ const ProductView = (props) => {
 
 // =====================================
 
-    const [value, setvalue] = useState(undefined)
+    const [value, setvalue] = useState({product_detail_id:null, size_name:null})
     const getinfor = (e) =>{
-        setvalue(e.target.value)
-    }
+        setvalue({
+            product_detail_id:Number(e.target.options[e.target.selectedIndex].getAttribute('data-id')),
+        
+            size_name:e.target.options[e.target.selectedIndex].getAttribute('data-size')
+        })}
+  
 
     const check = () => {
 
@@ -72,15 +76,17 @@ const ProductView = (props) => {
     // =======================================
     
     const addtoCard =()=>{
-       
+        // console.log("value",value)
         if (check()) {
             var newitem ={
                 image: props.productDetail.defaultImage,
                 name :productDetail.name,
-                product_detail_id : value,
+                product_detail_id : value.product_detail_id,
                 price : productDetail.price,
                 discount: productDetail.discount,
-                quantity: number
+                quantity: number,
+                size: value.size_name
+               
                 
             }
             
@@ -156,22 +162,22 @@ const ProductView = (props) => {
                                 size.map((item,index)=>(
                                     
                                     
-                                <option key={index} value ={item.product_detail_id}  >
+                                <option key={index} data-size ={item.size_name} data-id={item.product_detail_id}  >
                                     {item.size_name}
                                 </option>
                        
                                 ))}
-                        </select>
-                        <select  onChange={getnumber} value={number} className="dropdown_number">
+                    </select>
+                    <select  onChange={getnumber} value={number} className="dropdown_number">
                                
-                                    { 
+                                { 
                                     numbers.map((item)=>(
                                     <option  value={item}>                                            
                                         {item}
                                     </option>
-                                    ))}
+                                ))}
 
-                        </select>
+                    </select>
     
                     </div>
                     

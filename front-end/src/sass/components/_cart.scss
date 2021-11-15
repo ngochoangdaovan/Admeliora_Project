@@ -1,0 +1,15 @@
+.cart_item{
+    display: flex;
+    align-items: center;
+    // justify-content: center;
+}
+.cart_info{
+    float: right
+}
+.cart_image{
+    display: flex;
+
+    width: 100px;
+    height: 150px;
+    margin-top: 50px;
+}
