@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 
 
 // use cors to allow cross origin resource sharing
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: '*' }));
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.json())

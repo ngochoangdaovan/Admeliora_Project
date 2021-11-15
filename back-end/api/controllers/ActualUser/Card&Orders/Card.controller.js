@@ -13,17 +13,41 @@ module.exports = new class CartController{
 /* ----------------------------------------------CREATE---------------------------------------*/
     async addToCart (req, res) {
 
-        await CartModel.create({
-            user_id : req.user.user_id,
-            product_detail_id: req.body.product_detail_id,
-            name: req.body.name,
-            price: req.body.price,
-            quantity: req.body.quantity,
-            discount: req.body.discount,
-            image: req.body.image          
-        })
-        .then(() => responseHandler.sendSuccess(req, res, 200, 'product added to cart successfully'))
-        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+        // check if it is already in the cart
+        let exist_quantity = await CartModel.findOne({
+            // attributes: ['quantity'],
+            where: {
+                user_id: req.user.user_id,
+                product_detail_id: req.body.product_detail_id
+            }})
+        
+
+        if (exist_quantity === null ){
+            await CartModel.create({
+                user_id : req.user.user_id,
+                product_detail_id: req.body.product_detail_id,
+                name: req.body.name,
+                price: req.body.price,
+                quantity: req.body.quantity,
+                discount: req.body.discount,
+                image: req.body.image          
+            })
+            .then(() => responseHandler.sendSuccess(req, res, 200, 'product added to cart successfully'))
+            .catch( err => responseHandler.sendFailure(req, res, 400, err))
+        }else{
+            await CartModel.update({
+                quantity:  exist_quantity.quantity + req.body.quantity
+            },{
+                where : {
+                    user_id : req.user.user_id,
+                    product_detail_id: req.body.product_detail_id
+                }
+            })
+            .then(() => responseHandler.sendSuccess(req, res, 200, 'added to cart successfully'))
+            .catch( err => responseHandler.sendFailure(req, res, 400, err))
+
+        }
+        
 
 
     }
