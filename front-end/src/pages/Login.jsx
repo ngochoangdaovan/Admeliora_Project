@@ -61,6 +61,10 @@ const Login = () => {
 
                     <button onClick={()=>login()}  value="Submit" className ="button_login">Submit</button>
 
+                    <button onClick={()=>login()}  value="Submit" className ="button_login">Submit</button>
+
+                    
+
                     </div>
                     <div style ={{marginTop:"30px",textAlign:"center",textDecoration:"underline"}}>
                     <Link to="/SigUp">
