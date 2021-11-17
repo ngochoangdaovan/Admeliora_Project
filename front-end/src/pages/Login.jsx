@@ -64,11 +64,6 @@ const Login = () => {
 
 
 
-                    
-                    <button onClick={()=>login()}  value="Submit" className ="button_login">Submit</button>
-
-
-
 
 
                     
