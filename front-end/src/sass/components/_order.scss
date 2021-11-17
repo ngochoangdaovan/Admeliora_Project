@@ -1,0 +1,338 @@
+
+
+
+
+
+
+
+.frame_second_element{
+  background-color: #F4F6F7;
+  border-radius: 40px;
+  min-height: 500px;
+}
+
+.frame_img_order{
+margin-left: 50px;
+margin-top: 40px;
+}
+
+.frame_infor_order{
+margin-left: 20px;
+margin-top: 40px;
+
+
+}
+
+
+.checkbox_payment{
+  height: 20px;
+  width: 20px;
+ 
+
+}
+
+
+// use chooose select circle--------------------------------
+
+.round1 {
+  position: relative;
+}
+
+.round1 label {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 28px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 28px;
+}
+
+.round1 label:after {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 6px;
+  left: 7px;
+  opacity: 0;
+  position: absolute;
+  top: 8px;
+  transform: rotate(-45deg);
+  width: 12px;
+}
+
+.round1 input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round1 input[type="checkbox"]:checked + label {
+  background-color: black;
+  border-color: white;
+}
+
+.round1 input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
+
+
+
+.round2 {
+  position: relative;
+  margin-top: 50px;
+}
+
+.round2 label {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 28px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 28px;
+}
+
+.round2 label:after {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 6px;
+  left: 7px;
+  opacity: 0;
+  position: absolute;
+  top: 8px;
+  transform: rotate(-45deg);
+  width: 12px;
+}
+
+.round2 input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.round2 input[type="checkbox"]:checked + label {
+  background-color: black;
+  border-color: white;
+}
+
+.round2 input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}
+// ---------------------------------------------------
+
+
+
+
+.content_payment{
+    margin-left: 7%;
+}
+
+
+
+.input_payment1{
+  height: 40px;
+  width: 100%;
+  border-radius: 30px;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+
+.number{
+  height: 40px;
+  width: 30%;
+  border-radius: 30px;
+  padding: 10px;
+  margin-top: 20px;
+}
+.number1{
+  height: 40px;
+  width: 30%;
+  border-radius: 30px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-left: 35px;
+  margin-right:35px;
+}
+
+
+.title_payment{
+  margin-top: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.image_order{
+height: 300px;
+width: 300px;
+border-radius: 10px;
+}
+
+.input_number_order{
+height: 35px;
+width: 35px;
+border-radius: 100% ;
+border:1px solid black;
+font-size: 20px;
+text-align: center;
+margin: 30px;
+}
+
+.button_plus_order {
+background-color: #F4F6F7;
+border: none;
+font-size: 25px;
+}
+
+.button_minus_order {
+background-color: #F4F6F7;
+border: none;
+font-size: 28px;
+}
+
+
+.frame_voucher_order{
+justify-content: center;
+justify-self: center;
+text-align: center;
+margin-top: 30px;
+}
+
+
+.voucher_order{
+height: 40px;
+width: 70%;
+border: 2px solid black;
+padding: 10px;
+}
+
+
+.button_voucher{
+height: 40px;
+width: 80px;
+border: 2px solid black;
+margin-left: 5%;
+}
+
+
+.ship_cost{
+margin-left: 50px;
+margin-top: 20px;
+margin-right: 10px;
+}
+
+.ship_cost_title_order{
+margin-left: 50px;
+margin-top: 20px;
+margin-bottom: 10px;
+}
+
+.ship_cost_title_all_order{
+margin-left: 50px;
+}
+
+.ship_cost_all_order{
+margin-left: 50px;
+}
+
+.frame_complete_order{
+text-align: center;
+margin: 30px;
+}
+
+.complete_order{
+text-align: center;
+width: 90%;
+height: 40px;
+margin-bottom: 50px;
+background-color: black;
+color: #fff;
+}
+
+
+
+
+
+
+
+  
+.input_circle {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default radio button */
+  .input_circle input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  
+  /* Create a custom radio button */
+  .checkmark1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color:white;
+    border-radius: 50%;
+    border: 2px solid gray;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .input_circle:hover input ~ .checkmark1 {
+    background-color: #ccc;
+  }
+  
+  /* When the radio button is checked, add a blue background */
+  .input_circle input:checked ~ .checkmark1 {
+    background-color: black;
+  }
+  
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checkmark1:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the indicator (dot/circle) when checked */
+  .input_circle input:checked ~ .checkmark1:after {
+    display: block;
+  }
+  
+  /* Style the indicator (dot/circle) */
+  .input_circle .checkmark1:after {
+       top: 7px;
+      left: 7px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: white;
+  }
+
+  
+  
+

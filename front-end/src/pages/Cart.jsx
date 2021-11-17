@@ -4,7 +4,7 @@ import Cartitems from '../components/Cartitems'
 import Helmet from '../components/Helmet'
 import Grid from '../components/Grid'
 
-const Cart = () => {
+const Cart = (props) => {
  
   const [cartItems, setcartItems]=useState({data: []})
   let token = localStorage.getItem("accessToken" )
@@ -39,19 +39,20 @@ console.log("cartproducts", Cartproducts)
   })
 
 
+  const order_detail =()=>{
+
+    props.history.push('/order')
+
+  }
+
+
   return (
     <Helmet title="Giỏ hàng">
              
     <div className="cart">
       <h1>GIỎ HÀNG</h1>
         <div className="cart_info">
-            
-          <div className="total_price">
-              <span>Thành tiền:</span> <span>{Number(totalPrice)}</span>
-          </div>
-          <div>
-            <button className="cart_info_btn">Thanh toán</button>
-          </div>
+         
                   
         </div>
       </div>
@@ -60,22 +61,25 @@ console.log("cartproducts", Cartproducts)
           <Grid 
             col={2}
             gap={80}>
-          <div style ={{height:"50px",width:"900px",backgroundColor:"#F0F0F0F0"}} className = "title_cart_1">
+          <div  className = "title_cart_1">
 
           <div style={{display:"flex"}}>
-            <p style ={{padding:"15px" }}>Sản Phẩm</p> 
-            <p style ={{padding:"15px",marginLeft:"300px"}}>Số Lượng</p> 
-            <p style ={{padding:"15px",marginLeft:"150px"}}>Tổng Tiền</p> 
-            <p style ={{padding:"15px",marginLeft:"100px"}}>Xóa</p> 
+            <p style ={{padding:"12px" }}>Sản Phẩm</p> 
+            <p style ={{padding:"12px",marginLeft:"300px"}}>Số Lượng</p> 
+            <p style ={{padding:"12px",marginLeft:"150px"}}>Tổng Tiền</p> 
+            <p style ={{padding:"12px",marginLeft:"100px"}}>Xóa</p> 
             
           </div>
 
       </div>
-          <div style ={{height:"50px",backgroundColor:"#F0F0F0F0"}} className = "title_cart_2">
+          <div className = "title_cart_2">
 
             <div style={{display:"flex"}}>
-              <p style ={{padding:"15px" }}>Tổng Tiền</p> 
-              <p style ={{padding:"15px",marginLeft:"200px"}}>Map Tiền vô đây</p> 
+              <p style ={{padding:"12px" }}>Tổng Tiền</p> 
+              <p style ={{padding:"12px",marginLeft:"200px"}}><span>{Number(totalPrice)}</span></p> 
+            </div>
+            <div style = {{marginTop:"100px",textAlign:"center"}}>
+            <button onClick={()=> order_detail()}>tiến hành thanh toán</button>
             </div>
 
           </div>
@@ -85,7 +89,7 @@ console.log("cartproducts", Cartproducts)
         col={2}
         gap={80}>
 
-          <div style ={{minHeight:"50px",width:"900px",backgroundColor:"#F0F0F0F0" , marginTop:"20px"}} >
+          <div className="frame_map_product" >
              
               {
                 Cartproducts.map((item,index) =>(
