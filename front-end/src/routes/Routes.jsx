@@ -10,6 +10,7 @@ import News from '../pages/News'
 import Login from '../pages/Login'
 import order from '../pages/order'
 import SigUp from '../pages/SigUp'
+import Profile from '../pages/Profile'
 
 
 const Routes = () => {
@@ -25,6 +26,7 @@ const Routes = () => {
       <Route path="/Login" component={Login}/>
       <Route path="/order" component={order} />
       <Route path="/SigUp" component={SigUp} />
+      <Route path="/Profile" component={Profile} />
     </Switch>
   )
 }
