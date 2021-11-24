@@ -70,7 +70,8 @@ class TodoItem extends React.Component {
 
       <input className = "frame_input_profile" type="text" ref={(value) => {
         this.input = value
-      }}  defaultValue={this.props.details.name} />
+      }}   />
+      {/* defaultValue={this.props.details.name} */}
       </div>
 
       <div className ="frame_button_update_proflie">

@@ -2,14 +2,84 @@
 
 
 
+
+
+.frame_infor_login{
+
+    @include tablet{
+        width: 100%;
+
+    }
+
+    @include mobile {
+        width: 100%;
+
+    }
+}
+
+
+
+
+.frame_img_login{
+    
+
+    @include tablet{
+
+    }
+    @include mobile {
+        text-align: left;
+      
+        
+
+    }
+
+}
+
 .img_login{
     height: 700px;
     width: 100%;
+    @include tablet{
+        width: 100%;
+        height: 80%;
+
+    }
+    @include mobile {
+       
+       width: 100%;
+       height: 90%;
+       text-align: center;
+       
+      
+   
+     
+
+    
+    }
 }
 
 .logo_login{
     height:30%;
     width: 30%;
+    @include tablet{
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        justify-content: center;
+        justify-self: center;
+    }
+
+    @include tablet  {
+        height:60%;
+        width: 60%;
+       margin: auto;
+    }
+
+
+    @include mobile {
+        height:30%;
+        width: 30%;
+       margin: auto;
+    }
 
 }
 
@@ -22,6 +92,19 @@
     outline: none;
     font-size: 20px;
     margin-left: 90px;
+    @include tablet{
+        width: 50%;
+        height: 50%;
+
+    }
+    @include mobile {
+       width: 50%;
+       height: 50%;
+       margin-left: 80px;
+       font-size: 15px;
+       
+    
+    }
     
 }
 
@@ -34,6 +117,18 @@
     outline: none;
     font-size: 20px;
     margin-left: 49px;
+    @include tablet{
+        width: 50%;
+        height: 50%;
+
+    }
+    @include mobile {
+       width: 50%;
+       height: 50%;
+       font-size: 15px;
+
+    
+    }
     
 }
 
@@ -41,6 +136,17 @@
 .frame_button_login{
     text-align: center;
     margin-top: 50px;
+
+    @include tablet{
+       
+    }
+    @include mobile {
+        text-align: center;
+        margin-top: 50px;
+       
+
+    
+    }
 }
 
 .button_login{
@@ -51,4 +157,92 @@
     color: black;
     background-color: chartreuse;
 
+}
+
+
+.frame_input_and_label {
+
+    padding-top:80px;
+    padding-bottom:60px;
+
+    @include tablet{
+       
+
+    }
+    @include mobile {
+       
+
+    
+    }
+
+    
+
+}
+
+.label_input{
+    font-size:20px;
+    margin-left:20px;
+    @include tablet{
+    
+
+    }
+    @include mobile {
+        font-size:15px;
+    margin-left:10px;
+
+    
+
+    
+    }
+
+}
+
+.forgot_pass{
+    margin-top:30px;
+    text-align : right ;
+    text-decoration: underline;
+
+    @include tablet{
+        font-size: 15px;
+    
+
+    }
+    @include mobile {
+        margin-top:30px;
+        text-align : center ;
+        text-decoration: underline;
+        font-size: 15px;
+        
+
+}
+}
+
+
+.content_thanks{
+    text-align: center;
+
+    @include tablet{
+        font-size: 20px;
+    
+
+    }
+    @include mobile {
+        font-size: 15px;
+    }
+}
+
+
+.sigup_user_account{
+    text-align: center;
+    margin-top: 30px;
+    text-decoration: underline;
+
+    @include tablet{
+        font-size: 15px;
+    
+
+    }
+    @include mobile {
+        font-size: 15px;
+    }
 }

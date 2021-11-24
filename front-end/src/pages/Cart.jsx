@@ -167,14 +167,30 @@ const Cart = (props) => {
       </div>
 
       <div>
-        <Grid col={2} gap={80}>
+        <Grid    col={2} 
+                 mdCol={2}
+                 smCol={1}
+                 gap={80}>
           <div className="title_cart_1">
-            <div style={{ display: "flex" }}>
-              <p style={{ padding: "12px" }}>Sản Phẩm</p>
-              <p style={{ padding: "12px", marginLeft: "300px" }}>Số Lượng</p>
-              <p style={{ padding: "12px", marginLeft: "150px" }}>Tổng Tiền</p>
-              <p style={{ padding: "12px", marginLeft: "100px" }}>Xóa</p>
+            <div className = "title_first_frame_cart" >
+              <Grid col={4}>
+              <p className ="title_item" >Sản Phẩm</p>
+              <p  className ="title_quatity">Số Lượng</p>
+              <p className ="title_total_price_cart">Tổng Tiền</p>
+              <p className = "title_delete_cart">Xóa</p>
+              </Grid>
+
             </div>
+            <div className="frame_map_product">
+            {Cartproducts.map((item, index) => (
+              <Cartitems
+                item={item}
+                key={index}
+                products={cartItems}
+                index={index}
+              />
+            ))}
+          </div>
           </div>
           <div className="title_cart_2">
             <div style={{ display: "flex" }}>
@@ -191,9 +207,9 @@ const Cart = (props) => {
           </div>
         </Grid>
 
-        <Grid col={2} gap={80}>
+        {/* <Grid col={2} gap={80}> */}
           
-          <div className="frame_map_product">
+          {/* <div className="frame_map_product">
             {Cartproducts.map((item, index) => (
               <Cartitems
                 item={item}
@@ -202,8 +218,8 @@ const Cart = (props) => {
                 index={index}
               />
             ))}
-          </div>
-        </Grid>
+          </div> */}
+        {/* </Grid> */}
       </div>
     </Helmet>
   );

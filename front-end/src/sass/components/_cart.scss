@@ -1,10 +1,85 @@
 
-.cart_image{
+
+
+
+
+
+
+
+
+
+.frame_img_cart{
+    width: 400px;
+    background-color: white;
     display: flex;
-    min-width: 100px;
-    min-height: 150px;
+    margin-bottom: 10px;
+
+}
+.frame_quantity{
+    background-color: white;
+    width: 250px;
+    margin-bottom: 10px;
+}
+
+.frame_price{
+    background-color: white;
+    margin-bottom: 10px;
+}
+
+.frame_trash{
+    background-color: white;
+    width: 150px;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+.cart_image{
+    display:block;
+    width: 100px;
+    height: 150px;
     margin-top: 30px;
     margin-bottom: 20px;
+    background-color: aquamarine;
+    
+
+    @include tablet{
+
+    }
+    @include mobile {
+        margin-bottom: 0px;
+        height: 100px;
+        height: 150px;
+
+        
+    }
+}
+
+.frame_name_cart{
+    height: 30px;
+    width: 30px;
+
+    @include tablet{
+
+    }
+    @include mobile {
+        margin-top: -80px;
+        margin-left:10px ;
+        background-color: burlywood;
+        width: 20px;
+        height: 20px;
+        
+    }
+
 }
 
 .title_cart_1{
@@ -14,58 +89,219 @@
     margin-top: 20px;
     height: 40px;
     width: 900px;
+    @include tablet{
+
+    }
+    @include mobile {
+        width: 100%;
+        
+    }
 }
+
+.title_first_frame_cart{
+    display: flex;
+}
+
+.title_item{
+    padding: 12px;
+    @include tablet{
+
+    }
+    @include mobile {
+        padding: 12px;
+        font-size: 10px;
+        background-color: burlywood;
+        margin-left: 0px;
+        width: 150px;
+    }
+
+}
+
+
+.title_quatity{
+    padding: 12px;
+    margin-left: 300px;
+    // background-color: white;
+    width: 100px;
+    height: 50px;
+    @include tablet{
+
+    }
+    @include mobile {
+        padding: 12px;
+        margin-left: 0px;
+        font-size: 10px;
+        background-color: cadetblue;
+    }
+
+}
+
+
+.title_total_price_cart{
+    padding: 12px;
+    margin-left: 150px;
+    width: 100px;
+    height: 50px;
+    // background-color: white;
+    @include tablet{
+
+    }
+    @include mobile {
+        padding: 12px;
+        margin-left: 0px;
+        font-size: 10px;
+        background-color: cornflowerblue;
+    }
+
+}
+
+.title_delete_cart{
+
+    padding: 12px;
+    margin-left: 100px;
+    @include tablet{
+
+    }
+    @include mobile {
+        padding: 12px;
+        font-size: 10px;
+        background-color: darkgray;
+        margin-left: 0px;
+        width: 60px;
+        text-align: right;
+    }
+
+}
+
+
 .title_cart_2{
     border-top:1px solid black;
     border-bottom:1px solid black ;
     background-color: white;
     margin-top: 20px;
     height: 40px;
+    @include tablet{
+
+    }
+    @include mobile {
+        
+    }
 }
 
 .img_size_cart{
     height: 200px;
     width: 200px;
-    padding-top: 0px;
-    padding-left: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    
+
+  
+    @include tablet{
+
+    }
+    @include mobile {
+       width: 90px;
+       height: 80px;
+       background-color: blueviolet;
+       padding-left: 0px;
+       
+    }
+
+    
     
 }
 
-.cart_info{
+.llll{
     display: flex;
+    margin-left: 100px;
+    height: 100px;
+    background-color: aquamarine;
 }
 
 .size_content_cart{
     font-size: 10px;
     padding-left: 20px;
+    @include tablet{
+
+    }
+    @include mobile {
+        
+    }
 
 }
 .size_content_cart1{
     font-size: 10px;
-    padding-left: 20px;
+    // padding-left: 20px;
     padding-top: 85px;
+    @include tablet{
+
+    }
+    @include mobile {
+        
+    }
 }
 .quantity_Cart{
     font-size: 10px;
     padding-left: 100px;
     padding-top: 85px;
+    @include tablet{
+
+    }
+    @include mobile {
+        
+    }
 }
 
 .quantity_Cart_total_price{
     font-size: 10px;
     padding-left: 220px;
     padding-top: 85px;
+    @include tablet{
+
+    }
+    @include mobile {
+        
+    }
 }
 
 .icon_trash{
     font-size: 20px;
     padding-left: 120px;
     padding-top: 80px;
+    @include tablet{
+
+    }
+    @include mobile {
+        margin-left: 50px;
+        margin-top: -40px;
+        
+    }
 }
 
 .frame_map_product{
     min-height: 50px;
     width: 900px;
     margin-top: 20px;
+    @include tablet{
+
+    }
+    @include mobile {
+        width: 100%;
+        
+       
+        
+    }
 
 }
+
+.btn-order{
+    width: 200px;
+    height: 30px;
+    border-radius: 5px;
+    background-color: black;
+    color:white;
+}
+
+
+
+
