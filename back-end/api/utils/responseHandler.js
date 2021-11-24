@@ -1,3 +1,5 @@
+
+
 fs = require('fs');
 
 
@@ -14,8 +16,12 @@ module.exports = new class responseHandler {
 
     sendFailure(req, res, sttCode, err) {
         let newToken = this.checkNewToken(req);
+        // get date time now
+        let date = new Date();
+        let dateTime = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear() + ' ' + (date.getHours()+7) + ':' + date.getMinutes() + ':' + date.getSeconds();
+        
         this.log('./logs/access.log', req.access);
-        this.log('./logs/error.log', typeof err !== 'string' ? err.message : err);
+        this.log('./logs/error.log', (typeof err !== 'string' ? err.message : err ) + '  at: ' + dateTime);
 
         res.status(sttCode).send({
             newToken: (newToken !== (null ||undefined) ? newToken : null),
@@ -27,7 +33,8 @@ module.exports = new class responseHandler {
     sendSuccess(req, res, sttCode, data){
         let newToken = this.checkNewToken(req) 
 
-        this.log('./logs/access.log', req.access);
+
+        this.log('./logs/access.log', req.access );
         res.status(sttCode).send({
             newToken: (newToken !== (null ||undefined) ? newToken : null),
             success: true,

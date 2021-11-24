@@ -15,6 +15,8 @@ const requestLog = require('../../middleWares/requestLog');
 /*------------------------------------------------------GET------------------------------------------------------------*/
 router.get('/', auth.ProductAccessAllow, Warehouse.getAll)
 
+router.get('/toSearch', auth.ProductAccessAllow, Warehouse.getToSearch)
+
 /*
 we can get product based on product line, price threshold
 http://localhost:5000/api/products/filter_by_product_line?product_line_id=1&price=100

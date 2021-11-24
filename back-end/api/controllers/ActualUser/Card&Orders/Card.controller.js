@@ -30,7 +30,8 @@ module.exports = new class CartController{
                 price: req.body.price,
                 quantity: req.body.quantity,
                 discount: req.body.discount,
-                image: req.body.image          
+                image: req.body.image,
+                size: req.body.size       
             })
             .then(() => responseHandler.sendSuccess(req, res, 200, 'product added to cart successfully'))
             .catch( err => responseHandler.sendFailure(req, res, 400, err))

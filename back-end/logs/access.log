@@ -17,3 +17,13 @@ method: POST-- url:  http://localhost:5000/api/user/cart/add  --date: 15/11/2021
 method: GET-- url:  http://localhost:5000/api/user/cart/  --date: 15/11/2021 16:48 GTM-7  -- use-agent: PostmanRuntime/7.28.4
 method: POST-- url:  http://localhost:5000/api/user/cart/add  --date: 15/11/2021 16:48 GTM-7  -- use-agent: PostmanRuntime/7.28.4
 method: GET-- url:  http://localhost:5000/api/user/cart/  --date: 15/11/2021 16:48 GTM-7  -- use-agent: PostmanRuntime/7.28.4
+method: GET-- url:  http://localhost:5000/api/user/cart/  --date: 15/11/2021 16:56 GTM-7  -- use-agent: PostmanRuntime/7.28.4
+method: POST-- url:  http://localhost:5000/api/user/cart/add  --date: 15/11/2021 16:56 GTM-7  -- use-agent: PostmanRuntime/7.28.4
+method: GET-- url:  http://localhost:5000/api/user/cart/  --date: 15/11/2021 16:56 GTM-7  -- use-agent: PostmanRuntime/7.28.4
+method: POST-- url:  http://localhost:5000/api/user/cart/add  --date: 15/11/2021 16:57 GTM-7  -- use-agent: PostmanRuntime/7.28.4
+method: GET-- url:  http://localhost:5000/api/user/cart/  --date: 15/11/2021 16:57 GTM-7  -- use-agent: PostmanRuntime/7.28.4
+method: POST-- url:  http://localhost:5000/api/user/cart/add  --date: 15/11/2021 20:15 GTM-7  -- use-agent: PostmanRuntime/7.28.4
+method: POST-- url:  http://localhost:5000/api/user/cart/add  --date: 15/11/2021 20:15 GTM-7  -- use-agent: PostmanRuntime/7.28.4
+method: POST-- url:  http://localhost:5000/api/user/cart/add  --date: 15/11/2021 20:15 GTM-7  -- use-agent: PostmanRuntime/7.28.4
+method: POST-- url:  http://localhost:5000/api/user/cart/add  --date: 15/11/2021 20:15 GTM-7  -- use-agent: PostmanRuntime/7.28.4
+method: GET-- url:  http://localhost:5000/api/user/cart/  --date: 15/11/2021 20:15 GTM-7  -- use-agent: PostmanRuntime/7.28.4

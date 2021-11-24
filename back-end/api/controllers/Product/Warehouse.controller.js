@@ -15,91 +15,120 @@ module.exports = new class WarehouseController {
     }
 
 
-/*--------------------------------------------CREATE-------------------------------------------------*/ 
-    async add (req, res) {
+    /*--------------------------------------------CREATE-------------------------------------------------*/
+    async add(req, res) {
         let input = req.body;
 
         try {
 
-        
+
 
             // check if product_line_id and color is exist
             let item = await WarehouseModel.findOne({
                 where: {
                     product_line_id: input.product_line_id,
-                    color_id : input.color_id, 
+                    color_id: input.color_id,
                     size_id: input.size_id
                 },
-                attributes: ['product_detail_id','quantity']
+                attributes: ['product_detail_id', 'quantity']
             })
 
-            if (item !== null && item > 0){
+            if (item !== null && item > 0) {
                 // update quantity 
                 await WarehouseModel.update({
                     quantity: item.quantity + input.quantity
                 },
-                {
-                    where: {
-                        product_detail_id: item.product_detail_id
-                }})
-            }else{
+                    {
+                        where: {
+                            product_detail_id: item.product_detail_id
+                        }
+                    })
+            } else {
                 // create new product line
-                await WarehouseModel.create ({
+                await WarehouseModel.create({
                     product_line_id: input.product_line_id,
                     size_id: input.size_id,
                     color_id: input.color_id,
                     quantity: input.quantity,
                     discount: 0,
-                    rate : 0
+                    rate: 0
                 })
             }
             responseHandler.sendSuccess(req, res, 201, 'Product line added successfully')
-        }catch(err){
+        } catch (err) {
             responseHandler.sendFailure(req, res, 400, err.message)
         }
 
     }
-    
 
-/*--------------------------------------------GET----------------------------------------------------*/ 
-    async getAll (req, res) {
-        try{
+
+    /*--------------------------------------------GET----------------------------------------------------*/
+    async getAll(req, res) {
+        try {
             // get all product and necessary info form database
             // group them by product_line_id, color_id 
             let product = await WarehouseModel.findAll({
-                attributes : ['product_line_id', 'color_id'],
-                include : [
+                attributes: ['product_line_id', 'color_id'],
+                include: [
                     {
                         model: db.ProductLines,
-                        attributes : ['name', 'price'],
-                        include : {
+                        attributes: ['name', 'price'],
+                        include: {
                             model: db.Categories,
-                            attributes : ['name']
+                            attributes: ['name']
                         }
                     },
                     {
                         model: db.ProductColors,
-                        attributes : ['color_id','color_name'],
+                        attributes: ['color_id', 'color_name'],
                     }
                 ],
-                group : ['product_line_id', 'color_id'],
-                   
+                group: ['product_line_id', 'color_id'],
+
             })
-    
+
             const final_data = await this.PreProcessing(product)
             responseHandler.sendSuccess(req, res, 200, final_data)
-            
-        }catch(err) {
-            responseHandler.sendFailure(req, res, 400, err)    
+
+        } catch (err) {
+            responseHandler.sendFailure(req, res, 400, err)
         }
     }
 
 
-    async PreProcessing(data) {
+    async getToSearch(req, res) {
+        try {
+            let data = await WarehouseModel.findAll({
+                attributes: ['product_line_id', 'color_id'],
+                include: [
+                    {
+                        model: db.ProductLines,
+                        attributes: ['name', 'price'],
+                        include: {
+                            model: db.Categories,
+                            attributes: ['name']
+                        }
+                    },
+                    {
+                        model: db.ProductColors,
+                        attributes: ['color_id', 'color_name'],
+                    }
+                ],
+                group: ['product_line_id', 'color_id'],
+            })
+
+            const final_data = await this.PreProcessing(data, { for: 'search' })
+            responseHandler.sendSuccess(req, res, 200, final_data)
+        } catch (err) {
+            responseHandler.sendFailure(req, res, 400, err)
+        }
+    }
+
+    async PreProcessing(data, options) {
         const products = []
         // rearrange properties and add to an array
         for (let item of data) {
-            
+
             const info = {}
             let slug = ''
             info.product_line_id = item.product_line_id;
@@ -108,30 +137,46 @@ module.exports = new class WarehouseController {
             info.category = item.ProductLine.Category.name
             info.price = item.ProductLine.price
             info.color_name = item.ProductColor.color_name
-            info.name = info.category + ' ' + info.product_line +' '+ info.color_name
-            for (let i of info.name ){
-                if (i === ' '){
-                        slug += '-';
-                }else{
-                        slug += i;
+            info.name = info.category + ' ' + info.product_line + ' ' + info.color_name
+            for (let i of info.name) {
+                if (i === ' ') {
+                    slug += '-';
+                } else {
+                    slug += i;
                 }
             }
 
             info.slug = slug;
-            info.images = []
-            // get 3 image relate to the product
-            let paths =  await ProductImagesModel.findAll({
-                where: {
-                    color_id : info.color_id},
+
+            if ( options !== undefined && options.for == 'search') {
+                // get 1 image relate to the product
+                let path = await ProductImagesModel.findOne({
+                    where: {
+                        default: true,
+                        color_id: info.color_id
+                    },
+                    attributes: ['image_path'],
+                });
+
+                info.images = path.image_path;
+
+            } else {
+                // get 3 image relate to the product
+                info.images = []
+                let paths = await ProductImagesModel.findAll({
+                    where: {
+                        color_id: info.color_id
+                    },
                     attributes: ['image_path'],
                     limit: 3
-                }
-            );
-            for (let path of paths) {
-                info.images.push(path.image_path);
-            }
+                });
 
-            products.push(info)
+                for (let path of paths) {
+                    info.images.push(path.image_path);
+                }
+
+                products.push(info)
+            }
         }
 
         return products
@@ -139,88 +184,88 @@ module.exports = new class WarehouseController {
 
 
 
-    async filterBy(req, res){
+    async filterBy(req, res) {
 
-        const price_from = req.query.price_from ===(null ||undefined )? 0:req.query.price_from;
-        const price_to = req.query.price_to ===(null ||undefined )? Number.POSITIVE_INFINITY : req.query.price_to;
-        const product_line_id = req.query.product_line_id === (null || undefined) ? {} : {product_line_id: req.query.product_line_id};
+        const price_from = req.query.price_from === (null || undefined) ? 0 : req.query.price_from;
+        const price_to = req.query.price_to === (null || undefined) ? Number.POSITIVE_INFINITY : req.query.price_to;
+        const product_line_id = req.query.product_line_id === (null || undefined) ? {} : { product_line_id: req.query.product_line_id };
 
-        
+
         await WarehouseModel.findAll({
             where: product_line_id,
-            attributes : ['product_line_id', 'color_id'],
-            include : [
+            attributes: ['product_line_id', 'color_id'],
+            include: [
                 {
                     model: db.ProductLines,
-                    attributes : ['name', 'price'],
-                    where : {
-                        price : {
+                    attributes: ['name', 'price'],
+                    where: {
+                        price: {
                             [Op.gte]: price_from,
-                            [Op.lte] : price_to
+                            [Op.lte]: price_to
 
                         }
                     },
-                    include : {
+                    include: {
                         model: db.Categories,
-                        attributes : ['name']
+                        attributes: ['name']
                     }
                 },
                 {
                     model: db.ProductColors,
-                    attributes : ['color_id','color_name'],
+                    attributes: ['color_id', 'color_name'],
                 }
             ],
-            group : ['product_line_id', 'color_id']
+            group: ['product_line_id', 'color_id']
         })
 
-        .then(async data =>{
-            
-            const final_data = await this.PreProcessing(data)
-            responseHandler.sendSuccess(req, res, 200, final_data)
-        })
-        .catch( err => responseHandler.sendFailure(req, res, 400, err))
-    }
-    
+            .then(async data => {
 
-
-    async filterByPrice(req, res){
-
+                const final_data = await this.PreProcessing(data)
+                responseHandler.sendSuccess(req, res, 200, final_data)
+            })
+            .catch(err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 
-    async getByColorAndLine (req, res){    
-        
-        try{    
-            
+
+    async filterByPrice(req, res) {
+
+    }
+
+
+    async getByColorAndLine(req, res) {
+
+        try {
+
             // get all product that has the same color and product line and it's related information
             let product_info = await WarehouseModel.findAll({
                 where: {
                     product_line_id: req.params.product_line_id,
                     color_id: req.params.color_id
                 },
-                attributes : ['product_detail_id', 'quantity', 'discount', 'rate'],
+                attributes: ['product_detail_id', 'quantity', 'discount', 'rate'],
                 include: [
                     {
                         model: db.ProductLines,
-                        attributes : ['name', 'price'],
-                        include :{
+                        attributes: ['name', 'price'],
+                        include: {
                             model: db.Categories,
-                            attributes : ['name']
+                            attributes: ['name']
                         }
                     },
                     {
                         model: db.ProductColors,
-                        attributes : ['color_id','color_name'],
+                        attributes: ['color_id', 'color_name'],
                     },
                     {
                         model: db.Sizes,
-                        attributes : ['size_name', 'size_info'],
-                        
+                        attributes: ['size_name', 'size_info'],
+
                     }
                 ]
             })
 
-            if (product_info.length !== 0){
+            if (product_info.length !== 0) {
                 const Sizes = []
                 const images = []
                 const info = {}
@@ -234,11 +279,11 @@ module.exports = new class WarehouseController {
                 info.discount = product_info[0].discount;
                 info.rate = product_info[0].rate;
                 info.name = info.category + ' ' + info.product_line + ' ' + info.color
-                for (let i of info.name ){
-                    if (i === ' '){
-                            slug += '-';
-                    }else{
-                            slug += i;
+                for (let i of info.name) {
+                    if (i === ' ') {
+                        slug += '-';
+                    } else {
+                        slug += i;
                     }
                 }
 
@@ -251,7 +296,7 @@ module.exports = new class WarehouseController {
 
                 // because a product line with a specific color has different sizes, then we put it to an array 
                 // which contain info about quantity, size's info
-                for (let item of product_info){
+                for (let item of product_info) {
                     let product = {}
                     product.product_detail_id = item.product_detail_id
                     product.size_name = item.Size.size_name
@@ -265,28 +310,28 @@ module.exports = new class WarehouseController {
                 // we get images from database
                 const image_paths = await ProductImagesModel.findAll({
                     where: {
-                        color_id : req.params.color_id
-                    }, 
-                        attributes: ['image_path', 'default']
-                    }
+                        color_id: req.params.color_id
+                    },
+                    attributes: ['image_path', 'default']
+                }
                 );
                 // get only the paths
                 for (let img of image_paths) {
-                    if (img.default !== true){
+                    if (img.default !== true) {
                         info.images.push(img.image_path);
-                    }else{
+                    } else {
                         info.defaultImage = img.image_path
                     }
                 }
 
                 responseHandler.sendSuccess(req, res, 200, info)
-            }else{
+            } else {
                 responseHandler.sendSuccess(req, res, 200, 'no product found')
             }
 
 
-        // if error then send the error message
-        }catch(error) {
+            // if error then send the error message
+        } catch (error) {
             // responseHandler.sendFailure(req, res, 400, error)
             res.send("jkl")
         }
@@ -296,19 +341,19 @@ module.exports = new class WarehouseController {
 
 
 
-/*--------------------------------------------UPDATE-------------------------------------------------*/ 
-    async update (req, res) {
+    /*--------------------------------------------UPDATE-------------------------------------------------*/
+    async update(req, res) {
 
-        await WarehouseModel.update(req.body, {where: {product_line_id: req.params.product_line_id}})
-        .then(() => responseHandler.sendSuccess(req, res, 200, 'Updated successfully!'))
-        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+        await WarehouseModel.update(req.body, { where: { product_line_id: req.params.product_line_id } })
+            .then(() => responseHandler.sendSuccess(req, res, 200, 'Updated successfully!'))
+            .catch(err => responseHandler.sendFailure(req, res, 400, err))
     }
 
-/*--------------------------------------------DELETE-------------------------------------------------*/ 
-    async delete (req, res) {
-        await WarehouseModel.delete({where: {product_line_id: req.params.product_line_id}})
-        .then(() => responseHandler.sendSuccess(req, res, 200, 'Deleted successfully'))
-        .catch( err => responseHandler.sendFailure(req, res, 400, err))
+    /*--------------------------------------------DELETE-------------------------------------------------*/
+    async delete(req, res) {
+        await WarehouseModel.delete({ where: { product_line_id: req.params.product_line_id } })
+            .then(() => responseHandler.sendSuccess(req, res, 200, 'Deleted successfully'))
+            .catch(err => responseHandler.sendFailure(req, res, 400, err))
     }
 
 
