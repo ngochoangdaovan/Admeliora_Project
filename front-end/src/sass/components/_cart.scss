@@ -2,12 +2,6 @@
 
 
 
-
-
-
-
-
-
 .frame_img_cart{
     width: 400px;
     background-color: white;
@@ -16,7 +10,7 @@
 
 }
 .frame_quantity{
-    background-color: white;
+    background-color:white;
     width: 250px;
     margin-bottom: 10px;
 }
@@ -121,9 +115,9 @@
 .title_quatity{
     padding: 12px;
     margin-left: 300px;
-    // background-color: white;
+    background-color: white;
     width: 100px;
-    height: 50px;
+    height: 30px;
     @include tablet{
 
     }
@@ -141,8 +135,8 @@
     padding: 12px;
     margin-left: 150px;
     width: 100px;
-    height: 50px;
-    // background-color: white;
+    height: 30px;
+    background-color: white;
     @include tablet{
 
     }
@@ -282,6 +276,7 @@
     min-height: 50px;
     width: 900px;
     margin-top: 20px;
+    // background-color: aquamarine;
     @include tablet{
 
     }
@@ -295,11 +290,12 @@
 }
 
 .btn-order{
-    width: 200px;
-    height: 30px;
+    width: 350px;
+    height: 50px;
     border-radius: 5px;
     background-color: black;
-    color:white;
+    color:#C2B466;
+    font-size: large;
 }
 
 

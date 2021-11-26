@@ -11,6 +11,7 @@ import Login from '../pages/Login'
 import order from '../pages/order'
 import SigUp from '../pages/SigUp'
 import Profile from '../pages/Profile'
+import Search from '../pages/Search'
 
 
 const Routes = () => {
@@ -27,6 +28,7 @@ const Routes = () => {
       <Route path="/order" component={order} />
       <Route path="/SigUp" component={SigUp} />
       <Route path="/Profile" component={Profile} />
+      <Route path="/Search" component={Search} />
     </Switch>
   )
 }
