@@ -55,7 +55,9 @@ const Header = () => {
   return (
     <div className="header" ref={headerRef}>
       <div className="container">
+        
         <div className="header__logo">
+          
           <Link to="/">
             <img src={logo} alt="" />
           </Link>
@@ -101,6 +103,7 @@ const Header = () => {
             <Link to="/Profile">
                 <i className="bx bx-user"></i>
               </Link>
+              
             </div>
           </div>
         </div>

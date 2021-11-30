@@ -39,6 +39,9 @@ const Cart = (props) => {
     );
   });
 
+
+  
+
   const order_detail = () => {
     props.history.push("/order");
   };
