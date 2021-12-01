@@ -31,7 +31,7 @@ const Product = (props) => {
     const fetchProducts = async () => {
       const respone = await axios.get('http://admeliora.tk/api/products/')
 
-      // console.log("datapro", respone.data.data)
+     
       setProduct(respone.data.data)
     }
     fetchProducts()

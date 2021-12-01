@@ -41,7 +41,7 @@ const Cartitems = (props) => {
         <div className = "frame_img_cart">
 
         <img className="img_size_cart" src={api + props.item.image} />
-        <div>
+        <div >
         <h6 style ={{fontSize:"15px",marginLeft:"20px",marginTop:"50%"}}>{props.item.name}</h6>
         <h6 style ={{fontSize:"15px",marginLeft:"20px"}}>{props.item.size}</h6>
         </div>
@@ -58,8 +58,7 @@ const Cartitems = (props) => {
         </div>
         </div>
         <div className = "frame_trash" >
-          
-        <h6 onClick={() => removeCartItem()} style ={{fontSize:"15px",marginTop:"90px"}} ><i  class="bx bx-trash"></i></h6>
+        <h6 onClick={() => removeCartItem()} style ={{fontSize:"15px",marginTop:"90px", marginRight:"13px"}} ><i  class="bx bx-trash"></i></h6>
         </div>
 
 

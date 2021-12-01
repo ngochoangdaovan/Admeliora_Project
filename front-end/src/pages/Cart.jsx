@@ -64,7 +64,8 @@ const Cart = (props) => {
                 <p className="title_delete_cart">Xóa</p>
               </Grid>
             </div>
-            <div className="frame_map_product">
+            
+            <div className="scroll_bar1">
               {Cartproducts.map((item, index) => (
                 <Cartitems
                   item={item}
@@ -76,8 +77,9 @@ const Cart = (props) => {
             </div>
           </div>
           <div className="title_cart_2">
+           
             <div style={{ display: "flex" }}>
-              <p style={{ padding: "12px" }}>Tổng Tiền</p>
+              <p style={{ padding: "12px", marginRight:"50px",width:"100px" }}>Tổng Tiền</p>
               <p style={{ padding: "12px", marginLeft: "200px" }}>
                 <span>{Number(totalPrice) + "VND"}</span>
               </p>

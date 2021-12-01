@@ -10,7 +10,7 @@ import Helmet from '../components/Helmet'
 
 // import axios from 'axios'
 
-const News = () => {
+const News = (props) => {
 
 
   // const [NewData, setsNew] = useState([])
@@ -26,6 +26,11 @@ const News = () => {
   //   useEffect(() => {
   //     console.log(NewData)
   //   }, [NewData])
+
+
+  const refund_policy  = () => {
+    props.history.push("/Refund_policy");
+  };
   return(
     <Helmet title="News">
       <div className = "title_new">
@@ -71,12 +76,12 @@ const News = () => {
 
               <div className = "frame_img">
                 <img className = "imgg" src = "./images/img_news/img_New_3.jpg" />
-              <div ><button className = "button_new" style ={{marginTop:"50px",marginBottom:"50px"}}>Xem Thêm</button></div></div>
+              <div ><button className = "button_new" style ={{marginTop:"50px",marginBottom:"50px"}} onClick={() => refund_policy()}>Xem Thêm</button></div></div>
 
 
               <div className = "frame_img">
               <img className = "imgg" src = "./images/img_news/img_New_4.jpg" />
-              <div ><button className = "button_new" style ={{marginTop:"50px",marginBottom:"50px"}}>Xem Thêm</button></div>
+              <div ><button className = "button_new" style ={{marginTop:"50px",marginBottom:"50px"}} >Xem Thêm</button></div>
               </div>
       </Grid>
 

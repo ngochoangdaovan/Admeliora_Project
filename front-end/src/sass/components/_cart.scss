@@ -272,22 +272,20 @@
     }
 }
 
-.frame_map_product{
-    min-height: 50px;
-    width: 900px;
-    margin-top: 20px;
-    // background-color: aquamarine;
-    @include tablet{
 
-    }
-    @include mobile {
-        width: 100%;
-        
-       
-        
-    }
 
-}
+
+.scroll_bar1{
+
+    overflow-y: scroll;
+    width: 915px;
+    height: 600px;
+    background-color:white;
+  
+  
+  
+  }
+
 
 .btn-order{
     width: 350px;

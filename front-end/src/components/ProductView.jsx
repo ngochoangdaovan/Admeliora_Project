@@ -81,6 +81,8 @@ const ProductView = (props) => {
 
     return true;
   };
+
+  
   // =======================================
 
   const addtoCard = () => {
@@ -109,14 +111,28 @@ const ProductView = (props) => {
           headers: { authorization: "token: " + token },
         });
 
-      if (dispatch(addItem(newitem))) {
-        alert("Success");
-      } else {
-        alert("Fail");
-      }
-      console.log("newitem", newitem);
+        if (newitem.size !== null) {
+          alert("Sản phẩm đã được thêm vào giỏ hàng");
+        } else {
+          alert("Xin hãy chọn size ");
+        }
     }
   };
+
+
+
+  const getProducts = (count) => {
+    const max = productDetail.images.length - count
+
+    const min = 0
+
+    const start = Math.floor(Math.random() * (max - min) + min)
+
+    return productDetail.images.slice(start, start + count)
+  }
+  const productData = {
+    getProducts,
+  }
 
   return (
     <div className="products">
@@ -134,7 +150,7 @@ const ProductView = (props) => {
               src={imageApi + props.productDetail.defaultImage}
               alt=""
             />
-            {productDetail.images.map((item, index) => (
+            {productData.getProducts(3).map((item, index) => (
               <ImageSlider
                 key={index}
                 src={imageApi + item}
