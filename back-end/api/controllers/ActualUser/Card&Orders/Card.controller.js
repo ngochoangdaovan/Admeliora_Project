@@ -15,9 +15,8 @@ module.exports = new class CartController{
 
         // check if it is already in the cart
         let exist_quantity = await CartModel.findOne({
-            // attributes: ['quantity'],
             where: {
-                user_id: req.user.user_id,
+                user_id: req.user.user_id,  
                 product_detail_id: req.body.product_detail_id
             }})
         
@@ -28,7 +27,7 @@ module.exports = new class CartController{
                 product_detail_id: req.body.product_detail_id,
                 name: req.body.name,
                 price: req.body.price,
-                quantity: req.body.quantity,
+                quantity: req.body.quantity,    
                 discount: req.body.discount,
                 image: req.body.image,
                 size: req.body.size       

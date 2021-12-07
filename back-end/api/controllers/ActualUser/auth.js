@@ -7,6 +7,7 @@ const moment = require('moment');
 const {userValidation} = require('../../utils/schemaValidation')
 const db = require('../../models')(); 
 const UserModel = db.Users
+const responseHandler = require('../../utils/responseHandler');
 
 
 const auth = {};

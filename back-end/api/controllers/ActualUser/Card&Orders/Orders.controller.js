@@ -31,6 +31,7 @@ module.exports = new class OrderController{
                 order = OrderModel.findByPk(order_id);
             }
 
+            // add id of the of the order to items
             for (let product of products){
                 product.order_id = order_id;
             }
@@ -50,6 +51,7 @@ module.exports = new class OrderController{
 
             })
 
+            // add items to Order details
             await OrderDetailModel.bulkCreate(products)
 
 
@@ -62,12 +64,13 @@ module.exports = new class OrderController{
                     attributes : ['quantity']
                 })
 
-                // update quantity = old_quantity - buy_quantity
+                // update quantity in warehouse = old_quantity - buy_quantity
                 await WarehouseModel.update(
                     {quantity: old_quantity - item.quantity},
                     {where : {product_line_id: item.product_line_id}}
                 )
 
+                // delete item those are added to order from cart
                 await CartModel.destroy({
                     where: {
                         id : item.id,
@@ -75,6 +78,7 @@ module.exports = new class OrderController{
                 })
             }
 
+            // add activity log
             await ActivityLogsModel.create({
                 user_id: req.user.user_id,
                 message: `${order_name} created successfully at ${Date.now()}`
