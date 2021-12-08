@@ -39,26 +39,28 @@ const Cartitems = (props) => {
     <div className = "frame_cart_item">
       <Grid col ={4}>
         <div className = "frame_img_cart">
+          <div>
+          <img className="img_size_cart" src={api + props.item.image}/>
+          </div>
 
-        <img className="img_size_cart" src={api + props.item.image} />
-        <div >
-        <h6 style ={{fontSize:"15px",marginLeft:"20px",marginTop:"50%"}}>{props.item.name}</h6>
+        
+        <div>
+        <h6 style ={{fontSize:"15px",marginLeft:"20px",marginTop:"45%"}}>{props.item.name}</h6>
         <h6 style ={{fontSize:"15px",marginLeft:"20px"}}>{props.item.size}</h6>
         </div>
         </div>
 
         <div className ="frame_quantity">
-        <div>
-          <h6 style ={{fontSize:"15px",marginLeft:"20px",marginTop:"36%"}}>{props.item.quantity}</h6>
-        </div>
+          <h6 style ={{fontSize:"15px",marginLeft:"20px",marginTop:"118px"}}>{props.item.quantity}</h6>
+
         </div>
         <div className = "frame_price ">
-        <div>
-          <h6 style ={{fontSize:"15px",marginLeft:"20px",marginTop:"90px"}}>{props.item.price}</h6>
+      
+          <h6 style ={{fontSize:"15px",marginLeft:"20px",marginTop:"120px"}}>{props.item.price}</h6>
         </div>
-        </div>
+
         <div className = "frame_trash" >
-        <h6 onClick={() => removeCartItem()} style ={{fontSize:"15px",marginTop:"90px", marginRight:"13px"}} ><i  class="bx bx-trash"></i></h6>
+        <h6 onClick={() => removeCartItem()} style ={{fontSize:"15px",marginTop:"120px", marginRight:"13px"}} ><i  class="bx bx-trash"></i></h6>
         </div>
 
 

@@ -34,10 +34,10 @@ class TodoItem extends React.Component {
       <div className = "frame_profile">
 
         <div className ="frame_content_profile">
-      <li style={{marginTop:"10px" ,listStyle:"none",paddingLeft:"20px", fontSize:"20px"}}  onClick={ () => {
+      <li   onClick={ () => {
         this.props.clickHandler(this.props.index);
       }} className={this.props.details.completed ? 'completed' : 
-    ''}>
+    '' ,"infor_profile"}>
         {this.props.details.name}
         
 

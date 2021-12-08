@@ -9,7 +9,7 @@ import Contacts from '../pages/Contacts'
 import News from '../pages/News'
 import Login from '../pages/Login'
 import order from '../pages/order'
-import SigUp from '../pages/SigUp'
+import SignUp from '../pages/SignUp'
 import Profile from '../pages/Profile'
 import Search from '../pages/Search'
 import Refund_policy from '../pages/Refund_policy'
@@ -27,7 +27,7 @@ const Routes = () => {
       <Route path="/News" component={News} />
       <Route path="/Login" component={Login}/>
       <Route path="/order" component={order} />
-      <Route path="/SigUp" component={SigUp} />
+      <Route path="/SignUp" component={SignUp} />
       <Route path="/Profile" component={Profile} />
       <Route path="/Search" component={Search} />
       <Route path="/refund_policy" component={Refund_policy} />

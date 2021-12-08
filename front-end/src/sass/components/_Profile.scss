@@ -1,18 +1,38 @@
 
 
 .first_frame_profile{
-    background-color: white;
+    background-color:white;
     width: 900px;
     min-height: 500px;
     margin-top: 50px;
     display:flex;
+    
+
+    @include tablet{
+        width: 100%;
+
+    }
+    @include mobile {
+        width: 100%;
+        margin-top: 40px;
+        
+
+    }
 }
 
 .second_frame_profile{
-    background-color: white;
+    background-color:white;
     width: 500px;
     min-height: 500px;
     margin-top: 50px;
+    @include tablet{
+        width: 100%;
+
+    }
+    @include mobile {
+
+        width: 100%;
+    }
 }
 
 
@@ -64,5 +84,181 @@ input[type=radio] {
     border: 0px;
     width: 5%;
     height: 20px;
+
+}
+
+
+.exit_button_profile{
+    height: 30px;
+    width: 100px;
+    border-radius: 20px;
+    background-color: white;
+    margin-top: 500px;
+
+    @include tablet{
+    margin-top: 40px;
+
+    }
+    @include mobile {
+
+    }
+}
+
+
+.frame_content_default {
+
+    margin-right: 50px;
+    margin-left: 10px;
+
+    @include tablet{
+    margin-right: 30px;
+    margin-left: 10px;
+
+
+    }
+    @include mobile{
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: -5px;
+
+    }
+}
+
+
+.fname_lname_profile {
+    margin-top: 70px;
+
+    @include tablet{
+        
+
+    }
+    @include mobile{
+        font-size: 10px;
+        
+    }
+}
+
+
+
+.fname_lname_profile1 {
+    margin-top: 68px;
+
+    @include tablet{
+
+    }
+    @include mobile{
+        font-size: 10px;
+        
+    }
+}
+.fname_lname_profile2 {
+    margin-top: 68px;
+
+    @include tablet{
+
+    }
+    @include mobile{
+        font-size: 10px;
+        
+    }
+}
+.fname_lname_profile3 {
+    margin-top: 65px;
+
+    @include tablet{
+
+    }
+    @include mobile{
+        font-size: 10px;
+        margin-top: 75px;
+        
+    }
+}
+.fname_lname_profile4 {
+    margin-top: 67px;
+
+    @include tablet{
+
+    }
+    @include mobile{
+        font-size: 10px;
+        margin-top: 70px;
+        
+    }
+}
+.fname_lname_profile5 {
+    margin-top: 67px;
+
+    @include tablet{
+
+    }
+    @include mobile{
+        font-size: 10px;
+        
+    }
+}
+.fname_lname_profile6 {
+    margin-top: 67px;
+
+    @include tablet{
+
+    }
+    @include mobile{
+        font-size: 10px;
+        
+    }
+}
+
+.fname_lname_profile7 {
+    margin-top: 67px;
+
+    @include tablet{
+
+    }
+    @include mobile{
+        font-size: 10px;
+        
+    }
+}
+.fname_lname_profile8 {
+    margin-top: 67px;
+    text-decoration: underline;
+
+    @include tablet{
+
+    }
+    @include mobile{
+        font-size: 10px;
+        
+    }
+}
+
+
+
+.radio_gender_profile{
+    padding-left: 60px;
+
+    @include tablet {
+
+    }
+    @include mobile {
+        padding-left: 40px;
+
+    }
+}
+
+.form_select_gender{
+    margin-top: 75px;
+
+    @include tablet {
+
+    }
+    @include mobile {
+        margin-top: 40px;
+        font-size: 10px;
+
+    }
+
+
 
 }

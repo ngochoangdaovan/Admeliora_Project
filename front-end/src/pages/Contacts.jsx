@@ -451,7 +451,7 @@ const Contacts = () => {
                   className="input-2-col"
                   placeholder="Email Của Bạn...."
                   type="text"
-                  name="email"
+                  name="email"                  
                 ></input>
               </div>
 

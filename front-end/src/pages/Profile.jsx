@@ -3,8 +3,42 @@ import axios from "axios";
 import Grid from "../components/Grid";
 import { Link, useLocation } from "react-router-dom";
 import TodoItem from "../components/TodoItem";
-const Profile = () => {
+const Profile = (props) => {
+
+
+  // let token = localStorage.getItem("accessToken");     
+  // console.log("token_default",token)
+
+  // let newtoken = localStorage.getItem("success");
+
+  // if (newtoken === null ) {
+  //   console.log("token", newtoken);
+  //   alert("Bạn chưa có Tài khoản");
+
+  //   props.history.push("/Login");
+
+  
+  // } else
+  //   axios({
+  //     method: "post",
+  //     url: "http://admeliora.tk/api/user/profile",
+  //     headers: { authorization: "token: " + token },
+  //   });
+
+
+  function clear(){
+
+    localStorage.clear("accessToken");
+  } 
+   
+   
+
+   
+
+
+
   const [state, setState] = useState({
+    
     tasks: [
       {
         name: "Nhập Họ và tên ...",
@@ -43,6 +77,8 @@ const Profile = () => {
     setState({
       tasks,
     });
+
+
 
     this.setState({
       tasks,
@@ -89,6 +125,10 @@ const Profile = () => {
   }
   const { profileImg } = img;
 
+
+
+
+
   const [gender, setGender] = useState("");
 
   const handleChange = (e) => {
@@ -102,26 +142,26 @@ const Profile = () => {
       </div>
 
       <div>
-        <Grid col={2} gap={20}>
+        <Grid col={2} mdCol={1} smCol={1} gap={20}>
           <div className="first_frame_profile">
-            <div style={{ marginRight: "50px", marginLeft: "10px" }}>
-              <h2 style={{ marginTop: "70px" }}>Họ & Tên:</h2>
-              <h2 style={{ marginTop: "68px" }}>Tên Đăng Nhập:</h2>
-              <h2 style={{ marginTop: "68px" }}>Gmail:</h2>
-              <h2 style={{ marginTop: "65px" }}>Phone Numbers:</h2>
-              <h2 style={{ marginTop: "67px" }}>Address:</h2>
-              <h2 style={{ marginTop: "67px" }}>Ngày Sinh:</h2>
+            <div className ="frame_content_default" >
+              <h2 className ="fname_lname_profile" >Họ & Tên:</h2>
+              <h2 className ="fname_lname_profile1" >Tên Đăng Nhập:</h2>
+              <h2 className ="fname_lname_profile2" >Gmail:</h2>
+              <h2 className ="fname_lname_profile3" >Điện Thoại:</h2>
+              <h2 className ="fname_lname_profile4" >Địa Chỉ:</h2>
+              <h2 className ="fname_lname_profile5" >Ngày Sinh:</h2>
 
               <div>
-                <h2 style={{ marginTop: "67px" }}>Giới Tính:</h2>
+                <h2 className ="fname_lname_profile6"  >Giới Tính:</h2>
               </div>
 
               <div>
-                <h2 style={{ marginTop: "67px" }}>Level : </h2>
+                <h2 className ="fname_lname_profile7" >Level : </h2>
 
                 <Link to="">
                   <h2
-                    style={{ marginTop: "67px", textDecoration: "underline" }}
+                    className ="fname_lname_profile8"  
                   >
                     Lịch Sữ Giao Dịch
                   </h2>
@@ -155,19 +195,9 @@ const Profile = () => {
                 );
               })}
 
-              {/* <div style ={{marginTop:"75px"}}>
-                        <label style ={{paddingLeft:"20px"}}>
-                            <input type="radio"   value="male"  id="male" onChange={handleChange}  />Nam
-                        </label >
-                        <label style ={{paddingLeft:"60px"}}>
-                        <input type="radio"   value="female"  id="female" onChange={handleChange}  />Nữ
-                        </label>
-                        <label style ={{paddingLeft:"60px"}}>
-                        <input type="radio"   value="other"  id="other" onChange={handleChange}  /> Khác
-                        </label>
-                        </div> */}
+              
 
-              <form style={{ marginTop: "75px" }}>
+              <form className = "form_select_gender" >
                 <label htmlFor="male" style={{ paddingLeft: "20px" }}>
                   <input
                     type="radio"
@@ -180,8 +210,8 @@ const Profile = () => {
                   Nam
                 </label>
 
-                <label htmlFor="female" style={{ paddingLeft: "60px" }}>
-                  <input
+                <label htmlFor="female" className ="radio_gender_profile" >
+                  <input 
                     type="radio"
                     value="female"
                     id="female"
@@ -192,7 +222,7 @@ const Profile = () => {
                 </label>
 
 
-                <label htmlFor="other" style={{ paddingLeft: "60px" }}>
+                <label htmlFor="other" className ="radio_gender_profile" >
                 <input
                   type="radio"
                   value="other"
@@ -207,6 +237,9 @@ const Profile = () => {
               </form>
             </section>
           </div>
+
+
+
 
           <div className="second_frame_profile">
             <div className="title_add_img_profile">
@@ -239,16 +272,12 @@ const Profile = () => {
               </div>
             </div>
 
-            <div style={{ marginTop: "500px", textAlign: "center" }}>
+            <div style={{textAlign: "center" }}>
               <Link to="/Login">
                 <button
-                  style={{
-                    height: "30px",
-                    width: "100px",
-                    borderRadius: "20px",
-                    backgroundColor: "white",
-                    marginTop: "60px",
-                  }}
+
+                className ="exit_button_profile"
+                  onClick={()=>clear()}
                 >
                   log out
                 </button>

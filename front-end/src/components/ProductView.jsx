@@ -98,11 +98,33 @@ const ProductView = (props) => {
         size: value.size_name,
       };
 
+
+
+
+      
+     
+
       let token = localStorage.getItem("accessToken");
 
-      if (token === "") {
-        console.log("token", token);
+      
+     
+      
+
+      console.log("token", token);
+
+
+
+
+      // if(token !== null || token !== token  ){
+      //   window.localStorage.clear("accessToken");
+      // }
+
+
+      if (token === null ) {
         props.history.push("/Login");
+
+        
+
       } else
         axios({
           method: "post",
@@ -111,9 +133,17 @@ const ProductView = (props) => {
           headers: { authorization: "token: " + token },
         });
 
-        if (newitem.size !== null) {
+        if (token === null ) {
+          alert("Bạn chưa có Tài khoản");
+        }
+
+        else if (newitem.size !== null ){
+
           alert("Sản phẩm đã được thêm vào giỏ hàng");
-        } else {
+
+        } 
+        
+        else {
           alert("Xin hãy chọn size ");
         }
     }
@@ -133,6 +163,8 @@ const ProductView = (props) => {
   const productData = {
     getProducts,
   }
+
+  
 
   return (
     <div className="products">
