@@ -1,19 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Grid from "../components/Grid";
-import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 import ImageSlider from "./ImageSlider";
 import Size from "./Size";
-import { addItem } from "../redux/shopping-cart/cartItemsSlide";
-import { useDispatch } from "react-redux";
+
 import { withRouter } from "react-router";
 
-import { remove } from "../redux/product-modal/productModalSlice";
 import axios from "axios";
 
-const ProductView = (props) => {
-  const dispatch = useDispatch();
 
+const ProductView = (props) => {
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
   let imageApi = "http://admeliora.tk/api/products/images/";
@@ -82,8 +78,23 @@ const ProductView = (props) => {
     return true;
   };
 
-  
   // =======================================
+  const [newtoken, Setnewtoken] = useState("")
+  let token = localStorage.getItem("accessToken");
+  useEffect(() => {
+    const fetchToken = async () => {
+      const respone = await axios({
+        method: "get",
+        url: "http://admeliora.tk/api/user/profile",
+        headers: { authorization: "token: " + token },
+      });
+      Setnewtoken(respone.data.newToken);
+    };
+    fetchToken();
+  }, []);
+  console.log("newtoken", newtoken)
+
+ 
 
   const addtoCard = () => {
     // console.log("value",value)
@@ -98,73 +109,49 @@ const ProductView = (props) => {
         size: value.size_name,
       };
 
-
-
-
-      
-     
-
       let token = localStorage.getItem("accessToken");
 
-      
-     
-      
-
-      console.log("token", token);
-
-
-
-
-      // if(token !== null || token !== token  ){
-      //   window.localStorage.clear("accessToken");
-      // }
-
-
-      if (token === null ) {
+      if (token === null) {
         props.history.push("/Login");
-
-        
-
-      } else
+      }
+      else if (newtoken !== null ){
+          console.log("set newtoken")
+          localStorage.setItem("accessToken",newtoken)
+          
+      } 
+      else 
         axios({
           method: "post",
           url: "http://admeliora.tk/api/user/cart/add",
           data: newitem,
           headers: { authorization: "token: " + token },
-        });
+      });
 
-        if (token === null ) {
-          alert("Bạn chưa có Tài khoản");
-        }
+      if (token === null) {
+        alert("Bạn chưa có Tài khoản");
+      }
 
-        else if (newitem.size !== null ){
-
-          alert("Sản phẩm đã được thêm vào giỏ hàng");
-
-        } 
-        
-        else {
-          alert("Xin hãy chọn size ");
-        }
-    }
+       else if (newitem.size !== null) {
+        alert("Sản phẩm đã được thêm vào giỏ hàng");
+      } else {
+        alert("Xin hãy chọn size ");
+      }
+    
   };
-
-
-
+  
+}
   const getProducts = (count) => {
-    const max = productDetail.images.length - count
+    const max = productDetail.images.length - count;
 
-    const min = 0
+    const min = 0;
 
-    const start = Math.floor(Math.random() * (max - min) + min)
+    const start = Math.floor(Math.random() * (max - min) + min);
 
-    return productDetail.images.slice(start, start + count)
-  }
+    return productDetail.images.slice(start, start + count);
+  };
   const productData = {
     getProducts,
-  }
-
-  
+  };
 
   return (
     <div className="products">

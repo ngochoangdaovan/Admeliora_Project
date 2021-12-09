@@ -18,7 +18,7 @@ const Product = (props) => {
   useEffect(()  => {
     const fetchProducts = async () => {
       const respone = await axios.get(`http://admeliora.tk/api/products/detail/${props.match.params.product_line_id}&${props.match.params.color_id}`)
-      console.log('data', respone.data.data)
+    
       setProductDetail(respone.data.data)
     }
    fetchProducts()

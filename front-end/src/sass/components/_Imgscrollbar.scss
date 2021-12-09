@@ -1,11 +1,38 @@
 
 
 
+
+.main_cart_default{
+
+    @include tablet{
+
+        // width: 900px;
+        // background-color: aqua;
+
+    }
+
+    @include mobile {
+        
+    }
+}
+
+
+
 .scroll_image{
     height: 200px;
     width: 200px;
     // background-color:wheat;
    margin: 20px;
+   @include tablet{
+
+    width: 100%;
+
+}
+
+@include mobile {
+    
+}
+
 }
 
 .img_scroll_size{
@@ -20,12 +47,31 @@
     width: 250px;
     background-color: white;
     margin-top: 20px;
+
+    @include tablet{
+        width: 100%;
+        margin-top: -50px;
+
+    }
+    @include mobile {
+        width: 100%;
+        margin-top: 50px;
+        
+    }
     
 }
 
 .infor_item_scroll {
     font-size: 15px;
     text-align: center;
+
+    @include tablet{
+        
+
+    }
+    @include mobile {
+        margin-left: -30px;
+    }
 }
 
 
@@ -33,5 +79,11 @@
     font-size: 15px;
     text-align: center;
     margin-top: 30%;
+    @include tablet{
+
+    }
+    @include mobile {
+        margin-left: -30px;
+    }
 }
 

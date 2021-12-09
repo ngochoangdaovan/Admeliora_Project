@@ -1,5 +1,6 @@
 import { Component } from "react";
 import subVn from "sub-vn";
+import Grid from "../components/Grid";
 
 export default class Location extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ export default class Location extends Component {
 
     return (
       <div>
+        <Grid col={3}  gap={20}>
         <select onChange={this.onProvinceClick} className="number">
           <option>Chọn tỉnh/ Thành phố</option>
           {provinces.map((province) => {
@@ -71,6 +73,7 @@ export default class Location extends Component {
             );
           })}
         </select>
+        </Grid>
       </div>
     );
   }

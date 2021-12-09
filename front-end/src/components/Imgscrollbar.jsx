@@ -35,10 +35,10 @@ const Imgscrollbar = (props) => {
 
 
   return (
+
     
-        <div>
-            <Grid col={2}
-            gap={20}>
+        <div className ="main_cart_default">
+            <Grid col={2} mdCol={2} gap={20}>
              <div className="scroll_image">
                 <img className="img_scroll_size" src={api + props.item.image} />
             </div>
@@ -57,6 +57,7 @@ const Imgscrollbar = (props) => {
             </Grid>
           
         </div>
+
          
   );
 };

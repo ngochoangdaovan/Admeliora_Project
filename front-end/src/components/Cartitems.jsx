@@ -32,7 +32,7 @@ const Cartitems = (props) => {
     }
   };
 
-  console.log("lll",props)
+  // console.log("lll",props)
 
   return (
 
@@ -45,22 +45,20 @@ const Cartitems = (props) => {
 
         
         <div>
-        <h6 style ={{fontSize:"15px",marginLeft:"20px",marginTop:"45%"}}>{props.item.name}</h6>
-        <h6 style ={{fontSize:"15px",marginLeft:"20px"}}>{props.item.size}</h6>
+        <h6 className ="infor_item_cartitem" >{props.item.name}</h6>
+        <h6 className ="infor_item_size_cartitem" >{props.item.size}</h6>
         </div>
         </div>
 
         <div className ="frame_quantity">
-          <h6 style ={{fontSize:"15px",marginLeft:"20px",marginTop:"118px"}}>{props.item.quantity}</h6>
-
+          <h6 className ="infor_item_quantity_cartitem">{props.item.quantity}</h6>
         </div>
         <div className = "frame_price ">
-      
-          <h6 style ={{fontSize:"15px",marginLeft:"20px",marginTop:"120px"}}>{props.item.price}</h6>
+          <h6 className ="infor_item_price_cartitem" >{props.item.price}</h6>
         </div>
 
         <div className = "frame_trash" >
-        <h6 onClick={() => removeCartItem()} style ={{fontSize:"15px",marginTop:"120px", marginRight:"13px"}} ><i  class="bx bx-trash"></i></h6>
+        <h6 className ="infor_item_trash_cartitem" onClick={() => removeCartItem()} ><i  class="bx bx-trash"></i></h6>
         </div>
 
 

@@ -56,7 +56,7 @@ const Order = (props) => {
 
   return (
     <div>
-      <Grid col={2} mdCol={2} smCol={1} gap={10}>
+      <Grid col={2} mdCol={1} smCol={1} gap={10}>
         <div className="first_order">
           <h1>Thông Tin Giao Hàng</h1>
 
@@ -105,7 +105,7 @@ const Order = (props) => {
         <div className="second_order">
           <div className="frame_second_element">
             <div style={{ textAlign: "center" }}>
-            <h1>Đơn Hàng({Number(totalnumber)} sản phẩm)</h1>
+            <h1 className ="total_item_payment">Đơn Hàng({Number(totalnumber)} sản phẩm)</h1>
             </div>
 
             <div className="scroll_bar">
