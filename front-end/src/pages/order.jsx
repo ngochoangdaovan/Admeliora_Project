@@ -49,6 +49,11 @@ const Order = (props) => {
     )
   }, [cartItems.data])
 
+
+  const Complete = () => {
+    props.history.push('/Complete_order')
+  }
+
   return (
     <div>
       <Grid col={2} mdCol={1} smCol={1} gap={10}>
@@ -137,13 +142,13 @@ const Order = (props) => {
               </Grid>
             </div>
             <div className="frame_complete_order">
-              <button className="complete_order">HOÀN TẤT ĐƠN HÀNG</button>
+              <button className="complete_order"  onClick={() => Complete()}>HOÀN TẤT ĐƠN HÀNG</button>
 
               <div>
                 <i
                   onClick={() => come_back_cart()}
                   class="bx bx-arrow-back"
-                  style={{ fontSize: '40px' }}
+                  style={{ fontSize: '40px',cursor:"pointer" }}
                 ></i>
                 <h4> Quay lại giỏi hàng</h4>
               </div>

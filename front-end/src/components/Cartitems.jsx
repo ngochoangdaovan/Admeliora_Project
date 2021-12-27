@@ -30,7 +30,7 @@ const Cartitems = (props) => {
     }
   }
 
-  // console.log("lll",props)
+ 
 
   return (
     <div className="frame_cart_item">
@@ -64,7 +64,7 @@ const Cartitems = (props) => {
             className="infor_item_trash_cartitem"
             onClick={() => removeCartItem()}
           >
-            <i class="bx bx-trash"></i>
+            <i class="bx bx-trash" style={{cursor:"pointer"}}></i>
           </h6>
         </div>
       </Grid>

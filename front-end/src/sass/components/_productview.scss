@@ -153,6 +153,7 @@
 .dropdown_size{
   width: 100px;
   background-color:white;
+  cursor: pointer;
   @include tablet{
     width: 80px ;
   }
@@ -165,6 +166,7 @@
   height: 30px;
   background-color:white;
   margin-left: 90px;
+  cursor: pointer;
   @include tablet{
     margin-left: 20px;
     width: 50px;
@@ -213,6 +215,7 @@
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: large;
+  cursor: pointer;
 
 
   @include tablet{

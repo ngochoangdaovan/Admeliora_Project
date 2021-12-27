@@ -13,6 +13,7 @@ import SignUp from '../pages/SignUp'
 import Profile from '../pages/Profile'
 import Search from '../pages/Search'
 import Refund_policy from '../pages/Refund_policy'
+import Complete_order from '../pages/Complete_order'
 
 
 const Routes = () => {
@@ -31,6 +32,7 @@ const Routes = () => {
       <Route path="/Profile" component={Profile} />
       <Route path="/Search" component={Search} />
       <Route path="/refund_policy" component={Refund_policy} />
+      <Route path="/Complete_order" component={Complete_order} />
     </Switch>
   )
 }

@@ -21,9 +21,7 @@ const Catalog = () => {
       const respone = await axios.get('http://admeliora.tk/api/products/')
       console.log('products', respone.data.data)
       setProduct(respone.data.data)
-      // for (let i of respone.data){
-      //   console.log(i)
-      // }
+     
     }
     fetchProducts()
   }, [])
@@ -138,7 +136,7 @@ const Catalog = () => {
       </Grid>
 
       <div style={{ marginTop: '100px', marginBottom: '100px' }}>
-        <Grid col={2} mdCol={2} smCol={1} gap={10}>
+        {/* <Grid col={2} mdCol={2} smCol={1} gap={10}>
           <div className="frame_main_select_option">
             <Grid col={4}>
               <div className="underline_select_option1">
@@ -182,7 +180,7 @@ const Catalog = () => {
           </div>
 
           <div></div>
-        </Grid>
+        </Grid> */}
       </div>
 
       <div className="catalog__content">

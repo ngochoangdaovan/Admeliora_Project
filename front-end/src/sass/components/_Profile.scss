@@ -67,6 +67,7 @@
   
   #input[type="file"] {
       display: none;
+      cursor: pointer;
   }
 
   .title_add_img_profile{
@@ -78,12 +79,14 @@
 
 .image_upload{
     text-decoration: underline;
+    cursor: pointer;
 }
 
 input[type=radio] {
     border: 0px;
     width: 5%;
     height: 20px;
+    cursor: pointer;
 
 }
 
@@ -94,6 +97,7 @@ input[type=radio] {
     border-radius: 20px;
     background-color: white;
     margin-top: 500px;
+    cursor: pointer;
 
     @include tablet{
     margin-top: 40px;
