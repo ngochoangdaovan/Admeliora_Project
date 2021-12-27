@@ -1,49 +1,34 @@
-import React , {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Grid from '../components/Grid'
 import { Link, useLocation } from 'react-router-dom'
 import data from '../content/contactContent'
 
-
-
-
 const Login = (props) => {
-
-  const [username, SetUserName] = useState("")
-  const [password, SetPassword] = useState("")
-
-
+  const [username, SetUserName] = useState('')
+  const [password, SetPassword] = useState('')
 
   const login = async () => {
-    console.log(username,password)
+    console.log(username, password)
     let token = await axios({
       method: 'post',
       url: 'http://admeliora.tk/api/user/login',
-      data: { user_name:  username , password:  password  },
+      data: { user_name: username, password: password },
       // headers: { authorization: 'token: ' + token },
-
-   
-    
     })
 
-    
     localStorage.setItem('accessToken', token.data.accessToken)
     // console.log(localStorage.getItem('accessToken'))
 
-
-
     // if (token.data.accessToken = true){
-        
-    
+
     // props.history.push("/");
     // }
 
-    if ( token.data.accessToken = true ){
-        
-        props.history.push("/");
+    if ((token.data.accessToken = true)) {
+      props.history.push('/')
     }
-    
-  } 
+  }
 
   return (
     <Grid col={2} mdCol={2} smCol={1} gap={10}>
@@ -74,7 +59,7 @@ const Login = (props) => {
             name=""
             id="Gmail"
             placeholder="Email của bạn...."
-            onChange ={(e) => SetUserName(e.target.value)}
+            onChange={(e) => SetUserName(e.target.value)}
           ></input>
         </div>
         <div>
@@ -85,7 +70,7 @@ const Login = (props) => {
             name=""
             id="pass"
             placeholder="Mật khẩu của bạn...."
-            onChange ={(e) => SetPassword(e.target.value)}
+            onChange={(e) => SetPassword(e.target.value)}
           ></input>
         </div>
         <div className="forgot_pass">

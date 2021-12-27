@@ -1,58 +1,53 @@
-import React, { useState, useEffect } from "react";
-import Grid from "../components/Grid";
-import Imgscrollbar from "../components/Imgscrollbar";
-import Location from "../components/Location";
-import axios from "axios";
+import React, { useState, useEffect } from 'react'
+import Grid from '../components/Grid'
+import Imgscrollbar from '../components/Imgscrollbar'
+import Location from '../components/Location'
+import axios from 'axios'
 
 const Order = (props) => {
-  const [cartItems, setcartItems] = useState({ data: [] });
-  let token = localStorage.getItem("accessToken");
+  const [cartItems, setcartItems] = useState({ data: [] })
+  let token = localStorage.getItem('accessToken')
   useEffect(() => {
     const fetchProducts = async () => {
       const respone = await axios({
-        method: "get",
-        url: "http://admeliora.tk/api/user/cart/",
-        headers: { authorization: "token: " + token },
-      });
-      setcartItems(respone.data);
-    };
-    fetchProducts();
-  }, []);
+        method: 'get',
+        url: 'http://admeliora.tk/api/user/cart/',
+        headers: { authorization: 'token: ' + token },
+      })
+      setcartItems(respone.data)
+    }
+    fetchProducts()
+  }, [token])
 
-  const [Cartproducts, setCardproducts] = useState([]);
+  const [Cartproducts, setCardproducts] = useState([])
   useEffect(() => {
     if (cartItems.data === undefined) {
-      setCardproducts([]);
+      setCardproducts([])
     } else {
-      setCardproducts(cartItems.data);
+      setCardproducts(cartItems.data)
     }
-  }, [cartItems]);
-  
+  }, [cartItems])
 
   const come_back_cart = () => {
-    props.history.push("/Cart");
-  };
+    props.history.push('/Cart')
+  }
 
-  const [totalnumber, settotalnumber] = useState(0);
+  const [totalnumber, settotalnumber] = useState(0)
   useEffect(() => {
     settotalnumber(
-      cartItems.data.reduce(
-        (total, item) => total + Number(item.quantity),
-        0
-      )
-    );
-  });
+      cartItems.data.reduce((total, item) => total + Number(item.quantity), 0)
+    )
+  }, [cartItems.data])
 
-  const [totalPrice, settotalPrice] = useState(30);
+  const [totalPrice, settotalPrice] = useState(30)
   useEffect(() => {
     settotalPrice(
       cartItems.data.reduce(
         (total, item) => total + Number(item.quantity) * Number(item.price),
         0
       )
-    );
-  });
-
+    )
+  }, [cartItems.data])
 
   return (
     <div>
@@ -73,7 +68,7 @@ const Order = (props) => {
             ></input>
           </div>
           <div>
-           <Location />
+            <Location />
           </div>
           <div>
             <input
@@ -86,14 +81,14 @@ const Order = (props) => {
             <h1>Phương Thức Thanh Toán</h1>
           </div>
 
-          <div style={{ margin: "20px" }}>
+          <div style={{ margin: '20px' }}>
             <label class="input_circle">
               Thanh Toán ThẻThẻ (ATM nội địa, Visa, MasterCard)
               <input type="radio" name="radio" />
               <span class="checkmark1"></span>
             </label>
           </div>
-          <div style={{ margin: "20px" }}>
+          <div style={{ margin: '20px' }}>
             <label class="input_circle">
               Thanh Toán Khi Nhận Hàng (CODCOD)
               <input type="radio" name="radio" />
@@ -104,8 +99,10 @@ const Order = (props) => {
 
         <div className="second_order">
           <div className="frame_second_element">
-            <div style={{ textAlign: "center" }}>
-            <h1 className ="total_item_payment">Đơn Hàng({Number(totalnumber)} sản phẩm)</h1>
+            <div style={{ textAlign: 'center' }}>
+              <h1 className="total_item_payment">
+                Đơn Hàng({Number(totalnumber)} sản phẩm)
+              </h1>
             </div>
 
             <div className="scroll_bar">
@@ -134,7 +131,7 @@ const Order = (props) => {
                 <div className="ship_cost_title_all_order">Tổng</div>
                 <div>
                   <p className="ship_cost_all_order">
-                    <span id="price1">{Number(totalPrice+30000)}</span> VND
+                    <span id="price1">{Number(totalPrice + 30000)}</span> VND
                   </p>
                 </div>
               </Grid>
@@ -146,7 +143,7 @@ const Order = (props) => {
                 <i
                   onClick={() => come_back_cart()}
                   class="bx bx-arrow-back"
-                  style={{ fontSize: "40px" }}
+                  style={{ fontSize: '40px' }}
                 ></i>
                 <h4> Quay lại giỏi hàng</h4>
               </div>
@@ -155,7 +152,7 @@ const Order = (props) => {
         </div>
       </Grid>
     </div>
-  );
-};
+  )
+}
 
-export default Order;
+export default Order

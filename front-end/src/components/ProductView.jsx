@@ -1,100 +1,97 @@
-import React, { useEffect, useState } from "react";
-import Grid from "../components/Grid";
-import "react-dropdown/style.css";
-import ImageSlider from "./ImageSlider";
-import Size from "./Size";
+import React, { useEffect, useState } from 'react'
+import Grid from '../components/Grid'
+import 'react-dropdown/style.css'
+import ImageSlider from './ImageSlider'
+import Size from './Size'
 
-import { withRouter } from "react-router";
+import { withRouter } from 'react-router'
 
-import axios from "axios";
-
+import axios from 'axios'
 
 const ProductView = (props) => {
-  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-  let imageApi = "http://admeliora.tk/api/products/images/";
+  let imageApi = 'http://admeliora.tk/api/products/images/'
 
   const [productDetail, setProductDetail] = useState({
     images: [],
     defaultImage: null,
     Size: [],
-  });
+  })
   useEffect(() => {
-    setProductDetail(props.productDetail);
-  }, [props]);
+    setProductDetail(props.productDetail)
+  }, [props])
 
   // console.log("props", props)
 
   const [previewImg, setPreviewImg] = useState(
     imageApi + props.productDetail.defaultImage
-  );
+  )
 
   useEffect(() => {
-    setPreviewImg(imageApi + props.productDetail.defaultImage);
-  }, [imageApi + props.productDetail.defaultImage]);
+    setPreviewImg(imageApi + props.productDetail.defaultImage)
+  }, [imageApi, props.productDetail.defaultImage])
   // ========================================
 
   //  set size
-  const [size, setsize] = useState([]);
+  const [size, setsize] = useState([])
   useEffect(() => {
     if (props.productDetail.Sizes === undefined) {
-      setsize([]);
+      setsize([])
     } else {
-      setsize(props.productDetail.Sizes);
+      setsize(props.productDetail.Sizes)
     }
-  }, [props]);
+  }, [props])
 
   // =========================================
 
-  const [number, setnumber] = useState(1);
+  const [number, setnumber] = useState(1)
   const getnumber = (e) => {
-    setnumber(Number(e.target.value));
-  };
+    setnumber(Number(e.target.value))
+  }
 
   // =====================================
-  const [display_value, setdisplay_value] = useState();
+  const [display_value, setdisplay_value] = useState()
   const [value, setvalue] = useState({
     product_detail_id: null,
     size_name: null,
-  });
+  })
   const getinfor = (e) => {
-    setdisplay_value(e.target.display_value);
+    setdisplay_value(e.target.display_value)
     setvalue({
       product_detail_id: Number(
-        e.target.options[e.target.selectedIndex].getAttribute("data-id")
+        e.target.options[e.target.selectedIndex].getAttribute('data-id')
       ),
 
       size_name:
-        e.target.options[e.target.selectedIndex].getAttribute("data-size"),
-    });
-  };
+        e.target.options[e.target.selectedIndex].getAttribute('data-size'),
+    })
+  }
 
   const check = () => {
     if (value === undefined) {
-      alert("Vui lòng chọn kích cỡ!");
-      return false;
+      alert('Vui lòng chọn kích cỡ!')
+      return false
     }
 
-    return true;
-  };
+    return true
+  }
 
   // =======================================
-  const [newtoken, Setnewtoken] = useState("")
-  let token = localStorage.getItem("accessToken");
+  const [newtoken, Setnewtoken] = useState('')
+  let token = localStorage.getItem('accessToken')
   useEffect(() => {
     const fetchToken = async () => {
       const respone = await axios({
-        method: "get",
-        url: "http://admeliora.tk/api/user/profile",
-        headers: { authorization: "token: " + token },
-      });
-      Setnewtoken(respone.data.newToken);
-    };
-    fetchToken();
-  }, []);
-  console.log("newtoken", newtoken)
-
- 
+        method: 'get',
+        url: 'http://admeliora.tk/api/user/profile',
+        headers: { authorization: 'token: ' + token },
+      })
+      Setnewtoken(respone.data.newToken)
+    }
+    fetchToken()
+  }, [token])
+  console.log('newtoken', newtoken)
 
   const addtoCard = () => {
     // console.log("value",value)
@@ -107,51 +104,44 @@ const ProductView = (props) => {
         discount: productDetail.discount,
         quantity: number,
         size: value.size_name,
-      };
+      }
 
-      let token = localStorage.getItem("accessToken");
+      let token = localStorage.getItem('accessToken')
 
       if (token === null) {
-        props.history.push("/Login");
-      }
-      else if (newtoken !== null ){
-          console.log("set newtoken")
-          localStorage.setItem("accessToken",newtoken)
-          
-      } 
-      else 
+        props.history.push('/Login')
+      } else if (newtoken !== null) {
+        console.log('set newtoken')
+        localStorage.setItem('accessToken', newtoken)
+      } else
         axios({
-          method: "post",
-          url: "http://admeliora.tk/api/user/cart/add",
+          method: 'post',
+          url: 'http://admeliora.tk/api/user/cart/add',
           data: newitem,
-          headers: { authorization: "token: " + token },
-      });
+          headers: { authorization: 'token: ' + token },
+        })
 
       if (token === null) {
-        alert("Bạn chưa có Tài khoản");
-      }
-
-       else if (newitem.size !== null) {
-        alert("Sản phẩm đã được thêm vào giỏ hàng");
+        alert('Bạn chưa có Tài khoản')
+      } else if (newitem.size !== null) {
+        alert('Sản phẩm đã được thêm vào giỏ hàng')
       } else {
-        alert("Xin hãy chọn size ");
+        alert('Xin hãy chọn size ')
       }
-    
-  };
-  
-}
+    }
+  }
   const getProducts = (count) => {
-    const max = productDetail.images.length - count;
+    const max = productDetail.images.length - count
 
-    const min = 0;
+    const min = 0
 
-    const start = Math.floor(Math.random() * (max - min) + min);
+    const start = Math.floor(Math.random() * (max - min) + min)
 
-    return productDetail.images.slice(start, start + count);
-  };
+    return productDetail.images.slice(start, start + count)
+  }
   const productData = {
     getProducts,
-  };
+  }
 
   return (
     <div className="products">
@@ -219,7 +209,7 @@ const ProductView = (props) => {
             </div>
 
             <div className="product_infor_price">
-              {productDetail.price + " " + "VND"}
+              {productDetail.price + ' ' + 'VND'}
             </div>
             <div className="button_frame">
               <button onClick={() => addtoCard()} className="button_enter">
@@ -230,14 +220,14 @@ const ProductView = (props) => {
             <div className="description">
               <h3 className="font_size_description">Mô tả</h3>
               <p className="font_size_description">
-                {"Dòng áo" + " : " + productDetail.product_line}
+                {'Dòng áo' + ' : ' + productDetail.product_line}
               </p>
               <p className="font_size_description">
-                {"Color" + " : " + productDetail.color}
+                {'Color' + ' : ' + productDetail.color}
               </p>
               <p className="font_size_description">
-                <div style={{ display: "flex" }}>
-                  <h5>{"Size" + " : "}</h5>
+                <div style={{ display: 'flex' }}>
+                  <h5>{'Size' + ' : '}</h5>
                   {size.map((item, index) => (
                     <Size key={index} size_name={item.size_name}></Size>
                   ))}
@@ -252,14 +242,14 @@ const ProductView = (props) => {
                 hết mình với tuổi trẻ này. “Dreammer“ là người hay mơ mộng,
                 nhưng đừng suốt ngày cứ mơ mộng hãy biến giấc mơ của mình thành
                 hiện thực. Thêm nữa, làm gì cũng sẽ có khó khăn với thử thách
-                nên cứ “I don’t give a fuck“ và bước tiếp.{" "}
+                nên cứ “I don’t give a fuck“ và bước tiếp.{' '}
               </p>
             </div>
           </div>
         </div>
       </Grid>
     </div>
-  );
-};
+  )
+}
 
-export default withRouter(ProductView);
+export default withRouter(ProductView)

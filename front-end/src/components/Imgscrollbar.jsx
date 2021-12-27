@@ -1,71 +1,69 @@
-
-
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
-import Grid from "./Grid";
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import axios from 'axios'
+import Grid from './Grid'
 
 const Imgscrollbar = (props) => {
-  console.log("props", props);
+  console.log('props', props)
 
-  let api = "http://admeliora.tk/api/products/images/";
+  let api = 'http://admeliora.tk/api/products/images/'
 
-  const [totalPrice, settotalPrice] = useState(0);
+  const [totalPrice, settotalPrice] = useState(0)
   useEffect(() => {
-    settotalPrice(Number(props.item.quantity) * Number(props.item.price));
-  });
-  console.log("props", props);
+    settotalPrice(Number(props.item.quantity) * Number(props.item.price))
+  }, [props.item.quantity, props.item.price])
+  console.log('props', props)
 
   const removeCartItem = async () => {
-    let token = localStorage.getItem("accessToken");
+    let token = localStorage.getItem('accessToken')
     const respone = await axios({
-      method: "delete",
+      method: 'delete',
       url: `http://admeliora.tk/api/user/cart/delete/${props.item.id}`,
       headers: {
-        authorization: "token: " + token,
+        authorization: 'token: ' + token,
       },
-    });
+    })
 
     if (respone.data.success === true) {
-      window.location.reload(props.products.data.pop());
-      console.log("props.product", props.products);
+      window.location.reload(props.products.data.pop())
+      console.log('props.product', props.products)
     }
-  };
-
-
+  }
 
   return (
-
-    
-        <div className ="main_cart_default">
-            <Grid col={2} mdCol={2} gap={20}>
-             <div className="scroll_image">
-                <img className="img_scroll_size" src={api + props.item.image} />
-            </div>
-
-            <div className = "frame_containt_infor_scroll">
-            <di><h6 className ="infor_item_scroll1">{props.item.name}</h6></di>
-            <di><h6  className ="infor_item_scroll">{props.item.size}</h6></di>
-           
-            <div><h6 className ="infor_item_scroll">{props.item.quantity}</h6></div>
-            <div><h6  className ="infor_item_scroll">{props.item.price}</h6></div>
-
-    
-           
-
-            </div>
-            </Grid>
-          
+    <div className="main_cart_default">
+      <Grid col={2} mdCol={2} gap={20}>
+        <div className="scroll_image">
+          <img
+            className="img_scroll_size"
+            src={api + props.item.image}
+            alt=""
+          />
         </div>
 
-         
-  );
-};
+        <div className="frame_containt_infor_scroll">
+          <di>
+            <h6 className="infor_item_scroll1">{props.item.name}</h6>
+          </di>
+          <di>
+            <h6 className="infor_item_scroll">{props.item.size}</h6>
+          </di>
+
+          <div>
+            <h6 className="infor_item_scroll">{props.item.quantity}</h6>
+          </div>
+          <div>
+            <h6 className="infor_item_scroll">{props.item.price}</h6>
+          </div>
+        </div>
+      </Grid>
+    </div>
+  )
+}
 Imgscrollbar.protoTypes = {
   item: PropTypes.object,
   products: PropTypes.object,
   index: PropTypes.number,
-};
+}
 
-
-export default Imgscrollbar ;
+export default Imgscrollbar

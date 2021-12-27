@@ -5,8 +5,7 @@ import Helmet from '../components/Helmet'
 import InfinityList from '../components/InfinityList'
 import axios from 'axios'
 
-import Grid from "../components/Grid";
-
+import Grid from '../components/Grid'
 
 const Catalog = () => {
   const initFilter = {
@@ -14,7 +13,7 @@ const Catalog = () => {
     color: [],
     size: [],
   }
-  
+
   const [product, setProduct] = useState([])
 
   useEffect(() => {
@@ -28,7 +27,7 @@ const Catalog = () => {
     }
     fetchProducts()
   }, [])
-    console.log("product2", product)
+  console.log('product2', product)
   //   =============================================
 
   const getAllProducts = () => product
@@ -126,90 +125,69 @@ const Catalog = () => {
 
   const filterRef = useRef(null)
 
-  
-
   return (
     <Helmet title="Sản phẩm">
-      
-
-        <Grid col={1}>
-        <div className ="frame_img_catalog">
-          <img className ="main_img_catalog" src = "./images/img_catalog/main_catalog.jpg"></img>
+      <Grid col={1}>
+        <div className="frame_img_catalog">
+          <img
+            className="main_img_catalog"
+            src="./images/img_catalog/main_catalog.jpg"
+            alt=""
+          />
         </div>
-        </Grid>
+      </Grid>
 
-
-        <div style={{marginTop:"100px",marginBottom:"100px"}}>
-          <Grid col={2} mdCol={2} smCol={1} gap={10}>
-
-            <div className="frame_main_select_option" >
-
-            
-
-              
-              <Grid col ={4} >
+      <div style={{ marginTop: '100px', marginBottom: '100px' }}>
+        <Grid col={2} mdCol={2} smCol={1} gap={10}>
+          <div className="frame_main_select_option">
+            <Grid col={4}>
               <div className="underline_select_option1">
-                <select name="cars" id="cars" className ="select_option">
-                <option hidden="hidden">Kích Thước</option>
+                <select name="cars" id="cars" className="select_option">
+                  <option hidden="hidden">Kích Thước</option>
                   <option value="saab">M</option>
                   <option value="mercedes">L</option>
                   <option value="saab">XL</option>
                   <option value="mercedes">XXL</option>
                 </select>
-                </div>
+              </div>
 
-                <div className="underline_select_option">
-                <select name="cars" id="cars" className ="select_option">
-                <option value="saab">Xanh</option>
+              <div className="underline_select_option">
+                <select name="cars" id="cars" className="select_option">
+                  <option value="saab">Xanh</option>
                   <option value="mercedes">Trắng</option>
                   <option value="saab">Đen</option>
                   <option value="mercedes">Hồng</option>
                 </select>
-                </div>
+              </div>
 
-
-                <div className="underline_select_option">
-                <select name="cars" id="cars" className ="select_option3">
-                <option hidden="hidden">Kích Thước</option>
+              <div className="underline_select_option">
+                <select name="cars" id="cars" className="select_option3">
+                  <option hidden="hidden">Kích Thước</option>
                   <option value="saab">M</option>
                   <option value="mercedes">L</option>
                   <option value="saab">XL</option>
                   <option value="mercedes">XXL</option>
                 </select>
-                </div>
+              </div>
 
-                <div className="underline_select_option4">
-                <select name="cars" id="cars" className ="select_option4">
-                <option value="saab">Xanh</option>
+              <div className="underline_select_option4">
+                <select name="cars" id="cars" className="select_option4">
+                  <option value="saab">Xanh</option>
                   <option value="mercedes">Trắng</option>
                   <option value="saab">Đen</option>
                   <option value="mercedes">Hồng</option>
                 </select>
-                </div> 
-              </Grid>
-            </div>
+              </div>
+            </Grid>
+          </div>
 
-            <div></div>
-          </Grid>
+          <div></div>
+        </Grid>
+      </div>
 
-        </div>
-
-
-
-
-
-
-      
-
-    
-
-        <div className="catalog__content">
-          <InfinityList data={products} />
-        </div>
-
-  
-  
-      
+      <div className="catalog__content">
+        <InfinityList data={products} />
+      </div>
     </Helmet>
   )
 }
